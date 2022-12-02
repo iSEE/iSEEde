@@ -52,9 +52,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.2', bioc: '3.16', cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
-          - { os: macOS-latest, r: '4.2', bioc: '3.16'}
-          - { os: windows-latest, r: '4.2', bioc: '3.16'}
+          - { os: ubuntu-latest, r: '4.3', bioc: '3.17', cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
+          - { os: macOS-latest, r: '4.3', bioc: '3.17'}
+          - { os: windows-latest, r: '4.3', bioc: '3.17'}
           ## Check https://github.com/r-lib/actions/tree/master/examples
           ## for examples using the http-user-agent
     env:
@@ -280,7 +280,7 @@ jobs:
         run: |
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git config --global --add safe.directory /__w/MyBioconductorPackage/MyBioconductorPackage
+          git config --global --add safe.directory /__w/iSEEde/iSEEde
           Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)
@@ -300,7 +300,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: kevinrue/mybioconductorpackage
+          repository: isee/iSEEde
           tag_with_ref: true
           tag_with_sha: true
           tags: latest
