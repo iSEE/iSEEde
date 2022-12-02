@@ -52,8 +52,6 @@ library("iSEEde")
 ## basic example code
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
-
 ## Citation
 
 Below is the citation output from using `citation('iSEEde')` in R. Please
