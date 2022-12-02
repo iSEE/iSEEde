@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
     comment = "#>",
     crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
+options(width = 120)
 ```
 
 
@@ -88,9 +89,26 @@ citation("iSEEde")
 
 # Quick start to using to `iSEEde`
 
-```{r "start", message=FALSE}
+```{r "start", message=FALSE, warning=FALSE}
 library("iSEEde")
+library("edgeR")
+library("airway")
+
+# Example data ----
+
+data("airway")
+
+counts <- assay(airway, "counts")
+design <- model.matrix(~ 0 + dex, data = colData(airway))
+
+keep <- filterByExpr(counts, design)
+v <- voom(counts[keep,], design, plot=FALSE)
+fit <- lmFit(v, design)
+fit <- eBayes(fit, robust=TRUE)
+tt <- topTable(fit, n = Inf)
+head(tt)
 ```
+
 
 # Reproducibility
 
