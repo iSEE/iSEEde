@@ -1,4 +1,6 @@
-^MyBioconductorPackage\.Rproj$
+^renv$
+^renv\.lock$
+^iSEEde\.Rproj$
 ^\.Rproj\.user$
 ^dev$
 ^README\.Rmd$

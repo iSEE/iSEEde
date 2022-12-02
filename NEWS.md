@@ -1,4 +1,4 @@
-# MyBioconductorPackage 0.99.0
+# iSEEde 0.99.0
 
 NEW FEATURES
 
