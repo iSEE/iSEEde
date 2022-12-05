@@ -115,19 +115,19 @@ setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
 setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   data_cmds <- list()
   
-  y_lab <- "log fold-change"
+  y_lab <- "logFC"
   
   data_cmds[["edgeR"]] <- sprintf("de_table <- metadata(se)[['iSEEde']][['%s']]", x[[.contrastName]])
   
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     sprintf(
-      "plot.data <- data.frame(Y=de_table[, 'dextrt'] - de_table[, 'dexuntrt'], row.names=rownames(de_table));"
+      "plot.data <- data.frame(Y=de_table[, 'logFC'], row.names=rownames(de_table));"
     )
   )
   
   # Prepare X-axis data.
-  x_lab <- "Average expression"
+  x_lab <- "AveExpr"
   data_cmds[["x"]] <- "plot.data$X <- de_table[, 'AveExpr']"
   
   plot_title <- x[[.contrastName]]

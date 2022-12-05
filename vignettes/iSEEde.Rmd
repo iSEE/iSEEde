@@ -106,8 +106,10 @@ design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 keep <- filterByExpr(counts, design)
 v <- voom(counts[keep,], design, plot=FALSE)
 fit <- lmFit(v, design)
-fit <- eBayes(fit, robust=TRUE)
-tt <- topTable(fit, n = Inf)
+contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
+tmp <- contrasts.fit(fit, contr)
+tmp <- eBayes(tmp)
+tt <- topTable(tmp, sort.by = "P", n = Inf)
 head(tt)
 
 # iSEE ---
