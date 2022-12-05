@@ -118,13 +118,13 @@ head(tt)
 # iSEE ---
 
 metadata(airway)[["iSEEde"]] <- list(
-  "dextrt vs dexuntrt" = tt
+  "dextrt vs dexuntrt" = iSEELimmaResults(tt)
 )
 
 app <- iSEE(airway, initial = list(
   VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
-  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L))
-)
+  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+))
 
 if (interactive()) {
   shiny::runApp(app)

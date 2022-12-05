@@ -122,12 +122,12 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
       "plot.data <- data.frame(row.names=rownames(se))",
-      "plot.data$Y <- -log10(de_table[rownames(plot.data), 'P.Value']);"
+      "plot.data$Y <- -log10(iSEEde::pvalue(de_table, row.names=rownames(plot.data)))"
   )
   
   # Prepare X-axis data.
   x_lab <- "logFC"
-  data_cmds[["x"]] <- "plot.data$X <- de_table[rownames(plot.data), 'logFC']"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::logfc(de_table, row.names=rownames(plot.data))"
   
   plot_title <- x[[.contrastName]]
   
