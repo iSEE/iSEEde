@@ -1,31 +1,31 @@
-#' The VolcanoPlot class
+#' The MAPlot class
 #' 
-#' The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
+#' The MAPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 #' 
 #' @docType methods
-#' @aliases VolcanoPlot VolcanoPlot-class
+#' @aliases MAPlot MAPlot-class
 #' 
-#' @name VolcanoPlot-class
+#' @name MAPlot-class
 NULL
 
 #' @export
 #' @importClassesFrom iSEE RowDotPlot
-setClass("VolcanoPlot", contains="RowDotPlot",
+setClass("MAPlot", contains="RowDotPlot",
          slots = c(ContrastName = "character"))
 
 #' @export
 #' @importMethodsFrom iSEE .fullName
-setMethod(".fullName", "VolcanoPlot", function(x) "Volcano plot")
+setMethod(".fullName", "MAPlot", function(x) "MA plot")
 
 #' @export
 #' @importMethodsFrom iSEE .panelColor
-setMethod(".panelColor", "VolcanoPlot", function(x) "#DEAE10")
+setMethod(".panelColor", "MAPlot", function(x) "#DEAE10")
 
 #' @export
 #' @importFrom methods callNextMethod
-setMethod("initialize", "VolcanoPlot", function(.Object,
-    ContrastName=NA_character_, ...)
+setMethod("initialize", "MAPlot", function(.Object,
+                                                ContrastName=NA_character_, ...)
 {
   args <- list(ContrastName=ContrastName, ...)
   
@@ -34,12 +34,12 @@ setMethod("initialize", "VolcanoPlot", function(.Object,
 
 #' @export
 #' @importFrom methods new
-VolcanoPlot <- function(...) {
-  new("VolcanoPlot", ...)
+MAPlot <- function(...) {
+  new("MAPlot", ...)
 }
 
 #' @importFrom S4Vectors setValidity2
-setValidity2("VolcanoPlot", function(object) {
+setValidity2("MAPlot", function(object) {
   return(TRUE)
 })
 
@@ -47,29 +47,29 @@ setValidity2("VolcanoPlot", function(object) {
 #' @importMethodsFrom iSEE .cacheCommonInfo
 #' @importFrom iSEE .setCachedCommonInfo
 #' @importFrom methods callNextMethod
-setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
-  if (!is.null(.getCachedCommonInfo(se, "VolcanoPlot"))) {
+setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
+  if (!is.null(.getCachedCommonInfo(se, "MAPlot"))) {
     return(se)
   }
   
   se <- callNextMethod()
   
   contrast_names <- names(metadata(se)[["iSEEde"]])
-
-  .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
+  
+  .setCachedCommonInfo(se, "MAPlot", valid.contrast.names = contrast_names)
 })
 
 #' @export
 #' @importMethodsFrom iSEE .refineParameters
 #' @importFrom iSEE .replaceMissingWithFirst
 #' @importFrom methods callNextMethod
-setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
+setMethod(".refineParameters", "MAPlot", function(x, se) {
   x <- callNextMethod() # Trigger warnings from base classes.
   if (is.null(x)) {
     return(NULL)
   }
   
-  contrast_names <- .getCachedCommonInfo(se, "VolcanoPlot")$valid.contrast.names
+  contrast_names <- .getCachedCommonInfo(se, "MAPlot")$valid.contrast.names
   x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
   
   x
@@ -80,7 +80,7 @@ setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
 #' @importFrom iSEE .selectInput.iSEE
-setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
+setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
   
@@ -95,7 +95,7 @@ setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
     )
   })
   
-  cached <- .getCachedCommonInfo(se, "VolcanoPlot")
+  cached <- .getCachedCommonInfo(se, "MAPlot")
   
   extra_inputs <- list(
     .selectInput.iSEE(x, .contrastName, 
@@ -112,23 +112,23 @@ setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
 
 #' @export
 #' @importMethodsFrom iSEE .generateDotPlotData
-setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
+setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   data_cmds <- list()
   
-  y_lab <- "-log(p-value)"
+  y_lab <- "log fold-change"
   
   data_cmds[["edgeR"]] <- sprintf("de_table <- metadata(se)[['iSEEde']][['%s']]", x[[.contrastName]])
   
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     sprintf(
-      "plot.data <- data.frame(Y=-log10(de_table[, 'P.Value']), row.names=rownames(de_table));"
+      "plot.data <- data.frame(Y=de_table[, 'dextrt'] - de_table[, 'dexuntrt'], row.names=rownames(de_table));"
     )
   )
   
   # Prepare X-axis data.
-  x_lab <- "log fold-change"
-  data_cmds[["x"]] <- "plot.data$X <- de_table[, 'dextrt'] - de_table[, 'dexuntrt']"
+  x_lab <- "Average expression"
+  data_cmds[["x"]] <- "plot.data$X <- de_table[, 'AveExpr']"
   
   plot_title <- x[[.contrastName]]
   

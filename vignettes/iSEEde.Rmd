@@ -98,9 +98,10 @@ library("iSEE")
 # Example data ----
 
 data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
 
 counts <- assay(airway, "counts")
-design <- model.matrix(~ 0 + dex, data = colData(airway))
+design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
 keep <- filterByExpr(counts, design)
 v <- voom(counts[keep,], design, plot=FALSE)
@@ -115,7 +116,10 @@ metadata(airway)[["iSEEde"]] <- list(
   "dextrt vs dexuntrt" = tt
 )
 
-app <- iSEE(airway, initial = list(VolcanoPlot(PanelWidth = 8L)))
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
+  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L))
+)
 
 if (interactive()) {
   shiny::runApp(app)
