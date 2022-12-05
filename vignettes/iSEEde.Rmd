@@ -115,7 +115,7 @@ metadata(airway)[["iSEEde"]] <- list(
   "dextrt vs dexuntrt" = tt
 )
 
-app <- iSEE(airway, initial = list(DEPlot(PanelWidth = 8L)))
+app <- iSEE(airway, initial = list(VolcanoPlot(PanelWidth = 8L)))
 
 if (interactive()) {
   shiny::runApp(app)

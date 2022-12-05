@@ -1,65 +1,118 @@
-#' @export
-setClass("DEPlot", contains="RowDotPlot")
+#' The VolcanoPlot class
+#' 
+#' The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
+#' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
+#' 
+#' @docType methods
+#' @aliases VolcanoPlot VolcanoPlot-class
+#' 
+#' @name VolcanoPlot-class
+NULL
 
 #' @export
-setMethod(".fullName", "DEPlot", function(x) "Differential expression plot")
+#' @importClassesFrom iSEE RowDotPlot
+setClass("VolcanoPlot", contains="RowDotPlot",
+         slots = c(ContrastName = "character"))
 
 #' @export
-setMethod(".panelColor", "DEPlot", function(x) "#DEAE10")
+#' @importMethodsFrom iSEE .fullName
+setMethod(".fullName", "VolcanoPlot", function(x) "Differential expression plot")
+
+#' @export
+#' @importMethodsFrom iSEE .panelColor
+setMethod(".panelColor", "VolcanoPlot", function(x) "#DEAE10")
 
 #' @export
 #' @importFrom methods callNextMethod
-setMethod("initialize", "DEPlot", function(.Object, PValueThreshold=0.05,
-                                                LogFCThreshold=0, PValueCorrection="BH", ...)
+setMethod("initialize", "VolcanoPlot", function(.Object,
+    ContrastName=NA_character_, ...)
 {
-  args <- list(...)
+  args <- list(ContrastName=ContrastName, ...)
   
   do.call(callNextMethod, c(list(.Object), args))
 })
 
 #' @export
 #' @importFrom methods new
-DEPlot <- function(...) {
-  new("DEPlot", ...)
+VolcanoPlot <- function(...) {
+  new("VolcanoPlot", ...)
 }
 
-setValidity2("DEPlot", function(object) {
+#' @importFrom S4Vectors setValidity2
+setValidity2("VolcanoPlot", function(object) {
   return(TRUE)
 })
 
 #' @export
+#' @importMethodsFrom iSEE .cacheCommonInfo
+#' @importFrom iSEE .setCachedCommonInfo
 #' @importFrom methods callNextMethod
-setMethod(".cacheCommonInfo", "DEPlot", function(x, se) {
-  if (!is.null(.getCachedCommonInfo(se, "DEPlot"))) {
+setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
+  if (!is.null(.getCachedCommonInfo(se, "VolcanoPlot"))) {
     return(se)
   }
   
   se <- callNextMethod()
+  
+  contrast_names <- names(metadata(se)[["iSEEde"]])
+
+  .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
 })
 
 #' @export
+#' @importMethodsFrom iSEE .refineParameters
+#' @importFrom iSEE .replaceMissingWithFirst
 #' @importFrom methods callNextMethod
-setMethod(".refineParameters", "DEPlot", function(x, se) {
+setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
   x <- callNextMethod() # Trigger warnings from base classes.
   if (is.null(x)) {
     return(NULL)
   }
   
+  contrast_names <- .getCachedCommonInfo(se, "VolcanoPlot")$valid.contrast.names
+  x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
+  
   x
 })
 
 #' @export
+#' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
-#' @importFrom shiny selectInput hr
-setMethod(".defineDataInterface", "DEPlot", function(x, se, select_info) {
+#' @importFrom shiny hr
+#' @importFrom iSEE .selectInput.iSEE
+setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
   
-  callNextMethod()
+  .addSpecificTour(class(x), .contrastName, function(plot_name) {
+    data.frame(
+      rbind(
+        c(
+          element=paste0("#", plot_name, "_", sprintf("%s + .selectize-control", .contrastName)),
+          intro="Here, we select the name of the contrast to visualise amongst the choice of differential expression results available."
+        )
+      )
+    )
+  })
+  
+  cached <- .getCachedCommonInfo(se, "VolcanoPlot")
+  
+  extra_inputs <- list(
+    .selectInput.iSEE(x, .contrastName, 
+                      label="Contrast:",
+                      selected=x[[.contrastName]],
+                      choices=cached$valid.contrast.names)
+  )
+  
+  c(callNextMethod(), 
+    list(hr()), 
+    extra_inputs
+  )
 })
 
 #' @export
-setMethod(".generateDotPlotData", "DEPlot", function(x, envir) {
+#' @importMethodsFrom iSEE .generateDotPlotData
+setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   data_cmds <- list()
   
   y_lab <- "-log(p-value)"
@@ -85,4 +138,3 @@ setMethod(".generateDotPlotData", "DEPlot", function(x, envir) {
   print(envir$plot.data)
   list(commands=data_cmds, labels=list(title=plot_title, X=x_lab, Y=y_lab))
 })
-
