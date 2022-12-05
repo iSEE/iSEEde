@@ -29,6 +29,9 @@ knitr::opts_chunk$set(
 options(width = 120)
 ```
 
+```{r, eval=!exists("SCREENSHOT"), include=FALSE}
+SCREENSHOT <- function(x, ...) knitr::include_graphics(x)
+```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## Track time spent on making the vignette
@@ -128,6 +131,9 @@ if (interactive()) {
 }
 ```
 
+```{r, echo=FALSE, out.width="100%"}
+SCREENSHOT("screenshots/landing_page.png", delay=20)
+```
 
 # Reproducibility
 
