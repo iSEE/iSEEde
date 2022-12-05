@@ -54,7 +54,7 @@ setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
   
   se <- callNextMethod()
   
-  contrast_names <- names(metadata(se)[["iSEEde"]])
+  contrast_names <- names(rowData(se)[["iSEEde"]])
   
   .setCachedCommonInfo(se, "MAPlot", valid.contrast.names = contrast_names)
 })
@@ -117,17 +117,17 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   
   y_lab <- "logFC"
   
-  data_cmds[["edgeR"]] <- sprintf("de_table <- metadata(se)[['iSEEde']][['%s']]", x[[.contrastName]])
+  data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
   
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     "plot.data <- data.frame(row.names=rownames(se))",
-    "plot.data$Y <- iSEEde::logfc(de_table, row.names=rownames(plot.data))"
+    "plot.data$Y <- iSEEde::logfc(de_table)"
   )
   
   # Prepare X-axis data.
   x_lab <- "AveExpr"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::average(de_table, row.names=rownames(plot.data))"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::average(de_table)"
   
   plot_title <- x[[.contrastName]]
   

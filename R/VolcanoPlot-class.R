@@ -54,7 +54,7 @@ setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
   
   se <- callNextMethod()
   
-  contrast_names <- names(metadata(se)[["iSEEde"]])
+  contrast_names <- colnames(rowData(se)[["iSEEde"]])
 
   .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
 })
@@ -117,17 +117,17 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   
   y_lab <- "-log10(P.Value)"
   
-  data_cmds[["edgeR"]] <- sprintf("de_table <- metadata(se)[['iSEEde']][['%s']]", x[[.contrastName]])
+  data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
   
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
       "plot.data <- data.frame(row.names=rownames(se))",
-      "plot.data$Y <- -log10(iSEEde::pvalue(de_table, row.names=rownames(plot.data)))"
+      "plot.data$Y <- -log10(iSEEde::pvalue(de_table))"
   )
   
   # Prepare X-axis data.
   x_lab <- "logFC"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::logfc(de_table, row.names=rownames(plot.data))"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::logfc(de_table)"
   
   plot_title <- x[[.contrastName]]
   

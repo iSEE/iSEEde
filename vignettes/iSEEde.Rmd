@@ -119,8 +119,9 @@ head(tt)
 
 # iSEE ---
 
-metadata(airway)[["iSEEde"]] <- list(
-  "dextrt vs dexuntrt" = iSEELimmaResults(tt)
+rowData(airway)[["iSEEde"]] <- DataFrame(
+  "dextrt vs dexuntrt" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
+  check.names = FALSE
 )
 
 app <- iSEE(airway, initial = list(
