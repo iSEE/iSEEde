@@ -122,7 +122,7 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     "plot.data <- data.frame(row.names=rownames(se))",
-    "plot.data$Y <- -log10(de_table[rownames(plot.data), 'logFC']);"
+    "plot.data$Y <- de_table[rownames(plot.data), 'logFC']"
   )
   
   # Prepare X-axis data.
