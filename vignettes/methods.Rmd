@@ -1,0 +1,218 @@
+---
+title: "Supported differential expression methods"
+author: 
+  - name: Kevin Rue-Albrecht
+    affiliation:
+    - University of Oxford
+    email: kevin.rue-albrecht@imm.ox.ac.uk
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('iSEEde')`"
+vignette: >
+  %\VignetteIndexEntry{Supported differential expression methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+```
+
+```{r, eval=!exists("SCREENSHOT"), include=FALSE}
+SCREENSHOT <- function(x, ...) knitr::include_graphics(x)
+```
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Track time spent on making the vignette
+startTime <- Sys.time()
+
+## Bib setup
+library("RefManageR")
+
+## Write bibliography information
+bib <- c(
+    R = citation(),
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    testthat = citation("testthat")[1],
+    iSEEde = citation("iSEEde")[1]
+)
+```
+
+# Differential expression results
+
+## Formats
+
+Differential expression results are generally reported as tables of statistics, including (log) fold-change, p-value, average expression, etc.
+
+Those statistics being reported for individual features (e.g., genes), the `rowData()` component of `SummarizedExperiment()` objects provides a natural home for that information.
+Specifically, `r BiocStyle::Biocpkg("iSEEde")` searches for differential expression results in `rowData(se)[["iSEEde"]]`.
+
+The first challenge arises when differential expression statistics are computed only for a subset of features.
+In that case, `r BiocStyle::Biocpkg("iSEEde")` populates missing information with `NA`.
+
+The second challenge arises from the different names of columns used by individual differential expression methods to store differential expression common statistics.
+To address this, `r BiocStyle::Biocpkg("iSEEde")` provides S4 classes creating a common interface to supported differential expression methods.
+
+# Example data
+
+We use the `?airway` data set.
+
+We briefly adjust the reference level of the treatment factor to the untreated condition.
+
+```{r}
+library("airway")
+data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
+```
+
+# Supported methods
+
+## Limma-Voom
+
+```{r, message=FALSE, warning=FALSE}
+library("edgeR")
+
+counts <- assay(airway, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
+
+keep <- filterByExpr(counts, design)
+v <- voom(counts[keep,], design, plot=FALSE)
+fit <- lmFit(v, design)
+contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
+tmp <- contrasts.fit(fit, contr)
+tmp <- eBayes(tmp)
+tt <- topTable(tmp, sort.by = "P", n = Inf)
+head(tt)
+```
+
+To store this first set of differential expression results, we initialise a `DataFrame()` nested in the `"iSEEde"` column of `rowData(airway)`.
+The constructor `iSEELimmaResults()` is given the rownames of the full `airway` object, to match the dimensions of the dataset and fill missing information with `NA`.
+The resulting `DataFrame`-like object is then stored as a nested column, using a name that identifies the contrast.
+
+```{r}
+rowData(airway)[["iSEEde"]] <- DataFrame(
+  "Limma-Voom" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
+  check.names = FALSE
+)
+```
+
+## DESeq2
+
+```{r, message=FALSE, warning=FALSE}
+library("DESeq2")
+
+# Analysis ----
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+
+dds <- DESeq(dds)
+res <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res)
+```
+
+
+We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
+
+```{r}
+rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res, row.names = rownames(airway))
+```
+
+# Live app
+
+```{r}
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
+  VolcanoPlot(ContrastName="DESeq2", PanelWidth = 6L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
+```
+
+```{r, echo=FALSE, out.width="100%"}
+SCREENSHOT("screenshots/supported_methods.png", delay=20)
+```
+
+# Reproducibility
+
+The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible thanks to:
+
+* R `r Citep(bib[["R"]])`
+* `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+* `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+* `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
+* `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
+* `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
+
+This package was developed using `r BiocStyle::Biocpkg("biocthis")`.
+
+
+Code for creating the vignette
+
+```{r createVignette, eval=FALSE}
+## Create the vignette
+library("rmarkdown")
+system.time(render("methods.Rmd", "BiocStyle::html_document"))
+
+## Extract the R code
+library("knitr")
+knit("methods.Rmd", tangle = TRUE)
+```
+
+Date the vignette was generated.
+
+```{r reproduce1, echo=FALSE}
+## Date the vignette was generated
+Sys.time()
+```
+
+Wallclock time spent generating the vignette.
+
+```{r reproduce2, echo=FALSE}
+## Processing time in seconds
+totalTime <- diff(c(startTime, Sys.time()))
+round(totalTime, digits = 3)
+```
+
+`R` session information.
+
+```{r reproduce3, echo=FALSE}
+## Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```
+
+
+
+# Bibliography
+
+This vignette was generated using `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the scenes.
+
+Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
+
+```{r vignetteBiblio, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
+## Print bibliography
+PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
+```
+
+<!-- Links -->
+
+[scheme-wikipedia]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
+[iana-uri]: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
