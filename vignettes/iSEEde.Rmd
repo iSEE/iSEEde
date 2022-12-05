@@ -103,8 +103,10 @@ library("iSEE")
 data("airway")
 airway$dex <- relevel(airway$dex, "untrt")
 
-counts <- assay(airway, "counts")
-design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
+se <- airway[rowSums(assay(airway)) > 0, ]
+
+counts <- assay(se, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(se))
 
 keep <- filterByExpr(counts, design)
 v <- voom(counts[keep,], design, plot=FALSE)
