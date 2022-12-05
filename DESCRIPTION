@@ -23,15 +23,16 @@ Imports:
     S4Vectors,
     shiny
 Suggests: 
+    airway,
     BiocStyle,
     covr,
+    DESeq2
+    edgeR,
     knitr,
     RefManageR,
     rmarkdown,
     sessioninfo,
-    testthat (>= 3.0.0),
-    airway,
-    edgeR,
-    statmod
+    statmod,
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
