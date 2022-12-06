@@ -29,6 +29,9 @@ knitr::opts_chunk$set(
 options(width = 120)
 ```
 
+```{r, eval=!exists("SCREENSHOT"), include=FALSE}
+SCREENSHOT <- function(x, ...) knitr::include_graphics(x)
+```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## Track time spent on making the vignette
@@ -93,22 +96,47 @@ citation("iSEEde")
 library("iSEEde")
 library("edgeR")
 library("airway")
+library("iSEE")
 
 # Example data ----
 
 data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
 
-counts <- assay(airway, "counts")
-design <- model.matrix(~ 0 + dex, data = colData(airway))
+se <- airway[rowSums(assay(airway)) > 0, ]
+
+counts <- assay(se, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(se))
 
 keep <- filterByExpr(counts, design)
 v <- voom(counts[keep,], design, plot=FALSE)
 fit <- lmFit(v, design)
-fit <- eBayes(fit, robust=TRUE)
-tt <- topTable(fit, n = Inf)
+contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
+tmp <- contrasts.fit(fit, contr)
+tmp <- eBayes(tmp)
+tt <- topTable(tmp, sort.by = "P", n = Inf)
 head(tt)
+
+# iSEE ---
+
+rowData(airway)[["iSEEde"]] <- DataFrame(
+  "dextrt vs dexuntrt" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
+  check.names = FALSE
+)
+
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
+  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
 ```
 
+```{r, echo=FALSE, out.width="100%"}
+SCREENSHOT("screenshots/landing_page.png", delay=20)
+```
 
 # Reproducibility
 
