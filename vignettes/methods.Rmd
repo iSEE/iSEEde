@@ -73,7 +73,7 @@ We use the `?airway` data set.
 
 We briefly adjust the reference level of the treatment factor to the untreated condition.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library("airway")
 data("airway")
 airway$dex <- relevel(airway$dex, "untrt")
@@ -104,6 +104,7 @@ The constructor `iSEELimmaResults()` is given the rownames of the full `airway` 
 The resulting `DataFrame`-like object is then stored as a nested column, using a name that identifies the contrast.
 
 ```{r}
+library(iSEEde)
 rowData(airway)[["iSEEde"]] <- DataFrame(
   "Limma-Voom" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
   check.names = FALSE
@@ -133,6 +134,7 @@ rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res, row.names = ro
 # Live app
 
 ```{r}
+library(iSEE)
 app <- iSEE(airway, initial = list(
   VolcanoPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
   VolcanoPlot(ContrastName="DESeq2", PanelWidth = 6L)
@@ -144,7 +146,7 @@ if (interactive()) {
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-SCREENSHOT("screenshots/supported_methods.png", delay=20)
+SCREENSHOT("screenshots/volcano_plots.png", delay=20)
 ```
 
 # Reproducibility
