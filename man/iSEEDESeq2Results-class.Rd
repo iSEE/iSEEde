@@ -71,7 +71,7 @@ dds
 ##
 
 head(pvalue(iseede_table))
-head(logfc(iseede_table))
+head(log2foldchange(iseede_table))
 head(average(iseede_table))
 }
 \author{
