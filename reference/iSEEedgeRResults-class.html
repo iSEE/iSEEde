@@ -58,7 +58,7 @@ It provides methods to access common differential expression statistics (e.g., l
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The iSEEedgeRResults class</h1>
-    <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/HEAD/R/iSEEedgeR-class.R" class="external-link"><code>R/iSEEedgeR-class.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/HEAD/R/iSEEedgeR-class.R" class="external-link"><code>R/iSEEedgeR-class.R</code></a>, <a href="https://github.com/iSEE/iSEEde/blob/HEAD/R/utils-SummarizedExperiment.R" class="external-link"><code>R/utils-SummarizedExperiment.R</code></a></small>
     <div class="hidden name"><code>iSEEedgeRResults-class.Rd</code></div>
     </div>
 
@@ -67,6 +67,13 @@ It provides methods to access common differential expression statistics (e.g., l
 It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).</p>
     </div>
 
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for TopTags</span></span>
+<span><span class="fu"><a href="utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">se</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for iSEEedgeRResults</span></span>
+<span><span class="fu"><a href="utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">se</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    </div>
 
     <div id="details">
     <h2>Details</h2>
@@ -150,13 +157,13 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pvalue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2949937        NA        NA        NA        NA        NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        NA 0.4094135 0.5780330 0.2692133        NA        NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2foldchange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.934748        NA        NA        NA        NA        NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        NA -1.346455  0.935405  1.754057        NA        NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2average</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12.76657       NA       NA       NA       NA       NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       NA 13.81717 13.57362 14.54460       NA       NA </span>
 </code></pre></div>
     </div>
   </div>

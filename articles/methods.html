@@ -162,20 +162,41 @@ untreated condition.</p>
 <span><span class="co">#&gt; ENSG00000152583  4.489075 4.166904  27.99497 2.725926e-10 9.657686e-07 14.01663</span></span>
 <span><span class="co">#&gt; ENSG00000146250 -2.828186 3.224885 -27.47899 3.234271e-10 9.657686e-07 13.80831</span></span>
 <span><span class="co">#&gt; ENSG00000157214  1.894563 6.790009  26.91396 3.914512e-10 9.657686e-07 14.03974</span></span></code></pre></div>
-<p>To store this first set of differential expression results, we
-initialise a <code><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame()</a></code> nested in the
-<code>"iSEEde"</code> column of <code>rowData(airway)</code>. The
-constructor <code><a href="../reference/iSEELimmaResults-class.html">iSEELimmaResults()</a></code> is given the rownames of the
-full <code>airway</code> object, to match the dimensions of the dataset
-and fill missing information with <code>NA</code>. The resulting
-<code>DataFrame</code>-like object is then stored as a nested column,
-using a name that identifies the contrast.</p>
+<p>We embed this set of differential expression results in the
+<code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code> method.
+Because the output of <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">limma::topTable()</a></code> is a standard
+<code>data.frame</code>, it must first be manually passed to the
+<code><a href="../reference/iSEELimmaResults-class.html">iSEELimmaResults()</a></code> constructor, to identify it as such. The
+constructor is also given the full vector of rownames in the
+<code>airway</code> object, so that the <code>iSEELimmaResults</code>
+object matches the dimensions of the object in which it is to be
+embedded.</p>
+<p>This manual method is preferable to any heuristic that would attempt
+to use the column names of the <code>data.frame</code> for identifying
+it as a <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">limma::topTable()</a></code> output.</p>
+<p>The results are nested as a <code>DataFrame</code>-like object in
+<code>rowData(airway)[["iSEEde"]]</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEEde" class="external-link">iSEEde</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"iSEEde"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></span><span class="op">(</span></span>
-<span>  <span class="st">"Limma-Voom"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="../reference/iSEELimmaResults-class.html">iSEELimmaResults</a></span><span class="op">(</span><span class="va">res_limma</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  check.names <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="../reference/iSEELimmaResults-class.html">iSEELimmaResults</a></span><span class="op">(</span><span class="va">res_limma</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  se <span class="op">=</span> <span class="va">airway</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"Limma-Voom"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
+<span><span class="co">#&gt;                             iSEEde</span></span>
+<span><span class="co">#&gt;                        &lt;DataFrame&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000005 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000419 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ...                            ...</span></span>
+<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="deseq2">DESeq2<a class="anchor" aria-label="anchor" href="#deseq2"></a>
@@ -207,11 +228,32 @@ using a name that identifies the contrast.</p>
 <span><span class="co">#&gt; ENSG00000000457 0.91145869</span></span>
 <span><span class="co">#&gt; ENSG00000000460 0.89503352</span></span>
 <span><span class="co">#&gt; ENSG00000000938         NA</span></span></code></pre></div>
-<p>We add this set of differential expression results as a
-<code>DataFrame</code>-like object nested in a column of
-<code>rowData(airway)[["iSEEde"]]</code>.</p>
+<p>Again, we embed this set of differential expression results in the
+<code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
+method.</p>
+<p>In this instance, the <em><a href="https://bioconductor.org/packages/3.17/DESeq2" class="external-link">DESeq2</a></em>
+results are stored in a recognisable <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">?DESeqResults</a></code> object.
+As such, the results object can be given <em>as is</em> directly to the
+<code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code> method. The function will automatically pass
+the results object to the <code><a href="../reference/iSEEDESeq2Results-class.html">iSEEDESeq2Results()</a></code> constructor,
+to identify it as such.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"iSEEde"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"DESeq2"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/iSEEDESeq2Results-class.html">iSEEDESeq2Results</a></span><span class="op">(</span><span class="va">res_deseq2</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"DESeq2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
+<span><span class="co">#&gt;                                                 iSEEde</span></span>
+<span><span class="co">#&gt;                                            &lt;DataFrame&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000005 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000419 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ...                                                ...</span></span>
+<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="edger">edgeR<a class="anchor" aria-label="anchor" href="#edger"></a>
@@ -234,11 +276,32 @@ using a name that identifies the contrast.</p>
 <span><span class="co">#&gt; ENSG00000152583  4.498698 5.511086 140.2205 2.382274e-32 3.817714e-28</span></span>
 <span><span class="co">#&gt; ENSG00000250978  6.128131 1.390337 137.4681 9.526183e-32 1.221295e-27</span></span>
 <span><span class="co">#&gt; ENSG00000163884  4.367962 4.683770 129.2203 6.069471e-30 6.484420e-26</span></span></code></pre></div>
-<p>We add this set of differential expression results as a
-<code>DataFrame</code>-like object nested in a column of
-<code>rowData(airway)[["iSEEde"]]</code>.</p>
+<p>Again, we embed this set of differential expression results in the
+<code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
+method.</p>
+<p>In this instance, the <em><a href="https://bioconductor.org/packages/3.17/edgeR" class="external-link">edgeR</a></em>
+results are stored in a recognisable <code>?TopTags</code> object. As
+such, the results object can be given <em>as is</em> directly to the
+<code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code> method. The function will automatically pass
+the results object to the <code><a href="../reference/iSEEedgeRResults-class.html">iSEEedgeRResults()</a></code> constructor,
+to identify it as such.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"iSEEde"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"edgeR"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/iSEEedgeRResults-class.html">iSEEedgeRResults</a></span><span class="op">(</span><span class="va">res_edger</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_edger</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"edgeR"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
+<span><span class="co">#&gt;                                                                    iSEEde</span></span>
+<span><span class="co">#&gt;                                                               &lt;DataFrame&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000005 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000419 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ...                                                                   ...</span></span>
+<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -313,9 +376,9 @@ Chang, and Iannone, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"methods.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2022-12-06 15:36:47 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2022-12-06 21:28:28 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 30.071 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 43.679 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -436,7 +499,7 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  rmarkdown              2.18      <span style="color: #555555;">2022-11-09</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rprojroot              2.0.3     <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  RSQLite                2.2.19    <span style="color: #555555;">2022-11-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  S4Vectors            * 0.37.1    <span style="color: #555555;">2022-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  S4Vectors            * 0.37.2    <span style="color: #555555;">2022-12-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  sass                   0.4.4     <span style="color: #555555;">2022-11-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  scales                 1.2.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo          * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
