@@ -19,6 +19,9 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/methods.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -26,6 +29,27 @@
   </url>
   <url>
     <loc>/news/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MAPlot-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VolcanoPlot-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/de-generics.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEDESeq2Results-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEELimmaResults-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEde-pkg.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEedgeRResults-class.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
