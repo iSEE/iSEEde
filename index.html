@@ -109,8 +109,32 @@
 <p>This is a basic example which shows you how to load the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEde" class="external-link">"iSEEde"</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub!</p>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikelove/DESeq2" class="external-link">"DESeq2"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEE" class="external-link">"iSEE"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example data ----</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></span>
+<span><span class="va">airway</span><span class="op">$</span><span class="va">dex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">airway</span><span class="op">$</span><span class="va">dex</span>, <span class="st">"untrt"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSet</a></span><span class="op">(</span><span class="va">airway</span>, <span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">dex</span> <span class="op">+</span> <span class="va">cell</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
+<span><span class="va">res_deseq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"dextrt"</span>, <span class="st">"dexuntrt"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># iSEE ---</span></span>
+<span></span>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"DESeq2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"dextrt vs dexuntrt"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"dextrt vs dexuntrt"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -121,9 +145,9 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; To cite package 'iSEEde' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Rue-Albrecht K (2022). _iSEEde: iSEE extension for panels related to</span></span>
-<span><span class="co">#&gt;   differential expression analysis_. R package version 0.99.0,</span></span>
-<span><span class="co">#&gt;   &lt;https://github.com/iSEE/iSEEde&gt;.</span></span>
+<span><span class="co">#&gt;   Kevin Rue-Albrecht (2022). iSEEde: iSEE extension for panels related</span></span>
+<span><span class="co">#&gt;   to differential expression analysis. R package version 0.99.0.</span></span>
+<span><span class="co">#&gt;   https://github.com/iSEE/iSEEde</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
