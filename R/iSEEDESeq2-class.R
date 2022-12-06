@@ -58,7 +58,7 @@
 #' iseede_table <- iSEEDESeq2Results(res, row.names=rownames(dds))
 #' 
 #' # Store the iSEEDESeq2Results object in the SummarizedExperiment rowData
-#' rowData(dds)[["iSEEde"]] <- DataFrame(limma=I(iseede_table))
+#' rowData(dds)[["iSEEde"]] <- DataFrame(DESeq2=I(iseede_table))
 #' 
 #' dds
 #' 
@@ -103,7 +103,7 @@ setMethod("logfc", "iSEEDESeq2Results", function(x) {
 
 #' @export
 setMethod("average", "iSEEDESeq2Results", function(x) {
-  out <- x[["baseMean"]]
+  out <- log2(x[["baseMean"]])
   names(out) <- rownames(x)
   out
 })

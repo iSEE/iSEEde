@@ -59,7 +59,7 @@ head(tt)
 ##
 
 # Simulate the original SummarizedExperiment object
-se <- SummarizedExperiment(assays = y)
+se <- SummarizedExperiment(assays = list(counts=y))
 
 # Package the results in a iSEELimmaResults object
 iseede_table <- iSEELimmaResults(tt, row.names=rownames(y))

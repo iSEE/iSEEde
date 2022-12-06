@@ -81,7 +81,7 @@ airway$dex <- relevel(airway$dex, "untrt")
 
 # Supported methods
 
-## Limma-Voom
+## Limma
 
 ```{r, message=FALSE, warning=FALSE}
 library("edgeR")
@@ -95,8 +95,8 @@ fit <- lmFit(v, design)
 contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
 tmp <- contrasts.fit(fit, contr)
 tmp <- eBayes(tmp)
-tt <- topTable(tmp, sort.by = "P", n = Inf)
-head(tt)
+res_limma <- topTable(tmp, sort.by = "P", n = Inf)
+head(res_limma)
 ```
 
 To store this first set of differential expression results, we initialise a `DataFrame()` nested in the `"iSEEde"` column of `rowData(airway)`.
@@ -106,7 +106,7 @@ The resulting `DataFrame`-like object is then stored as a nested column, using a
 ```{r}
 library(iSEEde)
 rowData(airway)[["iSEEde"]] <- DataFrame(
-  "Limma-Voom" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
+  "Limma-Voom" = I(iSEELimmaResults(res_limma, row.names = rownames(airway))),
   check.names = FALSE
 )
 ```
@@ -116,19 +116,37 @@ rowData(airway)[["iSEEde"]] <- DataFrame(
 ```{r, message=FALSE, warning=FALSE}
 library("DESeq2")
 
-# Analysis ----
 dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
 
 dds <- DESeq(dds)
-res <- results(dds, contrast = list("dextrt", "dexuntrt"))
-head(res)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res_deseq2)
 ```
-
 
 We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
 
 ```{r}
-rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res, row.names = rownames(airway))
+rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res_deseq2, row.names = rownames(airway))
+```
+
+## edgeR
+
+```{r, message=FALSE, warning=FALSE}
+library("edgeR")
+
+counts <- assay(airway, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
+
+fit <- glmFit(counts, design, dispersion=0.1)
+lrt <- glmLRT(fit, contrast = c(-1, 1, 0, 0, 0))
+res_edger <- topTags(lrt, n = Inf)
+head(res_edger)
+```
+
+We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
+
+```{r}
+rowData(airway)[["iSEEde"]][["edgeR"]] <- iSEEedgeRResults(res_edger, row.names = rownames(airway))
 ```
 
 # Live app
@@ -137,7 +155,11 @@ rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res, row.names = ro
 library(iSEE)
 app <- iSEE(airway, initial = list(
   VolcanoPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
-  VolcanoPlot(ContrastName="DESeq2", PanelWidth = 6L)
+  MAPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
+  VolcanoPlot(ContrastName="DESeq2", PanelWidth = 6L),
+  MAPlot(ContrastName="DESeq2", PanelWidth = 6L),
+  VolcanoPlot(ContrastName="edgeR", PanelWidth = 6L),
+  MAPlot(ContrastName="edgeR", PanelWidth = 6L)
 ))
 
 if (interactive()) {
