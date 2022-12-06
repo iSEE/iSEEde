@@ -90,6 +90,22 @@ setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
 })
 
 #' @export
+#' @importMethodsFrom iSEE .createObservers
+#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers
+#' @importFrom methods callNextMethod
+setMethod(".createObservers", "VolcanoPlot", function(x, se, input, session, pObjects, rObjects) {
+    callNextMethod()
+
+    plot_name <- .getEncodedName(x)
+
+    .createProtectedParameterObservers(plot_name,
+        fields=c(.contrastName),
+        input=input, pObjects=pObjects, rObjects=rObjects)
+    
+    invisible(NULL)
+})
+
+#' @export
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
