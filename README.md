@@ -47,11 +47,33 @@ This is a basic example which shows you how to load the package:
 
 ``` r
 library("iSEEde")
-## basic example code
-```
+library("airway")
+library("DESeq2")
+library("iSEE")
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub!
+# Example data ----
+
+data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
+
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+
+dds <- DESeq(dds)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+
+# iSEE ---
+
+airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
+  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
+```
 
 ## Citation
 
@@ -64,9 +86,9 @@ print(citation('iSEEde'), bibtex = TRUE)
 #> 
 #> To cite package 'iSEEde' in publications use:
 #> 
-#>   Rue-Albrecht K (2022). _iSEEde: iSEE extension for panels related to
-#>   differential expression analysis_. R package version 0.99.0,
-#>   <https://github.com/iSEE/iSEEde>.
+#>   Kevin Rue-Albrecht (2022). iSEEde: iSEE extension for panels related
+#>   to differential expression analysis. R package version 0.99.0.
+#>   https://github.com/iSEE/iSEEde
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
