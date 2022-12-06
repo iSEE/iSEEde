@@ -4,7 +4,11 @@
 \name{utils-SummarizedExperiment}
 \alias{utils-SummarizedExperiment}
 \alias{embedResults}
+\alias{embedResults,ANY-method}
 \title{Generics for Embbedding Results into a SummarizedExperiment Object}
+\usage{
+embedResults(x, se, name, ...)
+}
 \description{
 An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
 }
@@ -15,6 +19,9 @@ An overview of the generics for embedding results into a \linkS4class{Summarized
 }
 }
 
+\examples{
+showMethods(embedResults)
+}
 \author{
 Kevin Rue-Albrecht
 }

@@ -6,7 +6,7 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
     stop(paste(strwrap(msg), collapse="\n"))
 })
 
-#' @importFrom SummarizedExperiment rowData
+#' @importFrom SummarizedExperiment rowData rowData<-
 #' @importFrom S4Vectors DataFrame
 .embed_de_result <- function(x, se, name) {
   iseede_data <- rowData(se)[["iSEEde"]]
@@ -25,30 +25,45 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
 }
 
 #' @export
+#' 
+#' @rdname iSEELimmaResults-class
+#' @aliases embedResults,iSEELimmaResults-method
 setMethod("embedResults", "iSEELimmaResults", function(x, se, name, ...) {
   .embed_de_result(x, se, name)
 })
 
 #' @export
 #' @importClassesFrom DESeq2 DESeqResults
+#' 
+#' @rdname iSEEDESeq2Results-class
+#' @aliases embedResults,DESeqResults-method
 setMethod("embedResults", "DESeqResults", function(x, se, name, ...) {
   res <- iSEEDESeq2Results(x, row.names = rownames(se))
   .embed_de_result(res, se, name)
 })
 
 #' @export
+#' 
+#' @rdname iSEEDESeq2Results-class
+#' @aliases embedResults,iSEEDESeq2Results-method
 setMethod("embedResults", "iSEEDESeq2Results", function(x, se, name, ...) {
   .embed_de_result(x, se, name)
 })
 
 #' @export
 #' @importClassesFrom edgeR TopTags
+#' 
+#' @rdname iSEEedgeRResults-class
+#' @aliases embedResults,TopTags-method
 setMethod("embedResults", "TopTags", function(x, se, name, ...) {
   res <- iSEEedgeRResults(x, row.names = rownames(se))
   .embed_de_result(res, se, name)
 })
 
 #' @export
+#' 
+#' @rdname iSEEedgeRResults-class
+#' @aliases embedResults,iSEEedgeRResults-method
 setMethod("embedResults", "iSEEedgeRResults", function(x, se, name, ...) {
   .embed_de_result(x, se, name)
 })

@@ -7,6 +7,7 @@
 #' @aliases MAPlot MAPlot-class
 #' initialize,MAPlot-method
 #' .cacheCommonInfo,MAPlot-method
+#' .createObservers,MAPlot-method
 #' .defineDataInterface,MAPlot-method
 #' .fullName,MAPlot-method
 #' .generateDotPlotData,MAPlot-method

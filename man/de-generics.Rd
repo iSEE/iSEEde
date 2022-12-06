@@ -19,6 +19,11 @@ An overview of the generics for accessing common pieces of information in differ
 }
 }
 
+\examples{
+showMethods(pvalue)
+showMethods(log2foldchange)
+showMethods(log2average)
+}
 \author{
 Kevin Rue-Albrecht
 }

@@ -13,6 +13,11 @@
 #' @aliases pvalue log2foldchange log2average
 #' @name de-generics
 #' @author Kevin Rue-Albrecht
+#' 
+#' @examples 
+#' showMethods(pvalue)
+#' showMethods(log2foldchange)
+#' showMethods(log2average)
 NULL
 
 setGeneric(
@@ -43,8 +48,13 @@ setGeneric(
 #' @aliases embedResults
 #' @name utils-SummarizedExperiment
 #' @author Kevin Rue-Albrecht
+#' 
+#' @examples 
+#' showMethods(embedResults)
 NULL
 
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedResults,ANY-method
 setGeneric(
   "embedResults",
   function(x, se, name, ...) standardGeneric("embedResults")
