@@ -8,4 +8,7 @@
 #' @name iSEEde-pkg
 #' @docType package
 #' @keywords internal
+#' 
+#' @examples 
+#' library("iSEEde")
 "_PACKAGE"

@@ -14,6 +14,11 @@
 #' .refineParameters,MAPlot-method
 #' 
 #' @name MAPlot-class
+#' 
+#' @examples 
+#' x <- MAPlot()
+#' x[["ContrastName"]]
+#' x[["ContrastName"]] <- "treated vs control"
 NULL
 
 #' @export

@@ -16,3 +16,8 @@
 The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 }
+\examples{
+x <- VolcanoPlot()
+x[["ContrastName"]]
+x[["ContrastName"]] <- "treated vs control"
+}

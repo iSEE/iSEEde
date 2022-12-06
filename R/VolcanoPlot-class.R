@@ -14,6 +14,11 @@
 #' .refineParameters,VolcanoPlot-method
 #' 
 #' @name VolcanoPlot-class
+#' 
+#' @examples 
+#' x <- VolcanoPlot()
+#' x[["ContrastName"]]
+#' x[["ContrastName"]] <- "treated vs control"
 NULL
 
 #' @export

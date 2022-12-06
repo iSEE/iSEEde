@@ -30,6 +30,7 @@ Suggests:
     DESeq2,
     edgeR,
     knitr,
+    limma,
     RefManageR,
     rmarkdown,
     sessioninfo,
