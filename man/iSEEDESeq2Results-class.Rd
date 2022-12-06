@@ -72,7 +72,7 @@ dds
 
 head(pvalue(iseede_table))
 head(log2foldchange(iseede_table))
-head(average(iseede_table))
+head(log2average(iseede_table))
 }
 \author{
 Kevin Rue-Albrecht

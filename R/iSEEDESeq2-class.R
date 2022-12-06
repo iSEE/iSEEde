@@ -68,7 +68,7 @@
 #' 
 #' head(pvalue(iseede_table))
 #' head(log2foldchange(iseede_table))
-#' head(average(iseede_table))
+#' head(log2average(iseede_table))
 NULL
 
 setClass("iSEEDESeq2Results", contains = "DFrame")
