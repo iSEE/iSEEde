@@ -29,3 +29,23 @@ setGeneric(
   "log2average",
   function(x) standardGeneric("log2average")
 )
+
+#' Generics for Embbedding Results into a SummarizedExperiment Object
+#' 
+#' An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
+#' 
+#' @section Definitions:
+#' \itemize{
+#' \item `embedResults(x, se, name, ...)` embeds the results `x` in the \linkS4class{SummarizedExperiment} `se`.
+#' }
+#' 
+#' @docType methods
+#' @aliases embedResults
+#' @name utils-SummarizedExperiment
+#' @author Kevin Rue-Albrecht
+NULL
+
+setGeneric(
+  "embedResults",
+  function(x, se, name, ...) standardGeneric("embedResults")
+)

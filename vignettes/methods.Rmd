@@ -103,12 +103,16 @@ To store this first set of differential expression results, we initialise a `Dat
 The constructor `iSEELimmaResults()` is given the rownames of the full `airway` object, to match the dimensions of the dataset and fill missing information with `NA`.
 The resulting `DataFrame`-like object is then stored as a nested column, using a name that identifies the contrast.
 
+We embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Specifically, the results are nested as a `DataFrame`-like object in `rowData(airway)[["iSEEde"]]`.
+
 ```{r}
 library(iSEEde)
-rowData(airway)[["iSEEde"]] <- DataFrame(
-  "Limma-Voom" = I(iSEELimmaResults(res_limma, row.names = rownames(airway))),
-  check.names = FALSE
-)
+airway <- embedResults(
+  iSEELimmaResults(res_limma, row.names = rownames(airway)),
+  airway,
+  name = "Limma-Voom")
+rowData(airway)
 ```
 
 ## DESeq2
@@ -126,7 +130,11 @@ head(res_deseq2)
 We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
 
 ```{r}
-rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res_deseq2, row.names = rownames(airway))
+airway <- embedResults(
+  iSEEDESeq2Results(res_deseq2, row.names = rownames(airway)),
+  airway,
+  name = "DESeq2")
+rowData(airway)
 ```
 
 ## edgeR
@@ -146,7 +154,11 @@ head(res_edger)
 We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
 
 ```{r}
-rowData(airway)[["iSEEde"]][["edgeR"]] <- iSEEedgeRResults(res_edger, row.names = rownames(airway))
+airway <- embedResults(
+  iSEEedgeRResults(res_deseq2, row.names = rownames(airway)),
+  airway,
+  name = "edgeR")
+rowData(airway)
 ```
 
 # Live app
