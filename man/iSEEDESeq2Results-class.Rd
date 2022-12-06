@@ -22,7 +22,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 
 \describe{
 \item{\code{data}}{A \code{data.frame} produced by \code{DESeq2::results()} or \code{DESeq2::lfcShrink()}.}
-\item{\code{row.names}}{The character vector of rownames for the \code{\linkS4class{SummarizedExperiment}} object in which the object is to be embedded. Must be a superset of \code{rownames(data)}.}
+\item{\code{row.names}}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of \code{rownames(data)}.}
 }
 }
 

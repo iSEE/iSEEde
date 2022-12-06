@@ -10,7 +10,7 @@
 #' 
 #' \describe{
 #' \item{`data`}{A `data.frame` produced by `limma::topTable()`.}
-#' \item{`row.names`}{The character vector of rownames for the [`SummarizedExperiment-class`] object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
+#' \item{`row.names`}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
 #' }
 #' 
 #' @section Supported methods:
@@ -79,7 +79,7 @@ setClass("iSEELimmaResults", contains = "DFrame")
 
 #' @export
 #' @importFrom methods new
-#' @importFrom S$Vectors DataFrame
+#' @importFrom S4Vectors DataFrame
 iSEELimmaResults <- function(data, row.names = rownames(data)) {
   df <- DataFrame(row.names=row.names)
   df[rownames(data), colnames(data)] <- data
