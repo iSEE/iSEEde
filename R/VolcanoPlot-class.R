@@ -5,6 +5,13 @@
 #' 
 #' @docType methods
 #' @aliases VolcanoPlot VolcanoPlot-class
+#' initialize,VolcanoPlot-method
+#' .cacheCommonInfo,VolcanoPlot-method
+#' .defineDataInterface,VolcanoPlot-method
+#' .fullName,VolcanoPlot-method
+#' .generateDotPlotData,VolcanoPlot-method
+#' .panelColor,VolcanoPlot-method
+#' .refineParameters,VolcanoPlot-method
 #' 
 #' @name VolcanoPlot-class
 NULL

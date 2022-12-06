@@ -4,6 +4,13 @@
 \name{MAPlot-class}
 \alias{MAPlot-class}
 \alias{MAPlot}
+\alias{initialize,MAPlot-method}
+\alias{.cacheCommonInfo,MAPlot-method}
+\alias{.defineDataInterface,MAPlot-method}
+\alias{.fullName,MAPlot-method}
+\alias{.generateDotPlotData,MAPlot-method}
+\alias{.panelColor,MAPlot-method}
+\alias{.refineParameters,MAPlot-method}
 \title{The MAPlot class}
 \description{
 The MAPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.

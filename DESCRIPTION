@@ -21,7 +21,8 @@ Imports:
     iSEE,
     methods,
     S4Vectors,
-    shiny
+    shiny,
+    SummarizedExperiment
 Suggests: 
     airway,
     BiocStyle,

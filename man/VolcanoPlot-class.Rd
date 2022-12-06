@@ -4,6 +4,13 @@
 \name{VolcanoPlot-class}
 \alias{VolcanoPlot-class}
 \alias{VolcanoPlot}
+\alias{initialize,VolcanoPlot-method}
+\alias{.cacheCommonInfo,VolcanoPlot-method}
+\alias{.defineDataInterface,VolcanoPlot-method}
+\alias{.fullName,VolcanoPlot-method}
+\alias{.generateDotPlotData,VolcanoPlot-method}
+\alias{.panelColor,VolcanoPlot-method}
+\alias{.refineParameters,VolcanoPlot-method}
 \title{The VolcanoPlot class}
 \description{
 The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
