@@ -4,11 +4,11 @@ setGeneric(
 )
 
 setGeneric(
-  "logfc",
-  function(x) standardGeneric("logfc")
+  "log2foldchange",
+  function(x) standardGeneric("log2foldchange")
 )
 
 setGeneric(
-  "average",
-  function(x) standardGeneric("average")
+  "log2average",
+  function(x) standardGeneric("log2average")
 )

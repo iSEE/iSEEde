@@ -138,7 +138,7 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   
   # Prepare X-axis data.
   x_lab <- "logFC"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::logfc(de_table)"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2foldchange(de_table)"
   
   plot_title <- x[[.contrastName]]
   

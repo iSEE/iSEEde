@@ -1,7 +1,7 @@
 #' The iSEEDESeq2Results class
 #' 
 #' The `iSEEDESeq2Results` class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
-#' It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, average abundance).
+#' It provides methods to access common differential expression statistics (e.g., log2 fold-change, p-value, log2 average abundance).
 #' 
 #' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
 #' 
@@ -16,8 +16,8 @@
 #' @section Supported methods:
 #' \itemize{
 #' \item `pvalue(x)` returns the vector of raw p-values.
-#' \item `logfc(x)` returns the vector of log2-fold-change values.
-#' \item `average(x)` returns the vector of average log2-expression values.
+#' \item `log2foldchange(x)` returns the vector of log2-fold-change values.
+#' \item `log2average(x)` returns the vector of average log2-expression values.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -28,8 +28,8 @@
 #' iSEEDESeq2Results
 #' showAsCell,iSEEDESeq2Results-method
 #' pvalue,iSEEDESeq2Results-method
-#' logfc,iSEEDESeq2Results-method
-#' average,iSEEDESeq2Results-method
+#' log2foldchange,iSEEDESeq2Results-method
+#' log2average,iSEEDESeq2Results-method
 #' 
 #' @examples
 #' library(DESeq2)
@@ -95,14 +95,14 @@ setMethod("pvalue", "iSEEDESeq2Results", function(x) {
 })
 
 #' @export
-setMethod("logfc", "iSEEDESeq2Results", function(x) {
+setMethod("log2foldchange", "iSEEDESeq2Results", function(x) {
   out <- x[["log2FoldChange"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("average", "iSEEDESeq2Results", function(x) {
+setMethod("log2average", "iSEEDESeq2Results", function(x) {
   out <- log2(x[["baseMean"]])
   names(out) <- rownames(x)
   out

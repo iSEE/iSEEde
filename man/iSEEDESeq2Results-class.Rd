@@ -6,12 +6,12 @@
 \alias{iSEEDESeq2Results}
 \alias{showAsCell,iSEEDESeq2Results-method}
 \alias{pvalue,iSEEDESeq2Results-method}
-\alias{logfc,iSEEDESeq2Results-method}
-\alias{average,iSEEDESeq2Results-method}
+\alias{log2foldchange,iSEEDESeq2Results-method}
+\alias{log2average,iSEEDESeq2Results-method}
 \title{The iSEEDESeq2Results class}
 \description{
 The \code{iSEEDESeq2Results} class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
-It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, average abundance).
+It provides methods to access common differential expression statistics (e.g., log2 fold-change, p-value, log2 average abundance).
 }
 \details{
 This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
@@ -30,8 +30,8 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 
 \itemize{
 \item \code{pvalue(x)} returns the vector of raw p-values.
-\item \code{logfc(x)} returns the vector of log2-fold-change values.
-\item \code{average(x)} returns the vector of average log2-expression values.
+\item \code{log2foldchange(x)} returns the vector of log2-fold-change values.
+\item \code{log2average(x)} returns the vector of average log2-expression values.
 }
 }
 

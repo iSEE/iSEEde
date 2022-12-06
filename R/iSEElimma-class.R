@@ -1,7 +1,7 @@
 #' The iSEELimmaResults class
 #' 
 #' The `iSEELimmaResults` class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
-#' It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, average abundance).
+#' It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 #' 
 #' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
 #' 
@@ -16,8 +16,8 @@
 #' @section Supported methods:
 #' \itemize{
 #' \item `pvalue(x)` returns the vector of raw p-values.
-#' \item `logfc(x)` returns the vector of log2-fold-change values.
-#' \item `average(x)` returns the vector of average log2-expression values.
+#' \item `log2foldchange(x)` returns the vector of log2-fold-change values.
+#' \item `log2average(x)` returns the vector of average log2-expression values.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -28,8 +28,8 @@
 #' iSEELimmaResults
 #' showAsCell,iSEELimmaResults-method
 #' pvalue,iSEELimmaResults-method
-#' logfc,iSEELimmaResults-method
-#' average,iSEELimmaResults-method
+#' log2foldchange,iSEELimmaResults-method
+#' log2average,iSEELimmaResults-method
 #' 
 #' @examples
 #' library(limma)
@@ -71,8 +71,8 @@
 #' ##
 #' 
 #' head(pvalue(iseede_table))
-#' head(logfc(iseede_table))
-#' head(average(iseede_table))
+#' head(log2foldchange(iseede_table))
+#' head(log2average(iseede_table))
 NULL
 
 setClass("iSEELimmaResults", contains = "DFrame")
@@ -99,14 +99,14 @@ setMethod("pvalue", "iSEELimmaResults", function(x) {
 })
 
 #' @export
-setMethod("logfc", "iSEELimmaResults", function(x) {
+setMethod("log2foldchange", "iSEELimmaResults", function(x) {
   out <- x[["logFC"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("average", "iSEELimmaResults", function(x) {
+setMethod("log2average", "iSEELimmaResults", function(x) {
   out <- x[["AveExpr"]]
   names(out) <- rownames(x)
   out

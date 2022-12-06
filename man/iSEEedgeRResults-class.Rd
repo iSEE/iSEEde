@@ -6,12 +6,12 @@
 \alias{iSEEedgeRResults}
 \alias{showAsCell,iSEEedgeRResults-method}
 \alias{pvalue,iSEEedgeRResults-method}
-\alias{logfc,iSEEedgeRResults-method}
-\alias{average,iSEEedgeRResults-method}
+\alias{log2foldchange,iSEEedgeRResults-method}
+\alias{log2average,iSEEedgeRResults-method}
 \title{The iSEEedgeRResults class}
 \description{
 The \code{iSEEedgeRResults} class is used to provide an common interface to differential expression results produced by the \pkg{edgeR} package.
-It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, average abundance).
+It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 }
 \details{
 This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
@@ -30,8 +30,8 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 
 \itemize{
 \item \code{pvalue(x)} returns the vector of raw p-values.
-\item \code{logfc(x)} returns the vector of log2-fold-change values.
-\item \code{average(x)} returns the vector of average log2-expression values.
+\item \code{log2foldchange(x)} returns the vector of log2-fold-change values.
+\item \code{log2average(x)} returns the vector of average log2-expression values.
 }
 }
 
@@ -77,8 +77,8 @@ se
 ##
 
 head(pvalue(iseede_table))
-head(logfc(iseede_table))
-head(average(iseede_table))
+head(log2foldchange(iseede_table))
+head(log2average(iseede_table))
 }
 \author{
 Kevin Rue-Albrecht

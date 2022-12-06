@@ -132,12 +132,12 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     "plot.data <- data.frame(row.names=rownames(se))",
-    "plot.data$Y <- iSEEde::logfc(de_table)"
+    "plot.data$Y <- iSEEde::log2foldchange(de_table)"
   )
   
   # Prepare X-axis data.
   x_lab <- "AveExpr"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::average(de_table)"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2average(de_table)"
   
   plot_title <- x[[.contrastName]]
   
