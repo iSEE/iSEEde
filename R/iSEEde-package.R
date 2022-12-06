@@ -5,7 +5,7 @@
 #' 
 #' @author Kevin Rue-Albrecht \email{kevin.rue-albrecht@@imm.ox.ac.uk}
 #' 
-#' @name iSEEdepkg
+#' @name iSEEde-pkg
 #' @docType package
 #' @keywords internal
 "_PACKAGE"
