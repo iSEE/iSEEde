@@ -12,11 +12,11 @@ An overview of the generics for accessing common pieces of information in differ
 }
 \section{Definitions}{
 
+\itemize{
 \item \code{pvalue(x)} returns a numeric vector of raw p-values.
-
 \item \code{log2foldchange(x)} returns a numeric vector of log2-fold-change values.
-
 \item \code{log2average(x)} returns a numeric vector of average log2-expression values.
+}
 }
 
 \author{
