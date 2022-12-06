@@ -6,6 +6,7 @@
 \alias{MAPlot}
 \alias{initialize,MAPlot-method}
 \alias{.cacheCommonInfo,MAPlot-method}
+\alias{.createObservers,MAPlot-method}
 \alias{.defineDataInterface,MAPlot-method}
 \alias{.fullName,MAPlot-method}
 \alias{.generateDotPlotData,MAPlot-method}

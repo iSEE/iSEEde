@@ -49,7 +49,34 @@ This is a basic example which shows you how to load the package:
 
 ```{r example, eval = requireNamespace('iSEEde')}
 library("iSEEde")
-## basic example code
+library("airway")
+library("DESeq2")
+library("iSEE")
+
+# Example data ----
+
+data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
+
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+
+dds <- DESeq(dds)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res_deseq2)
+
+# iSEE ---
+
+airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+rowData(airway)
+
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
+  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
 ```
 
 ## Citation

@@ -18,6 +18,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports:
+    DESeq2,
+    edgeR,
     iSEE,
     methods,
     S4Vectors,
@@ -27,8 +29,6 @@ Suggests:
     airway,
     BiocStyle,
     covr,
-    DESeq2,
-    edgeR,
     knitr,
     limma,
     RefManageR,

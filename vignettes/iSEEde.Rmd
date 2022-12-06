@@ -94,8 +94,8 @@ citation("iSEEde")
 
 ```{r "start", message=FALSE, warning=FALSE}
 library("iSEEde")
-library("edgeR")
 library("airway")
+library("DESeq2")
 library("iSEE")
 
 # Example data ----
@@ -103,26 +103,16 @@ library("iSEE")
 data("airway")
 airway$dex <- relevel(airway$dex, "untrt")
 
-se <- airway[rowSums(assay(airway)) > 0, ]
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
 
-counts <- assay(se, "counts")
-design <- model.matrix(~ 0 + dex + cell, data = colData(se))
-
-keep <- filterByExpr(counts, design)
-v <- voom(counts[keep,], design, plot=FALSE)
-fit <- lmFit(v, design)
-contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
-tmp <- contrasts.fit(fit, contr)
-tmp <- eBayes(tmp)
-tt <- topTable(tmp, sort.by = "P", n = Inf)
-head(tt)
+dds <- DESeq(dds)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res_deseq2)
 
 # iSEE ---
 
-rowData(airway)[["iSEEde"]] <- DataFrame(
-  "dextrt vs dexuntrt" = I(iSEELimmaResults(tt, row.names = rownames(airway))),
-  check.names = FALSE
-)
+airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+rowData(airway)
 
 app <- iSEE(airway, initial = list(
   VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),

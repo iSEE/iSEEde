@@ -99,16 +99,21 @@ res_limma <- topTable(tmp, sort.by = "P", n = Inf)
 head(res_limma)
 ```
 
-To store this first set of differential expression results, we initialise a `DataFrame()` nested in the `"iSEEde"` column of `rowData(airway)`.
-The constructor `iSEELimmaResults()` is given the rownames of the full `airway` object, to match the dimensions of the dataset and fill missing information with `NA`.
-The resulting `DataFrame`-like object is then stored as a nested column, using a name that identifies the contrast.
+We embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Because the output of `limma::topTable()` is a standard `data.frame`, it must first be manually passed to the `iSEELimmaResults()` constructor, to identify it as such.
+The constructor is also given the full vector of rownames in the `airway` object, so that the `iSEELimmaResults` object matches the dimensions of the object in which it is to be embedded.
+
+This manual method is preferable to any heuristic that would attempt to use the column names of the `data.frame` for identifying it as a `limma::topTable()` output.
+
+The results are nested as a `DataFrame`-like object in `rowData(airway)[["iSEEde"]]`.
 
 ```{r}
 library(iSEEde)
-rowData(airway)[["iSEEde"]] <- DataFrame(
-  "Limma-Voom" = I(iSEELimmaResults(res_limma, row.names = rownames(airway))),
-  check.names = FALSE
-)
+airway <- embedResults(
+  x = iSEELimmaResults(res_limma, row.names = rownames(airway)),
+  se = airway,
+  name = "Limma-Voom")
+rowData(airway)
 ```
 
 ## DESeq2
@@ -123,10 +128,15 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 head(res_deseq2)
 ```
 
-We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
+Again, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+
+In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a recognisable `?DESeqResults` object.
+As such, the results object can be given *as is* directly to the `embedResults()` method.
+The function will automatically pass the results object to the `iSEEDESeq2Results()` constructor, to identify it as such.
 
 ```{r}
-rowData(airway)[["iSEEde"]][["DESeq2"]] <- iSEEDESeq2Results(res_deseq2, row.names = rownames(airway))
+airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+rowData(airway)
 ```
 
 ## edgeR
@@ -143,10 +153,15 @@ res_edger <- topTags(lrt, n = Inf)
 head(res_edger)
 ```
 
-We add this set of differential expression results as a `DataFrame`-like object nested in a column of `rowData(airway)[["iSEEde"]]`.
+Again, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+
+In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a recognisable `?TopTags` object.
+As such, the results object can be given *as is* directly to the `embedResults()` method.
+The function will automatically pass the results object to the `iSEEedgeRResults()` constructor, to identify it as such.
 
 ```{r}
-rowData(airway)[["iSEEde"]][["edgeR"]] <- iSEEedgeRResults(res_edger, row.names = rownames(airway))
+airway <- embedResults(res_edger, airway, name = "edgeR")
+rowData(airway)
 ```
 
 # Live app

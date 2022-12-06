@@ -7,6 +7,7 @@
 #' @aliases VolcanoPlot VolcanoPlot-class
 #' initialize,VolcanoPlot-method
 #' .cacheCommonInfo,VolcanoPlot-method
+#' .createObservers,VolcanoPlot-method
 #' .defineDataInterface,VolcanoPlot-method
 #' .fullName,VolcanoPlot-method
 #' .generateDotPlotData,VolcanoPlot-method

@@ -6,6 +6,7 @@
 \alias{VolcanoPlot}
 \alias{initialize,VolcanoPlot-method}
 \alias{.cacheCommonInfo,VolcanoPlot-method}
+\alias{.createObservers,VolcanoPlot-method}
 \alias{.defineDataInterface,VolcanoPlot-method}
 \alias{.fullName,VolcanoPlot-method}
 \alias{.generateDotPlotData,VolcanoPlot-method}
