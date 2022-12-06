@@ -23,9 +23,9 @@ setMethod(".fullName", "MAPlot", function(x) "MA plot")
 setMethod(".panelColor", "MAPlot", function(x) "#DEAE10")
 
 #' @export
+#' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
-setMethod("initialize", "MAPlot", function(.Object,
-                                                ContrastName=NA_character_, ...)
+setMethod("initialize", "MAPlot", function(.Object, ContrastName=NA_character_, ...)
 {
   args <- list(ContrastName=ContrastName, ...)
   

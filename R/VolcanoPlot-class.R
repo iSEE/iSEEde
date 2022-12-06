@@ -23,6 +23,7 @@ setMethod(".fullName", "VolcanoPlot", function(x) "Volcano plot")
 setMethod(".panelColor", "VolcanoPlot", function(x) "#DEAE10")
 
 #' @export
+#' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
 setMethod("initialize", "VolcanoPlot", function(.Object,
     ContrastName=NA_character_, ...)
