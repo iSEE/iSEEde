@@ -75,6 +75,7 @@ setClass("iSEEDESeq2Results", contains = "DFrame")
 
 #' @export
 #' @importFrom methods new
+#' @importFrom S$Vectors DataFrame
 iSEEDESeq2Results <- function(data, row.names = rownames(data)) {
   df <- DataFrame(row.names=row.names)
   df[rownames(data), colnames(data)] <- data

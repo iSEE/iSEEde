@@ -45,8 +45,9 @@ setValidity2("MAPlot", function(object) {
 
 #' @export
 #' @importMethodsFrom iSEE .cacheCommonInfo
-#' @importFrom iSEE .setCachedCommonInfo
+#' @importFrom iSEE .getCachedCommonInfo .setCachedCommonInfo
 #' @importFrom methods callNextMethod
+#' @importFrom SummarizedExperiment rowData
 setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
   if (!is.null(.getCachedCommonInfo(se, "MAPlot"))) {
     return(se)
@@ -61,7 +62,7 @@ setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
 
 #' @export
 #' @importMethodsFrom iSEE .refineParameters
-#' @importFrom iSEE .replaceMissingWithFirst
+#' @importFrom iSEE .getCachedCommonInfo .replaceMissingWithFirst
 #' @importFrom methods callNextMethod
 setMethod(".refineParameters", "MAPlot", function(x, se) {
   x <- callNextMethod() # Trigger warnings from base classes.
@@ -79,7 +80,8 @@ setMethod(".refineParameters", "MAPlot", function(x, se) {
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
-#' @importFrom iSEE .selectInput.iSEE
+#' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
+#' .selectInput.iSEE
 setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
@@ -112,6 +114,7 @@ setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
 
 #' @export
 #' @importMethodsFrom iSEE .generateDotPlotData
+#' @importFrom iSEE .textEval
 setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   data_cmds <- list()
   

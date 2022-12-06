@@ -46,8 +46,9 @@ setValidity2("VolcanoPlot", function(object) {
 
 #' @export
 #' @importMethodsFrom iSEE .cacheCommonInfo
-#' @importFrom iSEE .setCachedCommonInfo
+#' @importFrom iSEE .getCachedCommonInfo .setCachedCommonInfo
 #' @importFrom methods callNextMethod
+#' @importFrom SummarizedExperiment rowData
 setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
   if (!is.null(.getCachedCommonInfo(se, "VolcanoPlot"))) {
     return(se)
@@ -62,7 +63,7 @@ setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
 
 #' @export
 #' @importMethodsFrom iSEE .refineParameters
-#' @importFrom iSEE .replaceMissingWithFirst
+#' @importFrom iSEE .getCachedCommonInfo .replaceMissingWithFirst
 #' @importFrom methods callNextMethod
 setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
   x <- callNextMethod() # Trigger warnings from base classes.
@@ -80,7 +81,8 @@ setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
-#' @importFrom iSEE .selectInput.iSEE
+#' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
+#' .selectInput.iSEE
 setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
@@ -113,6 +115,7 @@ setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
 
 #' @export
 #' @importMethodsFrom iSEE .generateDotPlotData
+#' @importFrom iSEE .textEval
 setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   data_cmds <- list()
   
