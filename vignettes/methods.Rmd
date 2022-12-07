@@ -115,6 +115,7 @@ This manual method is preferable to any automated heuristic, e.g. using the colu
 The results are nested as a `DataFrame`-like object in `rowData(airway)[["iSEEde"]]`.
 
 ```{r}
+library(iSEEde)
 airway <- embedResults(res_limma, airway, name = "Limma-Voom", class = "limma")
 rowData(airway)
 ```
@@ -144,7 +145,6 @@ As such, the results object can be given *as is* directly to the `embedResults()
 The function will automatically pass the results object to the `iSEEDESeq2Results()` constructor, to identify it as such.
 
 ```{r}
-library(iSEEde)
 airway <- embedResults(res_deseq2, airway, name = "DESeq2")
 rowData(airway)
 ```
