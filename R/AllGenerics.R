@@ -50,6 +50,8 @@ setGeneric(
 #' @author Kevin Rue-Albrecht
 #' 
 #' @examples 
+#' embedResultsMethods
+#' 
 #' showMethods(embedResults)
 NULL
 

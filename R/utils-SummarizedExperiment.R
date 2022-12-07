@@ -1,9 +1,16 @@
 #' @export
+#' 
+#' @rdname utils-SummarizedExperiment
+embedResultsMethods <- c(
+  "limma" = "iSEELimmaResults"
+)
+
+#' @export
 setMethod("embedResults", "ANY", function(x, se, name, ...) {
-    msg <- sprintf("no 'embedResults' method defined for object
-        of class %s, consider defining your own.",
-        sQuote(class(x)))
-    stop(paste(strwrap(msg), collapse="\n"))
+  msg <- sprintf("no 'embedResults' method defined for object
+      of class %s, consider defining your own.",
+      sQuote(class(x)))
+  stop(paste(strwrap(msg), collapse="\n"))
 })
 
 #' @importFrom SummarizedExperiment rowData rowData<-
@@ -23,6 +30,23 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
   rowData(se)[["iSEEde"]] <- iseede_data
   se
 }
+
+#' @export
+#' 
+#' @rdname iSEELimmaResults-class
+#' @aliases embedResults,data.frame-method
+setMethod("embedResults", "data.frame", function(x, se, name, class, ...) {
+  if (!class %in% names(embedResultsMethods)) {
+    msg <- sprintf("argument %s must be a value in %s,
+      for signature %s.",
+      sQuote("class"), sQuote("names(embedResultsMethods)"),
+      sQuote("x=data.frame"))
+    stop(paste(strwrap(msg), collapse="\n"))
+  }
+  constructor <- get(embedResultsMethods[class])
+  res <- constructor(x, row.names=rownames(se))
+  .embed_de_result(res, se, name)
+})
 
 #' @export
 #' 

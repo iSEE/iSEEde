@@ -2,6 +2,7 @@
 
 export(MAPlot)
 export(VolcanoPlot)
+export(embedResultsMethods)
 export(iSEEDESeq2Results)
 export(iSEELimmaResults)
 export(iSEEedgeRResults)

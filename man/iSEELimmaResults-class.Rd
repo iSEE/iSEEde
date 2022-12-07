@@ -9,9 +9,12 @@
 \alias{pvalue,iSEELimmaResults-method}
 \alias{log2foldchange,iSEELimmaResults-method}
 \alias{log2average,iSEELimmaResults-method}
+\alias{embedResults,data.frame-method}
 \alias{embedResults,iSEELimmaResults-method}
 \title{The iSEELimmaResults class}
 \usage{
+\S4method{embedResults}{data.frame}(x, se, name, class, ...)
+
 \S4method{embedResults}{iSEELimmaResults}(x, se, name, ...)
 }
 \description{
