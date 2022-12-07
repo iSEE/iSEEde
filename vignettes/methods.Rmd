@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
     comment = "#>",
     crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
+options(width = 100)
 ```
 
 ```{r, eval=!exists("SCREENSHOT"), include=FALSE}
@@ -81,56 +82,13 @@ airway$dex <- relevel(airway$dex, "untrt")
 
 # Supported methods
 
-## DESeq2
-
-```{r, message=FALSE, warning=FALSE}
-library("DESeq2")
-
-dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
-
-dds <- DESeq(dds)
-res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
-head(res_deseq2)
-```
-
-We embed this set of differential expression results in the `airway` object using the `embedResults()` method.
-
-In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a recognisable `?DESeqResults` object.
-As such, the results object can be given *as is* directly to the `embedResults()` method.
-The function will automatically pass the results object to the `iSEEDESeq2Results()` constructor, to identify it as such.
-
-```{r}
-library(iSEEde)
-airway <- embedResults(res_deseq2, airway, name = "DESeq2")
-rowData(airway)
-```
-
-## edgeR
-
-```{r, message=FALSE, warning=FALSE}
-library("edgeR")
-
-counts <- assay(airway, "counts")
-design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
-
-fit <- glmFit(counts, design, dispersion=0.1)
-lrt <- glmLRT(fit, contrast = c(-1, 1, 0, 0, 0))
-res_edger <- topTags(lrt, n = Inf)
-head(res_edger)
-```
-
-Again, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
-
-In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a recognisable `?TopTags` object.
-As such, the results object can be given *as is* directly to the `embedResults()` method.
-The function will automatically pass the results object to the `iSEEedgeRResults()` constructor, to identify it as such.
-
-```{r}
-airway <- embedResults(res_edger, airway, name = "edgeR")
-rowData(airway)
-```
-
 ## Limma
+
+We run a standard Limma-Voom analysis using `limma::voom()`, `limma::lmFit()`, `limma::makeContrasts()`, and `limma::eBayes()`.
+
+Before that though, we use `edgeR::filterByExpr()` to filter genes by expression level.
+
+The differential expression results are fetched using `limma::topTable()`.
 
 ```{r, message=FALSE, warning=FALSE}
 library("edgeR")
@@ -148,7 +106,7 @@ res_limma <- topTable(tmp, sort.by = "P", n = Inf)
 head(res_limma)
 ```
 
-Again, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
 
 Because the output of `limma::topTable()` is a standard `data.frame`, the `class=` argument must be used to manually identify the method that produced those results.
 
@@ -158,6 +116,65 @@ The results are nested as a `DataFrame`-like object in `rowData(airway)[["iSEEde
 
 ```{r}
 airway <- embedResults(res_limma, airway, name = "Limma-Voom", class = "limma")
+rowData(airway)
+```
+
+## DESeq2
+
+We run a standard `r BiocStyle::Biocpkg("DESeq2")` analysis using `DESeq()`.
+
+Before that though, we use `DESeqDataSet()` to construct a `DESeqDataSet` object for the analysis.
+
+The differential expression results are fetched using `results()`.
+
+```{r, message=FALSE, warning=FALSE}
+library("DESeq2")
+
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+
+dds <- DESeq(dds)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res_deseq2)
+```
+
+Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+
+In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a recognisable `?DESeqResults` object.
+As such, the results object can be given *as is* directly to the `embedResults()` method.
+The function will automatically pass the results object to the `iSEEDESeq2Results()` constructor, to identify it as such.
+
+```{r}
+library(iSEEde)
+airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+rowData(airway)
+```
+
+## edgeR
+
+We run a standard `r BiocStyle::Biocpkg("edgeR")` analysis using `glmFit()` and `glmLRT()`.
+
+The differential expression results are fetched using `topTags()`.
+
+```{r, message=FALSE, warning=FALSE}
+library("edgeR")
+
+counts <- assay(airway, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
+
+fit <- glmFit(counts, design, dispersion=0.1)
+lrt <- glmLRT(fit, contrast = c(-1, 1, 0, 0, 0))
+res_edger <- topTags(lrt, n = Inf)
+head(res_edger)
+```
+
+Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+
+In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a recognisable `?TopTags` object.
+As such, the results object can be given *as is* directly to the `embedResults()` method.
+The function will automatically pass the results object to the `iSEEedgeRResults()` constructor, to identify it as such.
+
+```{r}
+airway <- embedResults(res_edger, airway, name = "edgeR")
 rowData(airway)
 ```
 
