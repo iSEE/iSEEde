@@ -96,9 +96,9 @@ It provides methods to access common differential expression statistics (e.g., l
     <h2>Supported methods</h2>
     
 
-<ul><li><p><code>pvalue(x)</code> returns the vector of raw p-values.</p></li>
-<li><p><code>log2foldchange(x)</code> returns the vector of log2-fold-change values.</p></li>
-<li><p><code>log2average(x)</code> returns the vector of average log2-expression values.</p></li>
+<ul><li><p><code>pValue(x)</code> returns the vector of raw p-values.</p></li>
+<li><p><code>log2FoldChange(x)</code> returns the vector of log2-fold-change values.</p></li>
+<li><p><code>averageLog2(x)</code> returns the vector of average log2-expression values.</p></li>
 </ul></div>
     <div id="author">
     <h2>Author</h2>
@@ -155,15 +155,15 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span><span class="co"># Methods ----</span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pvalue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      gene.1      gene.2      gene.3      gene.4      gene.5      gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.289544052          NA          NA          NA 0.024361271 0.006092732 </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2foldchange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.606153        NA        NA        NA -5.930373 -5.240458 </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2average</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2374461        NA        NA        NA        NA        NA </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13.68744       NA       NA       NA 12.48264 13.76695 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.050163       NA       NA       NA       NA       NA </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14.46737       NA       NA       NA       NA       NA </span>
 </code></pre></div>
     </div>
   </div>
