@@ -45,7 +45,7 @@ setMethod("embedResults", "data.frame", function(x, se, name, class, ...) {
   }
   constructor <- get(embedResultsMethods[class])
   res <- constructor(x, row.names=rownames(se))
-  .embed_de_result(res, se, name)
+  embedResults(res, se, name, ...)
 })
 
 #' @export
@@ -63,7 +63,7 @@ setMethod("embedResults", "iSEELimmaResults", function(x, se, name, ...) {
 #' @aliases embedResults,DESeqResults-method
 setMethod("embedResults", "DESeqResults", function(x, se, name, ...) {
   res <- iSEEDESeq2Results(x, row.names = rownames(se))
-  .embed_de_result(res, se, name)
+  embedResults(res, se, name)
 })
 
 #' @export
@@ -81,7 +81,7 @@ setMethod("embedResults", "iSEEDESeq2Results", function(x, se, name, ...) {
 #' @aliases embedResults,TopTags-method
 setMethod("embedResults", "TopTags", function(x, se, name, ...) {
   res <- iSEEedgeRResults(x, row.names = rownames(se))
-  .embed_de_result(res, se, name)
+  embedResults(res, se, name)
 })
 
 #' @export
