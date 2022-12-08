@@ -25,6 +25,8 @@ embedResultsMethods
 
 \item{name}{Identifier for the embedded object.}
 
+\item{...}{Arguments passed to and from other methods.}
+
 \item{class}{Class to use for embedding \code{x}. Only used when \code{class(x)} does
 not uniquely identify the package that generated the object.}
 }

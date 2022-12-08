@@ -38,6 +38,7 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
 #' @param name Identifier for the embedded object.
 #' @param class Class to use for embedding `x`. Only used when `class(x)` does
 #' not uniquely identify the package that generated the object.
+#' @param ... Arguments passed to and from other methods.
 #' 
 #' @rdname utils-SummarizedExperiment
 #' @aliases embedResults,data.frame-method
