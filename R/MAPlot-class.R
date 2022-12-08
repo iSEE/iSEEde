@@ -114,7 +114,7 @@ setMethod(".createObservers", "MAPlot", function(x, se, input, session, pObjects
 setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
-  
+  # nocov start
   .addSpecificTour(class(x), .contrastName, function(plot_name) {
     data.frame(
       rbind(
@@ -125,7 +125,7 @@ setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
       )
     )
   })
-  
+  # nocov end
   cached <- .getCachedCommonInfo(se, "MAPlot")
   
   extra_inputs <- list(

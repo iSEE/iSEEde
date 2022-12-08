@@ -34,6 +34,9 @@ test_that("cacheCommonInfo(MAPlot) works", {
   expect_s4_class(out, "SummarizedExperiment")
   expect_identical(metadata(out)$iSEE$cached$MAPlot$valid.contrast.names, "edgeR")
   
+  # Run one more time on the output object for complete coverage
+  .cacheCommonInfo(x, out)
+  
 })
 
 test_that(".refineParameters(MAPlot) works", {
@@ -46,6 +49,13 @@ test_that(".refineParameters(MAPlot) works", {
   
   expect_s4_class(out, "MAPlot")
   expect_identical(out[["ContrastName"]], "edgeR")
+  
+})
+
+test_that(".refineParameters(MAPlot) works on NULL object", {
+  
+  FUN <- getMethod(".refineParameters", "MAPlot")
+  expect_null(FUN(NULL, se))
   
 })
 

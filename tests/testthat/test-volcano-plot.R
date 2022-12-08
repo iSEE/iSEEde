@@ -34,6 +34,9 @@ test_that("cacheCommonInfo(VolcanoPlot) works", {
   expect_s4_class(out, "SummarizedExperiment")
   expect_identical(metadata(out)$iSEE$cached$VolcanoPlot$valid.contrast.names, "edgeR")
   
+  # Run one more time on the output object for complete coverage
+  .cacheCommonInfo(x, out)
+  
 })
 
 test_that(".refineParameters(VolcanoPlot) works", {
@@ -49,6 +52,12 @@ test_that(".refineParameters(VolcanoPlot) works", {
   
 })
 
+test_that(".refineParameters(VolcanoPlot) works on NULL object", {
+  
+  FUN <- getMethod(".refineParameters", "VolcanoPlot")
+  expect_null(FUN(NULL, se))
+  
+})
 
 test_that(".createObservers(VolcanoPlot) works", {
   
