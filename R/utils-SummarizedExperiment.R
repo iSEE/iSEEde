@@ -40,6 +40,9 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
 #' not uniquely identify the package that generated the object.
 #' @param ... Arguments passed to and from other methods.
 #' 
+#' @return An updated \linkS4class{SummarizedExperiment} object that contains the
+#' embedded object.
+#' 
 #' @rdname utils-SummarizedExperiment
 #' @aliases embedResults,data.frame-method
 setMethod("embedResults", "data.frame", function(x, se, name, class, ...) {

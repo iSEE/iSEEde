@@ -30,6 +30,10 @@ embedResultsMethods
 \item{class}{Class to use for embedding \code{x}. Only used when \code{class(x)} does
 not uniquely identify the package that generated the object.}
 }
+\value{
+An updated \linkS4class{SummarizedExperiment} object that contains the
+embedded object.
+}
 \description{
 An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
 }
