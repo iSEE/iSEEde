@@ -15,9 +15,9 @@
 #' 
 #' @section Supported methods:
 #' \itemize{
-#' \item `pvalue(x)` returns the vector of raw p-values.
-#' \item `log2foldchange(x)` returns the vector of log2-fold-change values.
-#' \item `log2average(x)` returns the vector of average log2-expression values.
+#' \item `pValue(x)` returns the vector of raw p-values.
+#' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
+#' \item `averageLog2(x)` returns the vector of average log2-expression values.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -27,9 +27,9 @@
 #' @aliases
 #' iSEEedgeRResults
 #' showAsCell,iSEEedgeRResults-method
-#' pvalue,iSEEedgeRResults-method
-#' log2foldchange,iSEEedgeRResults-method
-#' log2average,iSEEedgeRResults-method
+#' pValue,iSEEedgeRResults-method
+#' log2FoldChange,iSEEedgeRResults-method
+#' averageLog2,iSEEedgeRResults-method
 #' 
 #' @examples
 #' library(edgeR)
@@ -72,9 +72,9 @@
 #' # Methods ----
 #' ##
 #' 
-#' head(pvalue(iseede_table))
-#' head(log2foldchange(iseede_table))
-#' head(log2average(iseede_table))
+#' head(pValue(iseede_table))
+#' head(log2FoldChange(iseede_table))
+#' head(averageLog2(iseede_table))
 NULL
 
 setClass("iSEEedgeRResults", contains = "DFrame")
@@ -83,33 +83,52 @@ setClass("iSEEedgeRResults", contains = "DFrame")
 #' @importFrom methods new
 #' @importFrom S4Vectors DataFrame
 iSEEedgeRResults <- function(data, row.names = rownames(data)) {
+  stopifnot(is(data, "TopTags"))
   df <- DataFrame(row.names=row.names)
   # Direct coercion to DataFrame fails because it picks up other named slots
   df[rownames(data), colnames(data)] <- as.data.frame(data)
   new("iSEEedgeRResults", df)
 }
 
+#' @importFrom S4Vectors setValidity2
+setValidity2("iSEEedgeRResults", function(.Object) {
+    msg <- character(0)
+
+    column_names <- c("logFC", "logCPM", "PValue")
+    for (name in column_names) {
+      if (!name %in% colnames(.Object)) {
+        msg <- c(msg, sprintf("'%s' must exist in colnames(.Object)", name))
+      }
+    }
+
+    if (length(msg)>0) {
+        return(msg)
+    }
+    TRUE
+})
+
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEEedgeRResults", function(object) {
   ans <- rep.int("<iSEEedgeRResults>", nrow(object))
+  ans
 })
 
 #' @export
-setMethod("pvalue", "iSEEedgeRResults", function(x) {
+setMethod("pValue", "iSEEedgeRResults", function(x) {
   out <- x[["PValue"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("log2foldchange", "iSEEedgeRResults", function(x) {
+setMethod("log2FoldChange", "iSEEedgeRResults", function(x) {
   out <- x[["logFC"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("log2average", "iSEEedgeRResults", function(x) {
+setMethod("averageLog2", "iSEEedgeRResults", function(x) {
   out <- x[["logCPM"]]
   names(out) <- rownames(x)
   out

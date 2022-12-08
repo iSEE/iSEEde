@@ -115,7 +115,7 @@ setMethod(".createObservers", "VolcanoPlot", function(x, se, input, session, pOb
 setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
-  
+  # nocov start
   .addSpecificTour(class(x), .contrastName, function(plot_name) {
     data.frame(
       rbind(
@@ -126,7 +126,7 @@ setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
       )
     )
   })
-  
+  # nocov end
   cached <- .getCachedCommonInfo(se, "VolcanoPlot")
   
   extra_inputs <- list(
@@ -155,12 +155,12 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
       "plot.data <- data.frame(row.names=rownames(se))",
-      "plot.data$Y <- -log10(iSEEde::pvalue(de_table))"
+      "plot.data$Y <- -log10(iSEEde::pValue(de_table))"
   )
   
   # Prepare X-axis data.
   x_lab <- "logFC"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2foldchange(de_table)"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2FoldChange(de_table)"
   
   plot_title <- x[[.contrastName]]
   

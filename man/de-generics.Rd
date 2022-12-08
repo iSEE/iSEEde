@@ -3,9 +3,9 @@
 \docType{methods}
 \name{de-generics}
 \alias{de-generics}
-\alias{pvalue}
-\alias{log2foldchange}
-\alias{log2average}
+\alias{pValue}
+\alias{log2FoldChange}
+\alias{averageLog2}
 \title{Generics for Differential Expression Results}
 \description{
 An overview of the generics for accessing common pieces of information in differential expression results.
@@ -13,16 +13,16 @@ An overview of the generics for accessing common pieces of information in differ
 \section{Definitions}{
 
 \itemize{
-\item \code{pvalue(x)} returns a numeric vector of raw p-values.
-\item \code{log2foldchange(x)} returns a numeric vector of log2-fold-change values.
-\item \code{log2average(x)} returns a numeric vector of average log2-expression values.
+\item \code{pValue(x)} returns a numeric vector of raw p-values.
+\item \code{log2FoldChange(x)} returns a numeric vector of log2-fold-change values.
+\item \code{averageLog2(x)} returns a numeric vector of average log2-expression values.
 }
 }
 
 \examples{
-showMethods(pvalue)
-showMethods(log2foldchange)
-showMethods(log2average)
+showMethods(pValue)
+showMethods(log2FoldChange)
+showMethods(averageLog2)
 }
 \author{
 Kevin Rue-Albrecht

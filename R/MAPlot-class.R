@@ -114,7 +114,7 @@ setMethod(".createObservers", "MAPlot", function(x, se, input, session, pObjects
 setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
   plot_name <- .getEncodedName(x)
   input_FUN <- function(field) paste0(plot_name, "_", field)
-  
+  # nocov start
   .addSpecificTour(class(x), .contrastName, function(plot_name) {
     data.frame(
       rbind(
@@ -125,7 +125,7 @@ setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
       )
     )
   })
-  
+  # nocov end
   cached <- .getCachedCommonInfo(se, "MAPlot")
   
   extra_inputs <- list(
@@ -154,12 +154,12 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
     "plot.data <- data.frame(row.names=rownames(se))",
-    "plot.data$Y <- iSEEde::log2foldchange(de_table)"
+    "plot.data$Y <- iSEEde::log2FoldChange(de_table)"
   )
   
   # Prepare X-axis data.
   x_lab <- "AveExpr"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2average(de_table)"
+  data_cmds[["x"]] <- "plot.data$X <- iSEEde::averageLog2(de_table)"
   
   plot_title <- x[[.contrastName]]
   
