@@ -15,6 +15,7 @@
 #' 
 #' @section Supported methods:
 #' \itemize{
+#' \item `embedResults(x, se, name, ...)` embeds `x` in the column `name` of `rowData(se)[["iSEEde"]]`.
 #' \item `pValue(x)` returns the vector of raw p-values.
 #' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
 #' \item `averageLog2(x)` returns the vector of average log2-expression values.
@@ -30,6 +31,7 @@
 #' pValue,iSEELimmaResults-method
 #' log2FoldChange,iSEELimmaResults-method
 #' averageLog2,iSEELimmaResults-method
+#' embedResults,iSEELimmaResults-method
 #' 
 #' @examples
 #' library(limma)
