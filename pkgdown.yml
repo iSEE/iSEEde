@@ -2,7 +2,8 @@ pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  annotations: annotations.html
   iSEEde: iSEEde.html
   methods: methods.html
-last_built: 2022-12-08T16:09Z
+last_built: 2022-12-08T23:15Z
 

@@ -35,6 +35,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/annotations.html">Using annotations to facilitate interactive exploration</a>
+    </li>
+    <li>
       <a href="../articles/methods.html">Supported differential expression methods</a>
     </li>
   </ul></li>
@@ -68,12 +71,45 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">embedResults</span><span class="op">(</span><span class="va">x</span>, <span class="va">se</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">embedResultsMethods</span></span></code></pre></div>
+<span><span class="va">embedResultsMethods</span></span>
+<span></span>
+<span><span class="co"># S4 method for data.frame</span></span>
+<span><span class="fu">embedResults</span><span class="op">(</span><span class="va">x</span>, <span class="va">se</span>, <span class="va">name</span>, <span class="va">class</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="format">
     <h2>Format</h2>
     <p>An object of class <code>character</code> of length 1.</p>
+    </div>
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>x</dt>
+<dd><p>Object to be embedded.</p></dd>
+
+
+<dt>se</dt>
+<dd><p>A <a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a> object.</p></dd>
+
+
+<dt>name</dt>
+<dd><p>Identifier for the embedded object.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Arguments passed to and from other methods.</p></dd>
+
+
+<dt>class</dt>
+<dd><p>Class to use for embedding <code>x</code>. Only used when <code>class(x)</code> does
+not uniquely identify the package that generated the object.</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>An updated <a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a> object that contains the
+embedded object.</p>
     </div>
     <div id="definitions">
     <h2>Definitions</h2>
