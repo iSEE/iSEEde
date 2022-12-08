@@ -105,7 +105,7 @@ setMethod("showAsCell", "iSEEDESeq2Results", function(object) {
 })
 
 #' @export
-setMethod("pvalue", "iSEEDESeq2Results", function(x) {
+setMethod("pValue", "iSEEDESeq2Results", function(x) {
   out <- x[["pvalue"]]
   names(out) <- rownames(x)
   out

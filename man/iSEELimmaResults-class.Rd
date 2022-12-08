@@ -6,9 +6,9 @@
 \alias{iSEELimmaResults-class}
 \alias{iSEELimmaResults}
 \alias{showAsCell,iSEELimmaResults-method}
-\alias{pvalue,iSEELimmaResults-method}
-\alias{log2foldchange,iSEELimmaResults-method}
-\alias{log2average,iSEELimmaResults-method}
+\alias{pValue,iSEELimmaResults-method}
+\alias{log2FoldChange,iSEELimmaResults-method}
+\alias{averageLog2,iSEELimmaResults-method}
 \alias{embedResults,data.frame-method}
 \alias{embedResults,iSEELimmaResults-method}
 \title{The iSEELimmaResults class}
@@ -37,9 +37,9 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{pvalue(x)} returns the vector of raw p-values.
-\item \code{log2foldchange(x)} returns the vector of log2-fold-change values.
-\item \code{log2average(x)} returns the vector of average log2-expression values.
+\item \code{pValue(x)} returns the vector of raw p-values.
+\item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
+\item \code{averageLog2(x)} returns the vector of average log2-expression values.
 }
 }
 
@@ -81,9 +81,9 @@ se
 # Methods ----
 ##
 
-head(pvalue(iseede_table))
-head(log2foldchange(iseede_table))
-head(log2average(iseede_table))
+head(pValue(iseede_table))
+head(log2FoldChange(iseede_table))
+head(averageLog2(iseede_table))
 }
 \author{
 Kevin Rue-Albrecht
