@@ -9,10 +9,11 @@ test_that("iSEEDESeq2Results() constructor works", {
 test_that("show(iSEEDESeq2Results) works", {
   
   x <- iSEEDESeq2Results(res_deseq2, row.names = rownames(se))
-  x <- DataFrame(DESeq2 = I(x))
+  out <- DataFrame(row.names = rownames(se))
+  out[["DESeq2"]] <- x
   
-  expect_output(show(x), "DataFrame with 100 rows and 1 column")
-  expect_output(show(x), "<iSEEDESeq2Results>")
+  expect_output(show(out), "DataFrame with 100 rows and 1 column")
+  expect_output(show(out), "<iSEEDESeq2Results>")
   
 })
 

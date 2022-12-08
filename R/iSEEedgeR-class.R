@@ -83,6 +83,7 @@ setClass("iSEEedgeRResults", contains = "DFrame")
 #' @importFrom methods new
 #' @importFrom S4Vectors DataFrame
 iSEEedgeRResults <- function(data, row.names = rownames(data)) {
+  stopifnot(is(data, "TopTags"))
   df <- DataFrame(row.names=row.names)
   # Direct coercion to DataFrame fails because it picks up other named slots
   df[rownames(data), colnames(data)] <- as.data.frame(data)
@@ -109,6 +110,7 @@ setValidity2("iSEEedgeRResults", function(.Object) {
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEEedgeRResults", function(object) {
   ans <- rep.int("<iSEEedgeRResults>", nrow(object))
+  ans
 })
 
 #' @export

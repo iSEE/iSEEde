@@ -77,8 +77,9 @@ setClass("iSEEDESeq2Results", contains = "DFrame")
 #' @importFrom methods new
 #' @importFrom S4Vectors DataFrame
 iSEEDESeq2Results <- function(data, row.names = rownames(data)) {
+  stopifnot(is(data, "DESeqResults"))
   df <- DataFrame(row.names=row.names)
-  df[rownames(data), colnames(data)] <- as.data.frame(data)
+  df[rownames(data), colnames(data)] <- data
   new("iSEEDESeq2Results", df)
 }
 
@@ -102,6 +103,7 @@ setValidity2("iSEEDESeq2Results", function(.Object) {
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEEDESeq2Results", function(object) {
   ans <- rep.int("<iSEEDESeq2Results>", nrow(object))
+  ans
 })
 
 #' @export

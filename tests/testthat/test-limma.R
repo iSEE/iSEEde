@@ -6,13 +6,14 @@ test_that("iSEELimmaResults() constructor works", {
   
 })
 
-test_that("show(iSEELimmaResults) works", {
+test_that("showAsCell(iSEELimmaResults) works", {
   
   x <- iSEELimmaResults(res_limma, row.names = rownames(se))
-  x <- DataFrame(limma = I(x))
+  out <- DataFrame(row.names = rownames(se))
+  out[["limma"]] <- x
   
-  expect_output(show(x), "DataFrame with 100 rows and 1 column")
-  expect_output(show(x), "<iSEELimmaResults>")
+  expect_output(show(out), "DataFrame with 100 rows and 1 column")
+  expect_output(show(out), "<iSEELimmaResults>")
   
 })
 

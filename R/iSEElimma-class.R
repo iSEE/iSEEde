@@ -106,6 +106,7 @@ setValidity2("iSEELimmaResults", function(.Object) {
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEELimmaResults", function(object) {
   ans <- rep.int("<iSEELimmaResults>", nrow(object))
+  ans
 })
 
 #' @export

@@ -9,10 +9,11 @@ test_that("iSEEedgeRResults() constructor works", {
 test_that("show(iSEEedgeRResults) works", {
   
   x <- iSEEedgeRResults(res_edger, row.names = rownames(se))
-  x <- DataFrame(edgeR = I(x))
+  out <- DataFrame(row.names = rownames(se))
+  out[["edgeR"]] <- x
   
-  expect_output(show(x), "DataFrame with 100 rows and 1 column")
-  expect_output(show(x), "<iSEEedgeRResults>")
+  expect_output(show(out), "DataFrame with 100 rows and 1 column")
+  expect_output(show(out), "<iSEEedgeRResults>")
   
 })
 
