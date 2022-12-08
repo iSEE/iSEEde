@@ -83,7 +83,7 @@ NULL
 setClass("iSEEedgeRResults", contains = "DFrame")
 
 #' @export
-#' @importFrom methods new
+#' @importFrom methods new is
 #' @importFrom S4Vectors DataFrame
 iSEEedgeRResults <- function(data, row.names = rownames(data)) {
   stopifnot(is(data, "TopTags"))

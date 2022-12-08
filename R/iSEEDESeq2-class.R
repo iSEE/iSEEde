@@ -77,7 +77,7 @@ NULL
 setClass("iSEEDESeq2Results", contains = "DFrame")
 
 #' @export
-#' @importFrom methods new
+#' @importFrom methods new is
 #' @importFrom S4Vectors DataFrame
 iSEEDESeq2Results <- function(data, row.names = rownames(data)) {
   stopifnot(is(data, "DESeqResults"))
