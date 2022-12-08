@@ -31,8 +31,10 @@ Suggests:
     covr,
     knitr,
     limma,
+    org.Hs.eg.db,
     RefManageR,
     rmarkdown,
+    scater,
     sessioninfo,
     statmod,
     testthat (>= 3.0.0)

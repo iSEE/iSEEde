@@ -1,0 +1,231 @@
+---
+title: "Using annotations to facilitate interactive exploration"
+author: 
+  - name: Kevin Rue-Albrecht
+    affiliation:
+    - University of Oxford
+    email: kevin.rue-albrecht@imm.ox.ac.uk
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('iSEEde')`"
+vignette: >
+  %\VignetteIndexEntry{Using annotations to facilitate interactive exploration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+options(width = 100)
+```
+
+```{r, eval=!exists("SCREENSHOT"), include=FALSE}
+SCREENSHOT <- function(x, ...) knitr::include_graphics(x)
+```
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Track time spent on making the vignette
+startTime <- Sys.time()
+
+## Bib setup
+library("RefManageR")
+
+## Write bibliography information
+bib <- c(
+    R = citation(),
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    testthat = citation("testthat")[1],
+    iSEEde = citation("iSEEde")[1]
+)
+```
+
+# Example data
+
+We use the `?airway` data set.
+
+We briefly adjust the reference level of the treatment factor to the untreated condition.
+
+```{r, message=FALSE, warning=FALSE}
+library("airway")
+data("airway")
+airway$dex <- relevel(airway$dex, "untrt")
+```
+
+# Annotating data
+
+This section demonstrates one of many possible workflows for adding annotations to the data set.
+Those annotations are meant to make 
+
+First, we make a copy of the Ensembl identifiers -- currently stored in the `rownames()` -- to a column in the `rowData()` component.
+
+```{r}
+rowData(airway)[["ENSEMBL"]] <- rownames(airway)
+```
+
+Then, we use the `r BiocStyle::Biocpkg("org.Hs.eg.db")` package to map the Ensembl identifiers to gene symbols.
+We store those gene symbols as an additional column of the `rowData()` component.
+
+```{r, message=FALSE, warning=FALSE}
+library("org.Hs.eg.db")
+rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway), "SYMBOL", "ENSEMBL")
+```
+
+Next, we use the `uniquifyFeatureNames()` function of the `r BiocStyle::Biocpkg("scater")` package to replace the `rownames()` by a unique identifier that is generated as follows:
+
+- The gene symbol if it is unique.
+- A concatenate of the gene symbol and Ensembl gene identifier if the gene symbol is not unique.
+- The Ensembl identifier if the gene symbol is not available.
+
+```{r, message=FALSE, warning=FALSE}
+library("scater")
+rownames(airway) <- uniquifyFeatureNames(
+  ID = rowData(airway)[["ENSEMBL"]],
+  names = rowData(airway)[["SYMBOL"]]
+)
+airway
+```
+
+# Differential expression
+
+For this example, we run a standard Limma-Voom analysis using `limma::voom()`, `limma::lmFit()`, `limma::makeContrasts()`, and `limma::eBayes()`.
+
+Before that though, we use `edgeR::filterByExpr()` to filter genes by expression level.
+
+The differential expression results are fetched using `limma::topTable()`.
+
+```{r, message=FALSE, warning=FALSE}
+library("edgeR")
+
+counts <- assay(airway, "counts")
+design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
+
+keep <- filterByExpr(counts, design)
+v <- voom(counts[keep,], design, plot=FALSE)
+fit <- lmFit(v, design)
+contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
+tmp <- contrasts.fit(fit, contr)
+tmp <- eBayes(tmp)
+res_limma <- topTable(tmp, sort.by = "P", n = Inf)
+head(res_limma)
+```
+
+Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+
+```{r}
+library(iSEEde)
+airway <- embedResults(res_limma, airway, name = "dextrt - dexuntrt", class = "limma")
+rowData(airway)
+```
+
+# Live app
+
+In this example, we use `iSEE::panelDefaults()` to specify `rowData()` fields to show in the tooltip that is displayed when hovering a data point.
+
+The application is then configured to display the volcano plot and MA plot for the same contrast.
+
+Finally, the configured app is launched.
+
+```{r}
+library(iSEE)
+
+panelDefaults(
+    TooltipRowData = c("SYMBOL", "ENSEMBL")
+)
+
+app <- iSEE(airway, initial = list(
+  VolcanoPlot(ContrastName="dextrt - dexuntrt", PanelWidth = 6L),
+  MAPlot(ContrastName="dextrt - dexuntrt", PanelWidth = 6L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
+```
+
+```{r, echo=FALSE, out.width="100%"}
+SCREENSHOT("screenshots/using_annotations.png", delay=20)
+```
+
+# Reproducibility
+
+The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible thanks to:
+
+* R `r Citep(bib[["R"]])`
+* `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+* `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+* `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
+* `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
+* `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
+
+This package was developed using `r BiocStyle::Biocpkg("biocthis")`.
+
+
+Code for creating the vignette
+
+```{r createVignette, eval=FALSE}
+## Create the vignette
+library("rmarkdown")
+system.time(render("methods.Rmd", "BiocStyle::html_document"))
+
+## Extract the R code
+library("knitr")
+knit("methods.Rmd", tangle = TRUE)
+```
+
+Date the vignette was generated.
+
+```{r reproduce1, echo=FALSE}
+## Date the vignette was generated
+Sys.time()
+```
+
+Wallclock time spent generating the vignette.
+
+```{r reproduce2, echo=FALSE}
+## Processing time in seconds
+totalTime <- diff(c(startTime, Sys.time()))
+round(totalTime, digits = 3)
+```
+
+`R` session information.
+
+```{r reproduce3, echo=FALSE}
+## Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```
+
+
+
+# Bibliography
+
+This vignette was generated using `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the scenes.
+
+Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
+
+```{r vignetteBiblio, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
+## Print bibliography
+PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
+```
+
+<!-- Links -->
+
+[scheme-wikipedia]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
+[iana-uri]: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
