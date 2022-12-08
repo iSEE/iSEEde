@@ -6,6 +6,7 @@
 \alias{embedResults}
 \alias{embedResults,ANY-method}
 \alias{embedResultsMethods}
+\alias{embedResults,data.frame-method}
 \title{Generics for Embbedding Results into a SummarizedExperiment Object}
 \format{
 An object of class \code{character} of length 1.
@@ -14,6 +15,24 @@ An object of class \code{character} of length 1.
 embedResults(x, se, name, ...)
 
 embedResultsMethods
+
+\S4method{embedResults}{data.frame}(x, se, name, class, ...)
+}
+\arguments{
+\item{x}{Object to be embedded.}
+
+\item{se}{A \linkS4class{SummarizedExperiment} object.}
+
+\item{name}{Identifier for the embedded object.}
+
+\item{...}{Arguments passed to and from other methods.}
+
+\item{class}{Class to use for embedding \code{x}. Only used when \code{class(x)} does
+not uniquely identify the package that generated the object.}
+}
+\value{
+An updated \linkS4class{SummarizedExperiment} object that contains the
+embedded object.
 }
 \description{
 An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.

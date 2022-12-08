@@ -15,6 +15,7 @@
 #' 
 #' @section Supported methods:
 #' \itemize{
+#' \item `embedResults(x, se, name, ...)` embeds `x` in the column `name` of `rowData(se)[["iSEEde"]]`.
 #' \item `pValue(x)` returns the vector of raw p-values.
 #' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
 #' \item `averageLog2(x)` returns the vector of average log2-expression values.
@@ -30,6 +31,8 @@
 #' pValue,iSEEDESeq2Results-method
 #' log2FoldChange,iSEEDESeq2Results-method
 #' averageLog2,iSEEDESeq2Results-method
+#' embedResults,iSEEDESeq2Results-method
+#' embedResults,DESeqResults-method
 #' 
 #' @examples
 #' library(DESeq2)
@@ -74,7 +77,7 @@ NULL
 setClass("iSEEDESeq2Results", contains = "DFrame")
 
 #' @export
-#' @importFrom methods new
+#' @importFrom methods new is
 #' @importFrom S4Vectors DataFrame
 iSEEDESeq2Results <- function(data, row.names = rownames(data)) {
   stopifnot(is(data, "DESeqResults"))
