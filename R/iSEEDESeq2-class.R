@@ -15,9 +15,9 @@
 #' 
 #' @section Supported methods:
 #' \itemize{
-#' \item `pvalue(x)` returns the vector of raw p-values.
-#' \item `log2foldchange(x)` returns the vector of log2-fold-change values.
-#' \item `log2average(x)` returns the vector of average log2-expression values.
+#' \item `pValue(x)` returns the vector of raw p-values.
+#' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
+#' \item `averageLog2(x)` returns the vector of average log2-expression values.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -27,9 +27,9 @@
 #' @aliases
 #' iSEEDESeq2Results
 #' showAsCell,iSEEDESeq2Results-method
-#' pvalue,iSEEDESeq2Results-method
-#' log2foldchange,iSEEDESeq2Results-method
-#' log2average,iSEEDESeq2Results-method
+#' pValue,iSEEDESeq2Results-method
+#' log2FoldChange,iSEEDESeq2Results-method
+#' averageLog2,iSEEDESeq2Results-method
 #' 
 #' @examples
 #' library(DESeq2)
@@ -66,9 +66,9 @@
 #' # Methods ----
 #' ##
 #' 
-#' head(pvalue(iseede_table))
-#' head(log2foldchange(iseede_table))
-#' head(log2average(iseede_table))
+#' head(pValue(iseede_table))
+#' head(log2FoldChange(iseede_table))
+#' head(averageLog2(iseede_table))
 NULL
 
 setClass("iSEEDESeq2Results", contains = "DFrame")
@@ -112,14 +112,14 @@ setMethod("pvalue", "iSEEDESeq2Results", function(x) {
 })
 
 #' @export
-setMethod("log2foldchange", "iSEEDESeq2Results", function(x) {
+setMethod("log2FoldChange", "iSEEDESeq2Results", function(x) {
   out <- x[["log2FoldChange"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("log2average", "iSEEDESeq2Results", function(x) {
+setMethod("averageLog2", "iSEEDESeq2Results", function(x) {
   out <- log2(x[["baseMean"]])
   names(out) <- rownames(x)
   out

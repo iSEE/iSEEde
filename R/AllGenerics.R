@@ -4,35 +4,35 @@
 #' 
 #' @section Definitions:
 #' \itemize{
-#' \item `pvalue(x)` returns a numeric vector of raw p-values.
-#' \item `log2foldchange(x)` returns a numeric vector of log2-fold-change values.
-#' \item `log2average(x)` returns a numeric vector of average log2-expression values.
+#' \item `pValue(x)` returns a numeric vector of raw p-values.
+#' \item `log2FoldChange(x)` returns a numeric vector of log2-fold-change values.
+#' \item `averageLog2(x)` returns a numeric vector of average log2-expression values.
 #' }
 #' 
 #' @docType methods
-#' @aliases pvalue log2foldchange log2average
+#' @aliases pValue log2FoldChange averageLog2
 #' @name de-generics
 #' @author Kevin Rue-Albrecht
 #' 
 #' @examples 
-#' showMethods(pvalue)
-#' showMethods(log2foldchange)
-#' showMethods(log2average)
+#' showMethods(pValue)
+#' showMethods(log2FoldChange)
+#' showMethods(averageLog2)
 NULL
 
 setGeneric(
-  "pvalue",
-  function(x) standardGeneric("pvalue")
+  "pValue",
+  function(x) standardGeneric("pValue")
 )
 
 setGeneric(
-  "log2foldchange",
-  function(x) standardGeneric("log2foldchange")
+  "log2FoldChange",
+  function(x) standardGeneric("log2FoldChange")
 )
 
 setGeneric(
-  "log2average",
-  function(x) standardGeneric("log2average")
+  "averageLog2",
+  function(x) standardGeneric("averageLog2")
 )
 
 #' Generics for Embbedding Results into a SummarizedExperiment Object

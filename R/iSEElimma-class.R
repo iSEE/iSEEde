@@ -15,9 +15,9 @@
 #' 
 #' @section Supported methods:
 #' \itemize{
-#' \item `pvalue(x)` returns the vector of raw p-values.
-#' \item `log2foldchange(x)` returns the vector of log2-fold-change values.
-#' \item `log2average(x)` returns the vector of average log2-expression values.
+#' \item `pValue(x)` returns the vector of raw p-values.
+#' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
+#' \item `averageLog2(x)` returns the vector of average log2-expression values.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -27,9 +27,9 @@
 #' @aliases
 #' iSEELimmaResults
 #' showAsCell,iSEELimmaResults-method
-#' pvalue,iSEELimmaResults-method
-#' log2foldchange,iSEELimmaResults-method
-#' log2average,iSEELimmaResults-method
+#' pValue,iSEELimmaResults-method
+#' log2FoldChange,iSEELimmaResults-method
+#' averageLog2,iSEELimmaResults-method
 #' 
 #' @examples
 #' library(limma)
@@ -70,9 +70,9 @@
 #' # Methods ----
 #' ##
 #' 
-#' head(pvalue(iseede_table))
-#' head(log2foldchange(iseede_table))
-#' head(log2average(iseede_table))
+#' head(pValue(iseede_table))
+#' head(log2FoldChange(iseede_table))
+#' head(averageLog2(iseede_table))
 NULL
 
 setClass("iSEELimmaResults", contains = "DFrame")
@@ -109,21 +109,21 @@ setMethod("showAsCell", "iSEELimmaResults", function(object) {
 })
 
 #' @export
-setMethod("pvalue", "iSEELimmaResults", function(x) {
+setMethod("pValue", "iSEELimmaResults", function(x) {
   out <- x[["P.Value"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("log2foldchange", "iSEELimmaResults", function(x) {
+setMethod("log2FoldChange", "iSEELimmaResults", function(x) {
   out <- x[["logFC"]]
   names(out) <- rownames(x)
   out
 })
 
 #' @export
-setMethod("log2average", "iSEELimmaResults", function(x) {
+setMethod("averageLog2", "iSEELimmaResults", function(x) {
   out <- x[["AveExpr"]]
   names(out) <- rownames(x)
   out
