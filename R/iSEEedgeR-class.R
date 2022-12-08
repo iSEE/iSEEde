@@ -89,6 +89,23 @@ iSEEedgeRResults <- function(data, row.names = rownames(data)) {
   new("iSEEedgeRResults", df)
 }
 
+#' @importFrom S4Vectors setValidity2
+setValidity2("iSEEedgeRResults", function(.Object) {
+    msg <- character(0)
+
+    column_names <- c("logFC", "logCPM", "PValue")
+    for (name in column_names) {
+      if (!name %in% colnames(.Object)) {
+        msg <- c(msg, sprintf("'%s' must exist in colnames(.Object)", name))
+      }
+    }
+
+    if (length(msg)>0) {
+        return(msg)
+    }
+    TRUE
+})
+
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEEedgeRResults", function(object) {
   ans <- rep.int("<iSEEedgeRResults>", nrow(object))

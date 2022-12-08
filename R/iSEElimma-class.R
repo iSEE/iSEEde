@@ -86,6 +86,23 @@ iSEELimmaResults <- function(data, row.names = rownames(data)) {
   new("iSEELimmaResults", df)
 }
 
+#' @importFrom S4Vectors setValidity2
+setValidity2("iSEELimmaResults", function(.Object) {
+    msg <- character(0)
+
+    column_names <- c("logFC", "AveExpr", "P.Value")
+    for (name in column_names) {
+      if (!name %in% colnames(.Object)) {
+        msg <- c(msg, sprintf("'%s' must exist in colnames(.Object)", name))
+      }
+    }
+
+    if (length(msg)>0) {
+        return(msg)
+    }
+    TRUE
+})
+
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEELimmaResults", function(object) {
   ans <- rep.int("<iSEELimmaResults>", nrow(object))

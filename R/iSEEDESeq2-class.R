@@ -78,9 +78,26 @@ setClass("iSEEDESeq2Results", contains = "DFrame")
 #' @importFrom S4Vectors DataFrame
 iSEEDESeq2Results <- function(data, row.names = rownames(data)) {
   df <- DataFrame(row.names=row.names)
-  df[rownames(data), colnames(data)] <- data
+  df[rownames(data), colnames(data)] <- as.data.frame(data)
   new("iSEEDESeq2Results", df)
 }
+
+#' @importFrom S4Vectors setValidity2
+setValidity2("iSEEDESeq2Results", function(.Object) {
+    msg <- character(0)
+
+    column_names <- c("baseMean", "log2FoldChange", "pvalue")
+    for (name in column_names) {
+      if (!name %in% colnames(.Object)) {
+        msg <- c(msg, sprintf("'%s' must exist in colnames(.Object)", name))
+      }
+    }
+
+    if (length(msg)>0) {
+        return(msg)
+    }
+    TRUE
+})
 
 #' @importMethodsFrom S4Vectors showAsCell
 setMethod("showAsCell", "iSEEDESeq2Results", function(object) {
