@@ -36,10 +36,10 @@ It provides methods to access common differential expression statistics (e.g., l
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/annotations.html">Using annotations to facilitate interactive exploration</a>
+      <a href="../articles/methods.html">Supported differential expression methods</a>
     </li>
     <li>
-      <a href="../articles/methods.html">Supported differential expression methods</a>
+      <a href="../articles/annotations.html">Using annotations to facilitate interactive exploration</a>
     </li>
   </ul></li>
 <li>
@@ -129,13 +129,13 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">fit</span>, coef<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              logFC     AveExpr         t      P.Value   adj.P.Val          B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 1   2.0627309  0.95256746  9.669560 2.162334e-05 0.002162334  3.3570208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 2   1.8055274  1.12882793  5.857237 5.557497e-04 0.027787485 -0.1126425</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 90 -0.8024244 -0.25774003 -3.257558 1.330189e-02 0.443396445 -3.5173829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 96  0.6654706  0.07155294  2.890806 2.248722e-02 0.479916252 -4.0663948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 91 -0.5123215  0.18453093 -2.811812 2.523027e-02 0.479916252 -4.1856773</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 11  0.4693597 -0.02519788  2.685728 3.035647e-02 0.479916252 -4.3764197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              logFC    AveExpr         t      P.Value   adj.P.Val         B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 1   2.0235906  0.9213969  7.314774 6.836367e-05 0.006836367  2.140383</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 2   2.1541147  1.3861750  4.098803 3.181169e-03 0.159058432 -1.861249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 65  0.8446826  0.3274050  3.049442 1.515535e-02 0.505178474 -3.472711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 61 -0.5709687 -0.1205907 -2.659988 2.788981e-02 0.531301692 -4.089037</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 14 -0.6280599 -0.2221077 -2.618152 2.979536e-02 0.531301692 -4.155134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 90  0.6420765 -0.1309167  2.575429 3.187810e-02 0.531301692 -4.222544</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span><span class="co"># iSEELimmaResults ----</span></span></span>
@@ -166,13 +166,13 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Gene 1       Gene 2       Gene 3       Gene 4       Gene 5       Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.162334e-05 5.557497e-04           NA 9.662350e-02           NA           NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.836367e-05 3.181169e-03           NA           NA           NA           NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene 1    Gene 2    Gene 3    Gene 4    Gene 5    Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.0627309 1.8055274        NA 0.9394575        NA        NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene 1   Gene 2   Gene 3   Gene 4   Gene 5   Gene 6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.023591 2.154115       NA       NA       NA       NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Gene 1    Gene 2    Gene 3    Gene 4    Gene 5    Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9525675 1.1288279        NA 0.1645116        NA        NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9213969 1.3861750        NA        NA        NA        NA </span>
 </code></pre></div>
     </div>
   </div>
