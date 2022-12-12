@@ -45,12 +45,12 @@ library(DESeq2)
 # From DESeq2::DESeq() ----
 ##
 
-cnts <- matrix(rnbinom(n=1000, mu=100, size=1/0.5), ncol=10)
-rownames(cnts) <- paste("Gene",1:100)
-cond <- factor(rep(1:2, each=5))
+cnts <- matrix(rnbinom(n = 1000, mu = 100, size = 1 / 0.5), ncol = 10)
+rownames(cnts) <- paste("Gene", 1:100)
+cond <- factor(rep(1:2, each = 5))
 
 # object construction
-dds <- DESeqDataSetFromMatrix(cnts, DataFrame(cond), ~ cond)
+dds <- DESeqDataSetFromMatrix(cnts, DataFrame(cond), ~cond)
 
 # standard analysis
 dds <- DESeq(dds)
@@ -62,10 +62,10 @@ head(res)
 ##
 
 # Package the results in a iSEEDESeq2Results object
-iseede_table <- iSEEDESeq2Results(res, row.names=rownames(dds))
+iseede_table <- iSEEDESeq2Results(res, row.names = rownames(dds))
 
 # Store the iSEEDESeq2Results object in the SummarizedExperiment rowData
-rowData(dds)[["iSEEde"]] <- DataFrame(DESeq2=I(iseede_table))
+rowData(dds)[["iSEEde"]] <- DataFrame(DESeq2 = I(iseede_table))
 
 dds
 

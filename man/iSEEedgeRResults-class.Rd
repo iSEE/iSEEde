@@ -47,9 +47,9 @@ library(SummarizedExperiment)
 ##
 
 # generate raw counts from NB, create list object
-y <- matrix(rnbinom(80,size=1,mu=10),nrow=20)
-d <- DGEList(counts=y,group=rep(1:2,each=2),lib.size=rep(c(1000:1001),2))
-rownames(d$counts) <- paste("gene",1:nrow(d$counts),sep=".")
+y <- matrix(rnbinom(80, size = 1, mu = 10), nrow = 20)
+d <- DGEList(counts = y, group = rep(1:2, each = 2), lib.size = rep(c(1000:1001), 2))
+rownames(d$counts) <- paste("gene", 1:nrow(d$counts), sep = ".")
 
 # estimate common dispersion and find differences in expression
 # here we demonstrate the 'exact' methods, but the use of topTags is
@@ -65,13 +65,13 @@ res <- topTags(de)
 ##
 
 # Simulate the original SummarizedExperiment object
-se <- SummarizedExperiment(assays = list(counts=d$counts))
+se <- SummarizedExperiment(assays = list(counts = d$counts))
 
 # Package the results in a iSEEedgeRResults object
-iseede_table <- iSEEedgeRResults(res, row.names=rownames(se))
+iseede_table <- iSEEedgeRResults(res, row.names = rownames(se))
 
 # Store the iSEEedgeRResults object in the SummarizedExperiment rowData
-rowData(se)[["iSEEde"]] <- DataFrame(edgeR=I(iseede_table))
+rowData(se)[["iSEEde"]] <- DataFrame(edgeR = I(iseede_table))
 
 se
 
