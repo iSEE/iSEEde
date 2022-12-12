@@ -34,7 +34,7 @@ Suggests:
     org.Hs.eg.db,
     RefManageR,
     rmarkdown,
-    scater,
+    scuttle,
     sessioninfo,
     statmod,
     testthat (>= 3.0.0)

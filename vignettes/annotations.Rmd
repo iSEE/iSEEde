@@ -55,43 +55,48 @@ bib <- c(
 
 # Example data
 
-We use the `?airway` data set.
-
-We briefly adjust the reference level of the treatment factor to the untreated condition.
+We use the `?airway` data set. 
 
 ```{r, message=FALSE, warning=FALSE}
 library("airway")
 data("airway")
-airway$dex <- relevel(airway$dex, "untrt")
 ```
 
 # Annotating data
 
-This section demonstrates one of many possible workflows for adding annotations to the data set.
-Those annotations are meant to make 
+This section demonstrates one of many possible workflows for adding annotations
+to the data set. Those annotations are meant to make it easier for users to
+identify genes of interest, e.g. by displaying both gene symbols and ENSEMBL 
+gene identifiers as tooltips in the interactive browser.
 
-First, we make a copy of the Ensembl identifiers -- currently stored in the `rownames()` -- to a column in the `rowData()` component.
+First, we make a copy of the Ensembl identifiers -- currently stored in the 
+`rownames()` -- to a column in the `rowData()` component.
 
 ```{r}
 rowData(airway)[["ENSEMBL"]] <- rownames(airway)
 ```
 
-Then, we use the `r BiocStyle::Biocpkg("org.Hs.eg.db")` package to map the Ensembl identifiers to gene symbols.
-We store those gene symbols as an additional column of the `rowData()` component.
+Then, we use the `r BiocStyle::Biocpkg("org.Hs.eg.db")` package to map the 
+Ensembl identifiers to gene symbols. We store those gene symbols as an
+additional column of the `rowData()` component.
 
 ```{r, message=FALSE, warning=FALSE}
 library("org.Hs.eg.db")
-rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway), "SYMBOL", "ENSEMBL")
+rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway),
+                                      "SYMBOL", "ENSEMBL")
 ```
 
-Next, we use the `uniquifyFeatureNames()` function of the `r BiocStyle::Biocpkg("scater")` package to replace the `rownames()` by a unique identifier that is generated as follows:
+Next, we use the `uniquifyFeatureNames()` function of the 
+`r BiocStyle::Biocpkg("scuttle")` package to replace the `rownames()` by a
+unique identifier that is generated as follows:
 
 - The gene symbol if it is unique.
-- A concatenate of the gene symbol and Ensembl gene identifier if the gene symbol is not unique.
+- A concatenate of the gene symbol and Ensembl gene identifier if the gene
+  symbol is not unique.
 - The Ensembl identifier if the gene symbol is not available.
 
 ```{r, message=FALSE, warning=FALSE}
-library("scater")
+library("scuttle")
 rownames(airway) <- uniquifyFeatureNames(
   ID = rowData(airway)[["ENSEMBL"]],
   names = rowData(airway)[["SYMBOL"]]
@@ -101,25 +106,30 @@ airway
 
 # Differential expression
 
-For this example, we run a standard Limma-Voom analysis using `limma::voom()`, `limma::lmFit()`, `limma::makeContrasts()`, and `limma::eBayes()`.
+We first use `edgeR::filterByExpr()` to remove genes whose counts are too low to
+support a rigorous differential expression analysis. Then we run a standard 
+Limma-Voom analysis using `edgeR::voomLmFit()`, `limma::makeContrasts()`, and
+`limma::eBayes()`.  (Alternatively, we could have used `limma::treat()` instead
+of `limma::eBayes()`.)
 
-Before that though, we use `edgeR::filterByExpr()` to filter genes by expression level.
+The linear model includes the `dex` and `cell` covariates, indicating the
+treatment conditions and cell types, respectively. Here, we are interested in 
+differences between treatments, adjusted by cell type, and define this
+comparison as the `dextrt - dexuntrt` contrast.
 
-The differential expression results are fetched using `limma::topTable()`.
+The final differential expression results are fetched using `limma::topTable()`.
 
 ```{r, message=FALSE, warning=FALSE}
 library("edgeR")
 
-counts <- assay(airway, "counts")
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
-keep <- filterByExpr(counts, design)
-v <- voom(counts[keep,], design, plot=FALSE)
-fit <- lmFit(v, design)
-contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
-tmp <- contrasts.fit(fit, contr)
-tmp <- eBayes(tmp)
-res_limma <- topTable(tmp, sort.by = "P", n = Inf)
+keep <- filterByExpr(airway, design)
+fit <- voomLmFit(airway[keep,], design, plot=FALSE)
+contr <- makeContrasts("dextrt - dexuntrt", levels = design)
+fit <- contrasts.fit(fit, contr)
+fit <- eBayes(fit)
+res_limma <- topTable(fit, sort.by = "P", n = Inf)
 head(res_limma)
 ```
 
@@ -127,15 +137,18 @@ Then, we embed this set of differential expression results in the `airway` objec
 
 ```{r}
 library(iSEEde)
-airway <- embedResults(res_limma, airway, name = "dextrt - dexuntrt", class = "limma")
+airway <- embedResults(res_limma, airway, name = "dextrt - dexuntrt", 
+                       class = "limma")
 rowData(airway)
 ```
 
 # Live app
 
-In this example, we use `iSEE::panelDefaults()` to specify `rowData()` fields to show in the tooltip that is displayed when hovering a data point.
+In this example, we use `iSEE::panelDefaults()` to specify `rowData()` fields to
+show in the tooltip that is displayed when hovering a data point.
 
-The application is then configured to display the volcano plot and MA plot for the same contrast.
+The application is then configured to display the volcano plot and MA plot for
+the same contrast.
 
 Finally, the configured app is launched.
 
@@ -162,7 +175,8 @@ SCREENSHOT("screenshots/using_annotations.png", delay=20)
 
 # Reproducibility
 
-The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible thanks to:
+The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible
+thanks to:
 
 * R `r Citep(bib[["R"]])`
 * `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
@@ -215,8 +229,10 @@ session_info()
 
 # Bibliography
 
-This vignette was generated using `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
-with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the scenes.
+This vignette was generated using `r Biocpkg("BiocStyle")` 
+`r Citep(bib[["BiocStyle"]])` with `r CRANpkg("knitr")` 
+`r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` 
+`r Citep(bib[["rmarkdown"]])` running behind the scenes.
 
 Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
 

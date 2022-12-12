@@ -57,22 +57,30 @@ bib <- c(
 
 ## Formats
 
-Differential expression results are generally reported as tables of statistics, including (log) fold-change, p-value, average expression, etc.
+Differential expression results are generally reported as tables of statistics,
+including (log) fold-change, p-value, average expression, etc.
 
-Those statistics being reported for individual features (e.g., genes), the `rowData()` component of `SummarizedExperiment()` objects provides a natural home for that information.
-Specifically, `r BiocStyle::Biocpkg("iSEEde")` searches for differential expression results in `rowData(se)[["iSEEde"]]`.
+Those statistics being reported for individual features (e.g., genes), the
+`rowData()` component of `SummarizedExperiment()` objects provides a natural
+home for that information. Specifically, `r BiocStyle::Biocpkg("iSEEde")`
+searches for differential expression results in `rowData(se)[["iSEEde"]]`.
 
-The first challenge arises when differential expression statistics are computed only for a subset of features.
-In that case, `r BiocStyle::Biocpkg("iSEEde")` populates missing information with `NA`.
+The first challenge arises when differential expression statistics are computed
+only for a subset of features. In that case, `r BiocStyle::Biocpkg("iSEEde")`
+populates missing information with `NA`.
 
-The second challenge arises from the different names of columns used by individual differential expression methods to store differential expression common statistics.
-To address this, `r BiocStyle::Biocpkg("iSEEde")` provides S4 classes creating a common interface to supported differential expression methods.
+The second challenge arises from the different names of columns used by
+individual differential expression methods to store differential expression
+common statistics. To address this, `r BiocStyle::Biocpkg("iSEEde")` provides S4
+classes creating a common interface to supported differential expression
+methods.
 
 # Example data
 
 We use the `?airway` data set.
 
-We briefly adjust the reference level of the treatment factor to the untreated condition.
+We briefly adjust the reference level of the treatment factor to the untreated 
+condition.
 
 ```{r, message=FALSE, warning=FALSE}
 library("airway")
@@ -84,35 +92,46 @@ airway$dex <- relevel(airway$dex, "untrt")
 
 ## Limma
 
-We run a standard Limma-Voom analysis using `limma::voom()`, `limma::lmFit()`, `limma::makeContrasts()`, and `limma::eBayes()`.
+We first use `edgeR::filterByExpr()` to remove genes whose counts are too low to
+support a rigorous differential expression analysis. Then we run a standard 
+Limma-Voom analysis using `edgeR::voomLmFit()`, `limma::makeContrasts()`, and
+`limma::eBayes()`.  (Alternatively, we could have used `limma::treat()` instead
+of `limma::eBayes()`.)
 
-Before that though, we use `edgeR::filterByExpr()` to filter genes by expression level.
+The linear model includes the `dex` and `cell` covariates, indicating the
+treatment conditions and cell types, respectively. Here, we are interested in 
+differences between treatments, adjusted by cell type, and define this
+comparison as the `dextrt - dexuntrt` contrast.
 
-The differential expression results are fetched using `limma::topTable()`.
+The final differential expression results are fetched using `limma::topTable()`.
 
 ```{r, message=FALSE, warning=FALSE}
 library("edgeR")
 
-counts <- assay(airway, "counts")
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
-keep <- filterByExpr(counts, design)
-v <- voom(counts[keep,], design, plot=FALSE)
-fit <- lmFit(v, design)
-contr <- makeContrasts("dextrt - dexuntrt", levels = colnames(coef(fit)))
-tmp <- contrasts.fit(fit, contr)
-tmp <- eBayes(tmp)
-res_limma <- topTable(tmp, sort.by = "P", n = Inf)
+keep <- filterByExpr(airway, design)
+fit <- voomLmFit(airway[keep,], design, plot=FALSE)
+contr <- makeContrasts("dextrt - dexuntrt", levels = design)
+fit <- contrasts.fit(fit, contr)
+fit <- eBayes(fit)
+res_limma <- topTable(fit, sort.by = "P", n = Inf)
 head(res_limma)
 ```
 
-Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Then, we embed this set of differential expression results in the `airway`
+object using the `embedResults()` method. 
 
-Because the output of `limma::topTable()` is a standard `data.frame`, the `class=` argument must be used to manually identify the method that produced those results.
+Because the output of `limma::topTable()` is a standard `data.frame`, the
+`class=` argument must be used to manually identify the method that produced
+those results.
 
-This manual method is preferable to any automated heuristic, e.g. using the column names of the `data.frame` for identifying it as a `limma::topTable()` output.
+This manual method is preferable to any automated heuristic, e.g. using the
+column names of the `data.frame` for identifying it as a `limma::topTable()`
+output.
 
-The results are nested as a `DataFrame`-like object in `rowData(airway)[["iSEEde"]]`.
+The results are nested as a `DataFrame`-like object in 
+`rowData(airway)[["iSEEde"]]`.
 
 ```{r}
 library(iSEEde)
@@ -122,9 +141,9 @@ rowData(airway)
 
 ## DESeq2
 
-We run a standard `r BiocStyle::Biocpkg("DESeq2")` analysis using `DESeq()`.
-
-Before that though, we use `DESeqDataSet()` to construct a `DESeqDataSet` object for the analysis.
+First, we use `DESeqDataSet()` to construct a `DESeqDataSet` object
+for the analysis. Then we run a standard `r BiocStyle::Biocpkg("DESeq2")`
+analysis using `DESeq()`.
 
 The differential expression results are fetched using `results()`.
 
@@ -138,11 +157,15 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 head(res_deseq2)
 ```
 
-Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Then, we embed this set of differential expression results in the `airway` 
+object using the `embedResults()` method.
 
-In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a recognisable `?DESeqResults` object.
-As such, the results object can be given *as is* directly to the `embedResults()` method.
-The function will automatically pass the results object to the `iSEEDESeq2Results()` constructor, to identify it as such.
+In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a
+recognisable `?DESeqResults` object, which can be given *as is* directly to the
+`embedResults()` method.
+
+The function will automatically pass the results object to the 
+`iSEEDESeq2Results()` constructor, to identify it as such.
 
 ```{r}
 airway <- embedResults(res_deseq2, airway, name = "DESeq2")
@@ -151,27 +174,30 @@ rowData(airway)
 
 ## edgeR
 
-We run a standard `r BiocStyle::Biocpkg("edgeR")` analysis using `glmFit()` and `glmLRT()`.
+We run a standard `r BiocStyle::Biocpkg("edgeR")` analysis using `glmFit()` and
+`glmLRT()`.
 
 The differential expression results are fetched using `topTags()`.
 
 ```{r, message=FALSE, warning=FALSE}
 library("edgeR")
 
-counts <- assay(airway, "counts")
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
-fit <- glmFit(counts, design, dispersion=0.1)
+fit <- glmFit(airway, design, dispersion=0.1)
 lrt <- glmLRT(fit, contrast = c(-1, 1, 0, 0, 0))
 res_edger <- topTags(lrt, n = Inf)
 head(res_edger)
 ```
 
-Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Then, we embed this set of differential expression results in the `airway`
+object using the `embedResults()` method.
 
-In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a recognisable `?TopTags` object.
-As such, the results object can be given *as is* directly to the `embedResults()` method.
-The function will automatically pass the results object to the `iSEEedgeRResults()` constructor, to identify it as such.
+In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a 
+recognisable `?TopTags` object. As such, the results object can be given *as is*
+directly to the `embedResults()` method. The function will automatically pass
+the results object to the `iSEEedgeRResults()` constructor, to identify it as
+such.
 
 ```{r}
 airway <- embedResults(res_edger, airway, name = "edgeR")
@@ -202,7 +228,8 @@ SCREENSHOT("screenshots/volcano_plots.png", delay=20)
 
 # Reproducibility
 
-The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible thanks to:
+The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible
+thanks to:
 
 * R `r Citep(bib[["R"]])`
 * `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
@@ -255,8 +282,10 @@ session_info()
 
 # Bibliography
 
-This vignette was generated using `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
-with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the scenes.
+This vignette was generated using `r Biocpkg("BiocStyle")` `r
+Citep(bib[["BiocStyle"]])` with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the
+scenes.
 
 Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
 
