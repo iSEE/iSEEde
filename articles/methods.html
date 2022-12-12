@@ -93,7 +93,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">9 December 2022</h4>
+            <h4 data-toc-skip class="date">12 December 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/HEAD/vignettes/methods.Rmd" class="external-link"><code>vignettes/methods.Rmd</code></a></small>
       <div class="hidden name"><code>methods.Rmd</code></div>
@@ -144,35 +144,39 @@ untreated condition.</p>
 <div class="section level3">
 <h3 id="limma">Limma<a class="anchor" aria-label="anchor" href="#limma"></a>
 </h3>
-<p>We run a standard Limma-Voom analysis using
-<code><a href="https://rdrr.io/pkg/limma/man/voom.html" class="external-link">limma::voom()</a></code>, <code><a href="https://rdrr.io/pkg/limma/man/lmFit.html" class="external-link">limma::lmFit()</a></code>,
-<code><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">limma::makeContrasts()</a></code>, and
-<code><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">limma::eBayes()</a></code>.</p>
-<p>Before that though, we use <code><a href="https://rdrr.io/pkg/edgeR/man/filterByExpr.html" class="external-link">edgeR::filterByExpr()</a></code> to
-filter genes by expression level.</p>
-<p>The differential expression results are fetched using
+<p>We first use <code><a href="https://rdrr.io/pkg/edgeR/man/filterByExpr.html" class="external-link">edgeR::filterByExpr()</a></code> to remove genes whose
+counts are too low to support a rigorous differential expression
+analysis. Then we run a standard Limma-Voom analysis using
+<code><a href="https://rdrr.io/pkg/edgeR/man/voomLmFit.html" class="external-link">edgeR::voomLmFit()</a></code>, <code><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">limma::makeContrasts()</a></code>,
+and <code><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">limma::eBayes()</a></code>. (Alternatively, we could have used
+<code><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">limma::treat()</a></code> instead of
+<code><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">limma::eBayes()</a></code>.)</p>
+<p>The linear model includes the <code>dex</code> and <code>cell</code>
+covariates, indicating the treatment conditions and cell types,
+respectively. Here, we are interested in differences between treatments,
+adjusted by cell type, and define this comparison as the
+<code>dextrt - dexuntrt</code> contrast.</p>
+<p>The final differential expression results are fetched using
 <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">limma::topTable()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="http://bioinf.wehi.edu.au/edgeR" class="external-link">"edgeR"</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span>, <span class="st">"counts"</span><span class="op">)</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">dex</span> <span class="op">+</span> <span class="va">cell</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/filterByExpr.html" class="external-link">filterByExpr</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">design</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/voom.html" class="external-link">voom</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="va">keep</span>,<span class="op">]</span>, <span class="va">design</span>, plot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html" class="external-link">lmFit</a></span><span class="op">(</span><span class="va">v</span>, <span class="va">design</span><span class="op">)</span></span>
-<span><span class="va">contr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="st">"dextrt - dexuntrt"</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html" class="external-link">contrasts.fit</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">contr</span><span class="op">)</span></span>
-<span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span>
-<span><span class="va">res_limma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">tmp</span>, sort.by <span class="op">=</span> <span class="st">"P"</span>, n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
+<span><span class="va">keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/filterByExpr.html" class="external-link">filterByExpr</a></span><span class="op">(</span><span class="va">airway</span>, <span class="va">design</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/voomLmFit.html" class="external-link">voomLmFit</a></span><span class="op">(</span><span class="va">airway</span><span class="op">[</span><span class="va">keep</span>, <span class="op">]</span>, <span class="va">design</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">contr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="st">"dextrt - dexuntrt"</span>, levels <span class="op">=</span> <span class="va">design</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html" class="external-link">contrasts.fit</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">contr</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="va">res_limma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">fit</span>, sort.by <span class="op">=</span> <span class="st">"P"</span>, n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_limma</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                     logFC  AveExpr         t      P.Value    adj.P.Val        B</span></span>
-<span><span class="co">#&gt; ENSG00000165995  3.205598 3.682244  36.49009 2.370569e-11 3.996779e-07 16.03257</span></span>
-<span><span class="co">#&gt; ENSG00000120129  2.864775 6.644455  28.95296 2.000429e-10 9.657686e-07 14.66891</span></span>
-<span><span class="co">#&gt; ENSG00000189221  3.256099 5.950559  28.29381 2.472372e-10 9.657686e-07 14.44796</span></span>
-<span><span class="co">#&gt; ENSG00000152583  4.489075 4.166904  27.99497 2.725926e-10 9.657686e-07 14.01663</span></span>
-<span><span class="co">#&gt; ENSG00000146250 -2.828186 3.224885 -27.47899 3.234271e-10 9.657686e-07 13.80831</span></span>
-<span><span class="co">#&gt; ENSG00000157214  1.894563 6.790009  26.91396 3.914512e-10 9.657686e-07 14.03974</span></span></code></pre></div>
+<span><span class="co">#&gt; ENSG00000165995  3.205606 3.682244  36.52011 2.463606e-11 4.153640e-07 15.90582</span></span>
+<span><span class="co">#&gt; ENSG00000120129  2.864778 6.644455  28.94270 2.090804e-10 9.944584e-07 14.60579</span></span>
+<span><span class="co">#&gt; ENSG00000189221  3.256085 5.950559  28.27912 2.586665e-10 9.944584e-07 14.38248</span></span>
+<span><span class="co">#&gt; ENSG00000152583  4.489009 4.166904  27.98254 2.849300e-10 9.944584e-07 13.91713</span></span>
+<span><span class="co">#&gt; ENSG00000146250 -2.828184 3.224885 -27.49302 3.349813e-10 9.944584e-07 13.71315</span></span>
+<span><span class="co">#&gt; ENSG00000157214  1.894559 6.790009  26.92657 4.054069e-10 9.944584e-07 13.99293</span></span></code></pre></div>
 <p>Then, we embed this set of differential expression results in the
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
 method.</p>
@@ -206,10 +210,10 @@ identifying it as a <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" 
 <div class="section level3">
 <h3 id="deseq2">DESeq2<a class="anchor" aria-label="anchor" href="#deseq2"></a>
 </h3>
-<p>We run a standard <em><a href="https://bioconductor.org/packages/3.17/DESeq2" class="external-link">DESeq2</a></em>
+<p>First, we use <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSet()</a></code> to construct a
+<code>DESeqDataSet</code> object for the analysis. Then we run a
+standard <em><a href="https://bioconductor.org/packages/3.17/DESeq2" class="external-link">DESeq2</a></em>
 analysis using <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code>.</p>
-<p>Before that though, we use <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSet()</a></code> to construct a
-<code>DESeqDataSet</code> object for the analysis.</p>
 <p>The differential expression results are fetched using
 <code><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -235,11 +239,12 @@ analysis using <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
 method.</p>
 <p>In this instance, the <em><a href="https://bioconductor.org/packages/3.17/DESeq2" class="external-link">DESeq2</a></em>
-results are stored in a recognisable <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">?DESeqResults</a></code> object.
-As such, the results object can be given <em>as is</em> directly to the
-<code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code> method. The function will automatically pass
-the results object to the <code><a href="../reference/iSEEDESeq2Results-class.html">iSEEDESeq2Results()</a></code> constructor,
-to identify it as such.</p>
+results are stored in a recognisable <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">?DESeqResults</a></code> object,
+which can be given <em>as is</em> directly to the
+<code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code> method.</p>
+<p>The function will automatically pass the results object to the
+<code><a href="../reference/iSEEDESeq2Results-class.html">iSEEDESeq2Results()</a></code> constructor, to identify it as
+such.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"DESeq2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
@@ -268,21 +273,48 @@ analysis using <code><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="http://bioinf.wehi.edu.au/edgeR" class="external-link">"edgeR"</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span>, <span class="st">"counts"</span><span class="op">)</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">dex</span> <span class="op">+</span> <span class="va">cell</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="external-link">glmFit</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">design</span>, dispersion<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="external-link">glmFit</a></span><span class="op">(</span><span class="va">airway</span>, <span class="va">design</span>, dispersion <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">lrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="external-link">glmLRT</a></span><span class="op">(</span><span class="va">fit</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">res_edger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">lrt</span>, n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_edger</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Coefficient:  -1*dexuntrt 1*dextrt </span></span>
-<span><span class="co">#&gt;                     logFC   logCPM       LR       PValue          FDR</span></span>
-<span><span class="co">#&gt; ENSG00000109906  7.183385 4.135059 238.3947 8.805179e-54 5.644296e-49</span></span>
-<span><span class="co">#&gt; ENSG00000179593 10.015847 1.635045 181.0331 2.883024e-41 9.240380e-37</span></span>
-<span><span class="co">#&gt; ENSG00000127954  5.087069 3.682803 146.9725 7.957020e-34 1.700203e-29</span></span>
-<span><span class="co">#&gt; ENSG00000152583  4.498698 5.511086 140.2205 2.382274e-32 3.817714e-28</span></span>
-<span><span class="co">#&gt; ENSG00000250978  6.128131 1.390337 137.4681 9.526183e-32 1.221295e-27</span></span>
-<span><span class="co">#&gt; ENSG00000163884  4.367962 4.683770 129.2203 6.069471e-30 6.484420e-26</span></span></code></pre></div>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.logFC iSEEde.Limma.Voom.AveExpr iSEEde.Limma.Voom.t</span></span>
+<span><span class="co">#&gt; ENSG00000109906                7.069003                 1.3807218            23.92876</span></span>
+<span><span class="co">#&gt; ENSG00000179593                7.988755                -1.4798754            21.51509</span></span>
+<span><span class="co">#&gt; ENSG00000127954                5.184088                 1.6193300            20.41435</span></span>
+<span><span class="co">#&gt; ENSG00000152583                4.489009                 4.1669039            27.98254</span></span>
+<span><span class="co">#&gt; ENSG00000250978                6.031081                -0.7521822            16.23024</span></span>
+<span><span class="co">#&gt; ENSG00000163884                4.433096                 3.2401058            23.42513</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.P.Value iSEEde.Limma.Voom.adj.P.Val iSEEde.Limma.Voom.B</span></span>
+<span><span class="co">#&gt; ENSG00000109906              1.193801e-09                1.222165e-06            9.790766</span></span>
+<span><span class="co">#&gt; ENSG00000179593              4.101487e-07                3.152321e-05            4.032461</span></span>
+<span><span class="co">#&gt; ENSG00000127954              5.076152e-09                2.445255e-06           10.615840</span></span>
+<span><span class="co">#&gt; ENSG00000152583              2.849300e-10                9.944584e-07           13.917129</span></span>
+<span><span class="co">#&gt; ENSG00000250978              4.035046e-08                7.558986e-06            6.919857</span></span>
+<span><span class="co">#&gt; ENSG00000163884              1.449780e-09                1.222165e-06           12.322804</span></span>
+<span><span class="co">#&gt;                 iSEEde.DESeq2.baseMean iSEEde.DESeq2.log2FoldChange iSEEde.DESeq2.lfcSE</span></span>
+<span><span class="co">#&gt; ENSG00000109906              385.07103                     7.352629           0.5363902</span></span>
+<span><span class="co">#&gt; ENSG00000179593               67.24305                     9.505983           1.0545033</span></span>
+<span><span class="co">#&gt; ENSG00000127954              286.38412                     5.207161           0.4930839</span></span>
+<span><span class="co">#&gt; ENSG00000152583              997.43977                     4.574919           0.1840561</span></span>
+<span><span class="co">#&gt; ENSG00000250978               56.31819                     6.327386           0.6777980</span></span>
+<span><span class="co">#&gt; ENSG00000163884              561.10717                     4.459129           0.2348638</span></span>
+<span><span class="co">#&gt;                 iSEEde.DESeq2.stat iSEEde.DESeq2.pvalue iSEEde.DESeq2.padj     logFC   logCPM</span></span>
+<span><span class="co">#&gt; ENSG00000109906          13.707612         9.141717e-43       2.257628e-40  7.183385 4.132638</span></span>
+<span><span class="co">#&gt; ENSG00000179593           9.014654         1.974926e-19       1.253661e-17 10.015847 1.627629</span></span>
+<span><span class="co">#&gt; ENSG00000127954          10.560396         4.547384e-26       5.060508e-24  5.087069 3.672567</span></span>
+<span><span class="co">#&gt; ENSG00000152583          24.856114        2.220777e-136      4.003616e-132  4.498698 5.510213</span></span>
+<span><span class="co">#&gt; ENSG00000250978           9.335209         1.007922e-20       7.210645e-19  6.128131 1.377260</span></span>
+<span><span class="co">#&gt; ENSG00000163884          18.986019         2.225778e-80       2.507895e-77  4.367962 4.681216</span></span>
+<span><span class="co">#&gt;                       LR       PValue          FDR</span></span>
+<span><span class="co">#&gt; ENSG00000109906 238.3947 8.805179e-54 5.644296e-49</span></span>
+<span><span class="co">#&gt; ENSG00000179593 181.0331 2.883024e-41 9.240380e-37</span></span>
+<span><span class="co">#&gt; ENSG00000127954 146.9725 7.957020e-34 1.700203e-29</span></span>
+<span><span class="co">#&gt; ENSG00000152583 140.2205 2.382274e-32 3.817714e-28</span></span>
+<span><span class="co">#&gt; ENSG00000250978 137.4681 9.526183e-32 1.221295e-27</span></span>
+<span><span class="co">#&gt; ENSG00000163884 129.2203 6.069471e-30 6.484420e-26</span></span></code></pre></div>
 <p>Then, we embed this set of differential expression results in the
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
 method.</p>
@@ -323,12 +355,12 @@ to identify it as such.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     cpm</span></span>
 <span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"Limma-Voom"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"Limma-Voom"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"DESeq2"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"DESeq2"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"edgeR"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"edgeR"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"Limma-Voom"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"Limma-Voom"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"DESeq2"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"DESeq2"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"edgeR"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/MAPlot-class.html">MAPlot</a></span><span class="op">(</span>ContrastName <span class="op">=</span> <span class="st">"edgeR"</span>, PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The `name` provided ('') does not correspond to a known icon</span></span>
 <span><span class="co">#&gt; The `name` provided ('') does not correspond to a known icon</span></span>
@@ -341,7 +373,7 @@ to identify it as such.</p>
 <span><span class="co">#&gt; The `name` provided ('') does not correspond to a known icon</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span><span class="op">)</span></span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><img src="screenshots/volcano_plots.png" width="100%"></p>
 </div>
@@ -383,13 +415,13 @@ Chang, and Iannone, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"methods.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2022-12-09 12:29:34 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2022-12-12 12:07:21 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 38.025 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 37.474 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R Under development (unstable) (2022-11-30 r83393)</span></span>
+<span><span class="co">#&gt;  version  R Under development (unstable) (2022-12-07 r83413)</span></span>
 <span><span class="co">#&gt;  os       Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
@@ -397,7 +429,7 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2022-12-09</span></span>
+<span><span class="co">#&gt;  date     2022-12-12</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -434,7 +466,7 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  DelayedArray           0.25.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  desc                   1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DESeq2               * 1.39.3    <span style="color: #555555;">2022-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  digest                 0.6.30    <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  digest                 0.6.31    <span style="color: #555555;">2022-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  doParallel             1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.0.10    <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DT                     0.26      <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -450,7 +482,7 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  generics               0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDb         * 1.35.5    <span style="color: #555555;">2022-11-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDbData       1.2.9     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomicRanges        * 1.51.2    <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomicRanges        * 1.51.3    <span style="color: #555555;">2022-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GetoptLong             1.0.5     <span style="color: #555555;">2020-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  ggplot2                3.4.0     <span style="color: #555555;">2022-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  ggrepel                0.9.2     <span style="color: #555555;">2022-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -464,8 +496,8 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  httr                   1.4.4     <span style="color: #555555;">2022-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  igraph                 1.3.5     <span style="color: #555555;">2022-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  IRanges              * 2.33.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  iSEE                 * 2.11.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2022-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEE                 * 2.11.1    <span style="color: #555555;">2022-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2022-12-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  iterators              1.0.14    <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib              0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jsonlite               1.8.4     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -486,7 +518,7 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  mime                   0.12      <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  miniUI                 0.1.1.1   <span style="color: #555555;">2018-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  munsell                0.5.0     <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  nlme                   3.1-160   <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  nlme                   3.1-160   <span style="color: #555555;">2022-12-09</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;  pillar                 1.8.1     <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.6     <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -547,7 +579,7 @@ Chang, and Iannone, 2022)</li>
 <h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.17/BiocStyle" class="external-link">BiocStyle</a></em>
-(Oleś, 2022) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
+<code>r Citep(bib[["BiocStyle"]])</code> with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2022) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
 (Allaire, Xie, McPherson et al., 2022) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
