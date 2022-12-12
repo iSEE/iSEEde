@@ -111,8 +111,8 @@ airway
 We first use `edgeR::filterByExpr()` to remove genes whose counts are too low to
 support a rigorous differential expression analysis. Then we run a standard 
 Limma-Voom analysis using `edgeR::voomLmFit()`, `limma::makeContrasts()`, and
-`limma::eBayes()`.  (Alternatively, we could have used `limma::treat()` instead
-of `limma::eBayes()`.)
+`limma::eBayes()` (alternatively, we could have used `limma::treat()` instead
+of `limma::eBayes()`).
 
 The linear model includes the `dex` and `cell` covariates, indicating the
 treatment conditions and cell types, respectively. Here, we are interested in 
@@ -135,7 +135,8 @@ res_limma <- topTable(fit, sort.by = "P", n = Inf)
 head(res_limma)
 ```
 
-Then, we embed this set of differential expression results in the `airway` object using the `embedResults()` method.
+Then, we embed this set of differential expression results in the `airway`
+object using the `embedResults()` method.
 
 ```{r}
 library(iSEEde)
@@ -156,7 +157,7 @@ the same contrast.
 
 Finally, the configured app is launched.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(iSEE)
 
 panelDefaults(
@@ -198,11 +199,11 @@ Code for creating the vignette
 ```{r createVignette, eval=FALSE}
 ## Create the vignette
 library("rmarkdown")
-system.time(render("methods.Rmd", "BiocStyle::html_document"))
+system.time(render("annotations.Rmd", "BiocStyle::html_document"))
 
 ## Extract the R code
 library("knitr")
-knit("methods.Rmd", tangle = TRUE)
+knit("annotations.Rmd", tangle = TRUE)
 ```
 
 Date the vignette was generated.
