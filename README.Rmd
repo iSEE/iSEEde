@@ -68,12 +68,12 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 airway <- embedResults(res_deseq2, airway, name = "DESeq2")
 
 app <- iSEE(airway, initial = list(
-  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
-  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+    VolcanoPlot(ContrastName = "dextrt vs dexuntrt", PanelWidth = 6L),
+    MAPlot(ContrastName = "dextrt vs dexuntrt", PanelWidth = 6L)
 ))
 
 if (interactive()) {
-  shiny::runApp(app)
+    shiny::runApp(app)
 }
 ```
 
@@ -83,7 +83,7 @@ Below is the citation output from using `citation('iSEEde')` in R. Please
 run this yourself to check for any updates on how to cite __iSEEde__.
 
 ```{r 'citation', eval = requireNamespace('iSEEde')}
-print(citation('iSEEde'), bibtex = TRUE)
+print(citation("iSEEde"), bibtex = TRUE)
 ```
 
 Please note that the `iSEEde` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.

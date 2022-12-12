@@ -82,8 +82,10 @@ additional column of the `rowData()` component.
 
 ```{r, message=FALSE, warning=FALSE}
 library("org.Hs.eg.db")
-rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway),
-                                      "SYMBOL", "ENSEMBL")
+rowData(airway)[["SYMBOL"]] <- mapIds(
+    org.Hs.eg.db, rownames(airway),
+    "SYMBOL", "ENSEMBL"
+)
 ```
 
 Next, we use the `uniquifyFeatureNames()` function of the 
@@ -98,8 +100,8 @@ unique identifier that is generated as follows:
 ```{r, message=FALSE, warning=FALSE}
 library("scuttle")
 rownames(airway) <- uniquifyFeatureNames(
-  ID = rowData(airway)[["ENSEMBL"]],
-  names = rowData(airway)[["SYMBOL"]]
+    ID = rowData(airway)[["ENSEMBL"]],
+    names = rowData(airway)[["SYMBOL"]]
 )
 airway
 ```
@@ -125,7 +127,7 @@ library("edgeR")
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
 keep <- filterByExpr(airway, design)
-fit <- voomLmFit(airway[keep,], design, plot=FALSE)
+fit <- voomLmFit(airway[keep, ], design, plot = FALSE)
 contr <- makeContrasts("dextrt - dexuntrt", levels = design)
 fit <- contrasts.fit(fit, contr)
 fit <- eBayes(fit)
@@ -137,8 +139,10 @@ Then, we embed this set of differential expression results in the `airway` objec
 
 ```{r}
 library(iSEEde)
-airway <- embedResults(res_limma, airway, name = "dextrt - dexuntrt", 
-                       class = "limma")
+airway <- embedResults(res_limma, airway,
+    name = "dextrt - dexuntrt",
+    class = "limma"
+)
 rowData(airway)
 ```
 
@@ -160,17 +164,17 @@ panelDefaults(
 )
 
 app <- iSEE(airway, initial = list(
-  VolcanoPlot(ContrastName="dextrt - dexuntrt", PanelWidth = 6L),
-  MAPlot(ContrastName="dextrt - dexuntrt", PanelWidth = 6L)
+    VolcanoPlot(ContrastName = "dextrt - dexuntrt", PanelWidth = 6L),
+    MAPlot(ContrastName = "dextrt - dexuntrt", PanelWidth = 6L)
 ))
 
 if (interactive()) {
-  shiny::runApp(app)
+    shiny::runApp(app)
 }
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-SCREENSHOT("screenshots/using_annotations.png", delay=20)
+SCREENSHOT("screenshots/using_annotations.png", delay = 20)
 ```
 
 # Reproducibility

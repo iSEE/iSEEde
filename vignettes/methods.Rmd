@@ -111,7 +111,7 @@ library("edgeR")
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
 keep <- filterByExpr(airway, design)
-fit <- voomLmFit(airway[keep,], design, plot=FALSE)
+fit <- voomLmFit(airway[keep, ], design, plot = FALSE)
 contr <- makeContrasts("dextrt - dexuntrt", levels = design)
 fit <- contrasts.fit(fit, contr)
 fit <- eBayes(fit)
@@ -184,7 +184,7 @@ library("edgeR")
 
 design <- model.matrix(~ 0 + dex + cell, data = colData(airway))
 
-fit <- glmFit(airway, design, dispersion=0.1)
+fit <- glmFit(airway, design, dispersion = 0.1)
 lrt <- glmLRT(fit, contrast = c(-1, 1, 0, 0, 0))
 res_edger <- topTags(lrt, n = Inf)
 head(res_edger)
@@ -209,21 +209,21 @@ rowData(airway)
 ```{r}
 library(iSEE)
 app <- iSEE(airway, initial = list(
-  VolcanoPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
-  MAPlot(ContrastName="Limma-Voom", PanelWidth = 6L),
-  VolcanoPlot(ContrastName="DESeq2", PanelWidth = 6L),
-  MAPlot(ContrastName="DESeq2", PanelWidth = 6L),
-  VolcanoPlot(ContrastName="edgeR", PanelWidth = 6L),
-  MAPlot(ContrastName="edgeR", PanelWidth = 6L)
+    VolcanoPlot(ContrastName = "Limma-Voom", PanelWidth = 6L),
+    MAPlot(ContrastName = "Limma-Voom", PanelWidth = 6L),
+    VolcanoPlot(ContrastName = "DESeq2", PanelWidth = 6L),
+    MAPlot(ContrastName = "DESeq2", PanelWidth = 6L),
+    VolcanoPlot(ContrastName = "edgeR", PanelWidth = 6L),
+    MAPlot(ContrastName = "edgeR", PanelWidth = 6L)
 ))
 
 if (interactive()) {
-  shiny::runApp(app)
+    shiny::runApp(app)
 }
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-SCREENSHOT("screenshots/volcano_plots.png", delay=20)
+SCREENSHOT("screenshots/volcano_plots.png", delay = 20)
 ```
 
 # Reproducibility

@@ -1,8 +1,8 @@
 #' The VolcanoPlot class
-#' 
+#'
 #' The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
-#' 
+#'
 #' @docType methods
 #' @aliases VolcanoPlot VolcanoPlot-class
 #' initialize,VolcanoPlot-method
@@ -13,10 +13,10 @@
 #' .generateDotPlotData,VolcanoPlot-method
 #' .panelColor,VolcanoPlot-method
 #' .refineParameters,VolcanoPlot-method
-#' 
+#'
 #' @name VolcanoPlot-class
-#' 
-#' @examples 
+#'
+#' @examples
 #' x <- VolcanoPlot()
 #' x[["ContrastName"]]
 #' x[["ContrastName"]] <- "treated vs control"
@@ -24,8 +24,10 @@ NULL
 
 #' @export
 #' @importClassesFrom iSEE RowDotPlot
-setClass("VolcanoPlot", contains="RowDotPlot",
-         slots = c(ContrastName = "character"))
+setClass("VolcanoPlot",
+    contains = "RowDotPlot",
+    slots = c(ContrastName = "character")
+)
 
 #' @export
 #' @importMethodsFrom iSEE .fullName
@@ -39,22 +41,21 @@ setMethod(".panelColor", "VolcanoPlot", function(x) "#DEAE10")
 #' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
 setMethod("initialize", "VolcanoPlot", function(.Object,
-    ContrastName=NA_character_, ...)
-{
-  args <- list(ContrastName=ContrastName, ...)
-  
-  do.call(callNextMethod, c(list(.Object), args))
+                                                ContrastName = NA_character_, ...) {
+    args <- list(ContrastName = ContrastName, ...)
+
+    do.call(callNextMethod, c(list(.Object), args))
 })
 
 #' @export
 #' @importFrom methods new
 VolcanoPlot <- function(...) {
-  new("VolcanoPlot", ...)
+    new("VolcanoPlot", ...)
 }
 
 #' @importFrom S4Vectors setValidity2
 setValidity2("VolcanoPlot", function(object) {
-  return(TRUE)
+    return(TRUE)
 })
 
 #' @export
@@ -63,15 +64,15 @@ setValidity2("VolcanoPlot", function(object) {
 #' @importFrom methods callNextMethod
 #' @importFrom SummarizedExperiment rowData
 setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
-  if (!is.null(.getCachedCommonInfo(se, "VolcanoPlot"))) {
-    return(se)
-  }
-  
-  se <- callNextMethod()
-  
-  contrast_names <- colnames(rowData(se)[["iSEEde"]])
+    if (!is.null(.getCachedCommonInfo(se, "VolcanoPlot"))) {
+        return(se)
+    }
 
-  .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
+    se <- callNextMethod()
+
+    contrast_names <- colnames(rowData(se)[["iSEEde"]])
+
+    .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
 })
 
 #' @export
@@ -79,15 +80,15 @@ setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
 #' @importFrom iSEE .getCachedCommonInfo .replaceMissingWithFirst
 #' @importFrom methods callNextMethod
 setMethod(".refineParameters", "VolcanoPlot", function(x, se) {
-  x <- callNextMethod() # Trigger warnings from base classes.
-  if (is.null(x)) {
-    return(NULL)
-  }
-  
-  contrast_names <- .getCachedCommonInfo(se, "VolcanoPlot")$valid.contrast.names
-  x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
-  
-  x
+    x <- callNextMethod() # Trigger warnings from base classes.
+    if (is.null(x)) {
+        return(NULL)
+    }
+
+    contrast_names <- .getCachedCommonInfo(se, "VolcanoPlot")$valid.contrast.names
+    x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
+
+    x
 })
 
 #' @export
@@ -100,9 +101,10 @@ setMethod(".createObservers", "VolcanoPlot", function(x, se, input, session, pOb
     plot_name <- .getEncodedName(x)
 
     .createProtectedParameterObservers(plot_name,
-        fields=c(.contrastName),
-        input=input, pObjects=pObjects, rObjects=rObjects)
-    
+        fields = c(.contrastName),
+        input = input, pObjects = pObjects, rObjects = rObjects
+    )
+
     invisible(NULL)
 })
 
@@ -113,59 +115,61 @@ setMethod(".createObservers", "VolcanoPlot", function(x, se, input, session, pOb
 #' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
 #' .selectInput.iSEE
 setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
-  plot_name <- .getEncodedName(x)
-  input_FUN <- function(field) paste0(plot_name, "_", field)
-  # nocov start
-  .addSpecificTour(class(x), .contrastName, function(plot_name) {
-    data.frame(
-      rbind(
-        c(
-          element=paste0("#", plot_name, "_", sprintf("%s + .selectize-control", .contrastName)),
-          intro="Here, we select the name of the contrast to visualise amongst the choice of differential expression results available."
+    plot_name <- .getEncodedName(x)
+    input_FUN <- function(field) paste0(plot_name, "_", field)
+    # nocov start
+    .addSpecificTour(class(x), .contrastName, function(plot_name) {
+        data.frame(
+            rbind(
+                c(
+                    element = paste0("#", plot_name, "_", sprintf("%s + .selectize-control", .contrastName)),
+                    intro = "Here, we select the name of the contrast to visualise amongst the choice of differential expression results available."
+                )
+            )
         )
-      )
+    })
+    # nocov end
+    cached <- .getCachedCommonInfo(se, "VolcanoPlot")
+
+    extra_inputs <- list(
+        .selectInput.iSEE(x, .contrastName,
+            label = "Contrast:",
+            selected = x[[.contrastName]],
+            choices = cached$valid.contrast.names
+        )
     )
-  })
-  # nocov end
-  cached <- .getCachedCommonInfo(se, "VolcanoPlot")
-  
-  extra_inputs <- list(
-    .selectInput.iSEE(x, .contrastName, 
-                      label="Contrast:",
-                      selected=x[[.contrastName]],
-                      choices=cached$valid.contrast.names)
-  )
-  
-  c(callNextMethod(), 
-    list(hr()), 
-    extra_inputs
-  )
+
+    c(
+        callNextMethod(),
+        list(hr()),
+        extra_inputs
+    )
 })
 
 #' @export
 #' @importMethodsFrom iSEE .generateDotPlotData
 #' @importFrom iSEE .textEval
 setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
-  data_cmds <- list()
-  
-  y_lab <- "-log10(P.Value)"
-  
-  data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
-  
-  # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
-  data_cmds[["y"]] <- c(
-      "plot.data <- data.frame(row.names=rownames(se))",
-      "plot.data$Y <- -log10(iSEEde::pValue(de_table))"
-  )
-  
-  # Prepare X-axis data.
-  x_lab <- "logFC"
-  data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2FoldChange(de_table)"
-  
-  plot_title <- x[[.contrastName]]
-  
-  data_cmds <- unlist(data_cmds)
-  .textEval(data_cmds, envir)
-  
-  list(commands=data_cmds, labels=list(title=plot_title, X=x_lab, Y=y_lab))
+    data_cmds <- list()
+
+    y_lab <- "-log10(P.Value)"
+
+    data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
+
+    # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
+    data_cmds[["y"]] <- c(
+        "plot.data <- data.frame(row.names=rownames(se))",
+        "plot.data$Y <- -log10(iSEEde::pValue(de_table))"
+    )
+
+    # Prepare X-axis data.
+    x_lab <- "logFC"
+    data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2FoldChange(de_table)"
+
+    plot_title <- x[[.contrastName]]
+
+    data_cmds <- unlist(data_cmds)
+    .textEval(data_cmds, envir)
+
+    list(commands = data_cmds, labels = list(title = plot_title, X = x_lab, Y = y_lab))
 })

@@ -66,8 +66,8 @@ packages. `R` can be installed on any operating system from
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("iSEEde")
 
@@ -141,17 +141,17 @@ airway <- embedResults(res_deseq2, airway, name = "DESeq2")
 rowData(airway)
 
 app <- iSEE(airway, initial = list(
-  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
-  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+    VolcanoPlot(ContrastName = "dextrt vs dexuntrt", PanelWidth = 6L),
+    MAPlot(ContrastName = "dextrt vs dexuntrt", PanelWidth = 6L)
 ))
 
 if (interactive()) {
-  shiny::runApp(app)
+    shiny::runApp(app)
 }
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-SCREENSHOT("screenshots/landing_page.png", delay=20)
+SCREENSHOT("screenshots/landing_page.png", delay = 20)
 ```
 
 # Reproducibility
