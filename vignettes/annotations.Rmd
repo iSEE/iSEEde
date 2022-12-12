@@ -111,8 +111,8 @@ airway
 We first use `edgeR::filterByExpr()` to remove genes whose counts are too low to
 support a rigorous differential expression analysis. Then we run a standard 
 Limma-Voom analysis using `edgeR::voomLmFit()`, `limma::makeContrasts()`, and
-`limma::eBayes()` (alternatively, we could have used `limma::treat()` instead
-of `limma::eBayes()`).
+`limma::eBayes()`; alternatively, we could have used `limma::treat()` instead
+of `limma::eBayes()`.
 
 The linear model includes the `dex` and `cell` covariates, indicating the
 treatment conditions and cell types, respectively. Here, we are interested in 
