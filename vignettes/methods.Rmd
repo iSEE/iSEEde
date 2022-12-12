@@ -223,7 +223,7 @@ if (interactive()) {
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-SCREENSHOT("screenshots/volcano_plots.png", delay = 20)
+knitr::include_graphics("screenshots/volcano_plots.png")
 ```
 
 # Reproducibility
