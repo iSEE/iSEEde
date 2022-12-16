@@ -45,15 +45,15 @@ library(SummarizedExperiment)
 # From limma::lmFit() ----
 ##
 
-sd <- 0.3*sqrt(4/rchisq(100,df=4))
-y <- matrix(rnorm(100*6,sd=sd),100,6)
-rownames(y) <- paste("Gene",1:100)
-y[1:2,4:6] <- y[1:2,4:6] + 2
-design <- cbind(Grp1=1, Grp2vs1=c(0,0,0,1,1,1))
+sd <- 0.3 * sqrt(4 / rchisq(100, df = 4))
+y <- matrix(rnorm(100 * 6, sd = sd), 100, 6)
+rownames(y) <- paste("Gene", 1:100)
+y[1:2, 4:6] <- y[1:2, 4:6] + 2
+design <- cbind(Grp1 = 1, Grp2vs1 = c(0, 0, 0, 1, 1, 1))
 
-fit <- lmFit(y,design)
+fit <- lmFit(y, design)
 fit <- eBayes(fit)
-tt <- topTable(fit, coef=2)
+tt <- topTable(fit, coef = 2)
 head(tt)
 
 ##
@@ -61,13 +61,13 @@ head(tt)
 ##
 
 # Simulate the original SummarizedExperiment object
-se <- SummarizedExperiment(assays = list(counts=y))
+se <- SummarizedExperiment(assays = list(counts = y))
 
 # Package the results in a iSEELimmaResults object
-iseede_table <- iSEELimmaResults(tt, row.names=rownames(y))
+iseede_table <- iSEELimmaResults(tt, row.names = rownames(y))
 
 # Store the iSEELimmaResults object in the SummarizedExperiment rowData
-rowData(se)[["iSEEde"]] <- DataFrame(limma=I(iseede_table))
+rowData(se)[["iSEEde"]] <- DataFrame(limma = I(iseede_table))
 
 se
 
