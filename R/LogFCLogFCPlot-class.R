@@ -7,6 +7,7 @@
 #' @aliases LogFCLogFCPlot LogFCLogFCPlot-class
 #' initialize,LogFCLogFCPlot-method
 #' .fullName,LogFCLogFCPlot-method
+#' .generateDotPlotData,LogFCLogFCPlot-method
 #' .panelColor,LogFCLogFCPlot-method
 #' 
 #' @name LogFCLogFCPlot-class
@@ -60,4 +61,30 @@ LogFCLogFCPlot <- function(...) {
 #' @importFrom S4Vectors setValidity2
 setValidity2("LogFCLogFCPlot", function(object) {
   return(TRUE)
+})
+
+#' @export
+#' @importMethodsFrom iSEE .generateDotPlotData
+#' @importFrom iSEE .textEval
+setMethod(".generateDotPlotData", "LogFCLogFCPlot", function(x, envir) {
+  data_cmds <- list()
+  
+  y_lab <- sprintf("%s (log2FC)", x[[.contrastNameY]])
+  
+  # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
+  data_cmds[["y"]] <- c(
+    "plot.data <- data.frame(row.names=rownames(se))",
+    sprintf("plot.data$Y <- iSEEde::log2FoldChange(rowData(se)[['iSEEde']][['%s']])", x[[.contrastNameY]])
+  )
+  
+  # Prepare X-axis data.
+  x_lab <- sprintf("%s (log2FC)", x[[.contrastNameX]])
+  data_cmds[["x"]] <- sprintf("plot.data$X <- iSEEde::log2FoldChange(rowData(se)[['iSEEde']][['%s']])", x[[.contrastNameX]])
+  
+  plot_title <- sprintf("%s vs %s", x[[.contrastNameY]], x[[.contrastNameX]])
+  
+  data_cmds <- unlist(data_cmds)
+  .textEval(data_cmds, envir)
+  
+  list(commands=data_cmds, labels=list(title=plot_title, X=x_lab, Y=y_lab))
 })

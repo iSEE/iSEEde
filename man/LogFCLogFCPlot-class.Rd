@@ -6,6 +6,7 @@
 \alias{LogFCLogFCPlot}
 \alias{initialize,LogFCLogFCPlot-method}
 \alias{.fullName,LogFCLogFCPlot-method}
+\alias{.generateDotPlotData,LogFCLogFCPlot-method}
 \alias{.panelColor,LogFCLogFCPlot-method}
 \title{The LogFCLogFCPlot class}
 \description{

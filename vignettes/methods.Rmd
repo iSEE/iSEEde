@@ -232,6 +232,37 @@ if (interactive()) {
 SCREENSHOT("screenshots/methods_side_by_side.png", delay = 20)
 ```
 
+# Comparing two contrasts
+
+The `?LogFCLogFCPlot` class allows users to compare the log-fold-change value of features between two differential expression contrasts.
+
+```{r, message=FALSE, warning=FALSE}
+library(iSEE)
+app <- iSEE(airway, initial = list(
+    VolcanoPlot(ContrastName="Limma-Voom",
+        RowSelectionSource = "LogFCLogFCPlot1", ColorBy = "Row selection",
+        PanelWidth = 4L),
+    LogFCLogFCPlot(ContrastNameX="Limma-Voom", ContrastNameY="DESeq2",
+        BrushData = list(
+        xmin = 3.6, xmax = 8.2, ymin = 3.8, ymax = 9.8,
+        mapping = list(x = "X", y = "Y"),
+        direction = "xy", brushId = "LogFCLogFCPlot1_Brush", 
+        outputId = "LogFCLogFCPlot1"),
+        PanelWidth = 4L),
+    VolcanoPlot(ContrastName="DESeq2",
+        RowSelectionSource = "LogFCLogFCPlot1", ColorBy = "Row selection",
+        PanelWidth = 4L)
+))
+
+if (interactive()) {
+  shiny::runApp(app)
+}
+```
+
+```{r, echo=FALSE, out.width="100%"}
+SCREENSHOT("screenshots/logfc_logfc_plot.png", delay = 20)
+```
+
 # Reproducibility
 
 The `r Biocpkg("iSEEde")` package `r Citep(bib[["iSEEde"]])` was made possible
