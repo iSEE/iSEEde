@@ -5,9 +5,13 @@
 \alias{LogFCLogFCPlot-class}
 \alias{LogFCLogFCPlot}
 \alias{initialize,LogFCLogFCPlot-method}
+\alias{.cacheCommonInfo,LogFCLogFCPlot-method}
+\alias{.createObservers,LogFCLogFCPlot-method}
+\alias{.defineDataInterface,LogFCLogFCPlot-method}
 \alias{.fullName,LogFCLogFCPlot-method}
 \alias{.generateDotPlotData,LogFCLogFCPlot-method}
 \alias{.panelColor,LogFCLogFCPlot-method}
+\alias{.refineParameters,LogFCLogFCPlot-method}
 \title{The LogFCLogFCPlot class}
 \description{
 The LogFCLogFCPlot class is a \linkS4class{RowDataPlot} subclass that is dedicated to comparing the log-fold-change value of two contrasts.
