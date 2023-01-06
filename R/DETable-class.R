@@ -70,6 +70,39 @@ setMethod(".cacheCommonInfo", "DETable", function(x, se) {
 })
 
 #' @export
+#' @importMethodsFrom iSEE .refineParameters
+#' @importFrom iSEE .getCachedCommonInfo .replaceMissingWithFirst
+#' @importFrom methods callNextMethod
+setMethod(".refineParameters", "DETable", function(x, se) {
+    x <- callNextMethod() # Trigger warnings from base classes.
+    if (is.null(x)) {
+        return(NULL)
+    }
+
+    contrast_names <- .getCachedCommonInfo(se, "DETable")$valid.contrast.names
+    x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
+
+    x
+})
+
+#' @export
+#' @importMethodsFrom iSEE .createObservers
+#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers
+#' @importFrom methods callNextMethod
+setMethod(".createObservers", "DETable", function(x, se, input, session, pObjects, rObjects) {
+    callNextMethod()
+
+    plot_name <- .getEncodedName(x)
+
+    .createProtectedParameterObservers(plot_name,
+        fields = c(.contrastName),
+        input = input, pObjects = pObjects, rObjects = rObjects
+    )
+
+    invisible(NULL)
+})
+
+#' @export
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
