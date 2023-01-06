@@ -369,12 +369,41 @@ to identify it as such.</p>
 <p><img src="screenshots/methods_side_by_side.png" width="100%"></p>
 </div>
 <div class="section level2">
+<h2 id="comparing-two-contrasts">Comparing two contrasts<a class="anchor" aria-label="anchor" href="#comparing-two-contrasts"></a>
+</h2>
+<p>The <code><a href="../reference/LogFCLogFCPlot-class.html">?LogFCLogFCPlot</a></code> class allows users to compare the
+log-fold-change value of features between two differential expression
+contrasts.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
+<span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"Limma-Voom"</span>,</span>
+<span>        RowSelectionSource <span class="op">=</span> <span class="st">"LogFCLogFCPlot1"</span>, ColorBy <span class="op">=</span> <span class="st">"Row selection"</span>,</span>
+<span>        PanelWidth <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/LogFCLogFCPlot-class.html">LogFCLogFCPlot</a></span><span class="op">(</span>ContrastNameX<span class="op">=</span><span class="st">"Limma-Voom"</span>, ContrastNameY<span class="op">=</span><span class="st">"DESeq2"</span>,</span>
+<span>        BrushData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        xmin <span class="op">=</span> <span class="fl">3.6</span>, xmax <span class="op">=</span> <span class="fl">8.2</span>, ymin <span class="op">=</span> <span class="fl">3.8</span>, ymax <span class="op">=</span> <span class="fl">9.8</span>,</span>
+<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"X"</span>, y <span class="op">=</span> <span class="st">"Y"</span><span class="op">)</span>,</span>
+<span>        direction <span class="op">=</span> <span class="st">"xy"</span>, brushId <span class="op">=</span> <span class="st">"LogFCLogFCPlot1_Brush"</span>, </span>
+<span>        outputId <span class="op">=</span> <span class="st">"LogFCLogFCPlot1"</span><span class="op">)</span>,</span>
+<span>        PanelWidth <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/VolcanoPlot-class.html">VolcanoPlot</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"DESeq2"</span>,</span>
+<span>        RowSelectionSource <span class="op">=</span> <span class="st">"LogFCLogFCPlot1"</span>, ColorBy <span class="op">=</span> <span class="st">"Row selection"</span>,</span>
+<span>        PanelWidth <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="screenshots/logfc_logfc_plot.png" width="100%"></p>
+</div>
+<div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em>
 package (Rue-Albrecht, 2022) was made possible thanks to:</p>
 <ul>
-<li>R (R Core Team, 2022)</li>
+<li>R (R Core Team, 2023)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.17/BiocStyle" class="external-link">BiocStyle</a></em>
 (Oleś, 2022)</li>
@@ -397,7 +426,7 @@ Chang, and Iannone, 2022)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.17/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"methods.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
@@ -406,13 +435,13 @@ Chang, and Iannone, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"methods.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-01-06 14:49:41 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-01-06 19:11:35 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 43.045 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 30.611 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R Under development (unstable) (2022-12-29 r83517)</span></span>
+<span><span class="co">#&gt;  version  R Under development (unstable) (2023-01-05 r83566)</span></span>
 <span><span class="co">#&gt;  os       Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
@@ -595,10 +624,10 @@ Bioconductor documents</em>. R package version 2.27.0. 2022. URL:
 <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-2022language"></a><a href="#cite-2022language">[4]</a><cite>
+<a id="bib-2023language"></a><a href="#cite-2023language">[4]</a><cite>
 R Core Team. <em>R: A Language and Environment for Statistical
 Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
-2022. URL:
+2023. URL:
 <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
