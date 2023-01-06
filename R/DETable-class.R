@@ -1,13 +1,18 @@
 #' The DETable class
 #'
-#' The DETable is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
+#' The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 #'
 #' @docType methods
 #' @aliases DETable DETable-class
 #' initialize,DETable-method
+#' .cacheCommonInfo,DETable-method
+#' .createObservers,LogFCLogFCPlot-method
+#' .defineDataInterface,LogFCLogFCPlot-method
 #' .fullName,DETable-method
+#' .generateTable,DETable-method
 #' .panelColor,DETable-method
+#' .refineParameters,DETable-method
 #'
 #' @name DETable-class
 #'
