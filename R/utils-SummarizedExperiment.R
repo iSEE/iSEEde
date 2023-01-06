@@ -84,7 +84,9 @@ setMethod("embedResults", "iSEEDESeq2Results", function(x, se, name, ...) {
 #' @export
 #' @importClassesFrom edgeR TopTags
 setMethod("embedResults", "TopTags", function(x, se, name, ...) {
-    res <- iSEEedgeRResults(x, row.names = rownames(se))
+    ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
+    x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
+    res <- iSEEedgeRResults(x_clean, row.names = rownames(se))
     embedResults(res, se, name)
 })
 
