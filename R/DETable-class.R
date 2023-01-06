@@ -7,8 +7,8 @@
 #' @aliases DETable DETable-class
 #' initialize,DETable-method
 #' .cacheCommonInfo,DETable-method
-#' .createObservers,LogFCLogFCPlot-method
-#' .defineDataInterface,LogFCLogFCPlot-method
+#' .createObservers,DETable-method
+#' .defineDataInterface,DETable-method
 #' .fullName,DETable-method
 #' .generateTable,DETable-method
 #' .panelColor,DETable-method

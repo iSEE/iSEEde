@@ -6,8 +6,8 @@
 \alias{DETable}
 \alias{initialize,DETable-method}
 \alias{.cacheCommonInfo,DETable-method}
-\alias{.createObservers,LogFCLogFCPlot-method}
-\alias{.defineDataInterface,LogFCLogFCPlot-method}
+\alias{.createObservers,DETable-method}
+\alias{.defineDataInterface,DETable-method}
 \alias{.fullName,DETable-method}
 \alias{.generateTable,DETable-method}
 \alias{.panelColor,DETable-method}
