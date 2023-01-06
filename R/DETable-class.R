@@ -149,7 +149,7 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
 #' @importMethodsFrom iSEE .generateTable
 #' @importFrom SummarizedExperiment rowData
 setMethod(".generateTable", "DETable", function(x, envir) {
-  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", slot(x, .contrastName))
+  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", x[[.contrastName]])
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }
