@@ -5,11 +5,16 @@
 \alias{DETable-class}
 \alias{DETable}
 \alias{initialize,DETable-method}
+\alias{.cacheCommonInfo,DETable-method}
+\alias{.createObservers,DETable-method}
+\alias{.defineDataInterface,DETable-method}
 \alias{.fullName,DETable-method}
+\alias{.generateTable,DETable-method}
 \alias{.panelColor,DETable-method}
+\alias{.refineParameters,DETable-method}
 \title{The DETable class}
 \description{
-The DETable is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
+The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
 It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 }
 \examples{

@@ -1,13 +1,18 @@
 #' The DETable class
 #'
-#' The DETable is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
+#' The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 #'
 #' @docType methods
 #' @aliases DETable DETable-class
 #' initialize,DETable-method
+#' .cacheCommonInfo,DETable-method
+#' .createObservers,DETable-method
+#' .defineDataInterface,DETable-method
 #' .fullName,DETable-method
+#' .generateTable,DETable-method
 #' .panelColor,DETable-method
+#' .refineParameters,DETable-method
 #'
 #' @name DETable-class
 #'
@@ -144,7 +149,7 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
 #' @importMethodsFrom iSEE .generateTable
 #' @importFrom SummarizedExperiment rowData
 setMethod(".generateTable", "DETable", function(x, envir) {
-  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", slot(x, .contrastName))
+  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", x[[.contrastName]])
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }
