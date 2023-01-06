@@ -46,3 +46,15 @@ setMethod("initialize", "DETable", function(.Object,
 DETable <- function(...) {
     new("DETable", ...)
 }
+
+#' @export
+#' @importMethodsFrom iSEE .generateTable
+#' @importFrom SummarizedExperiment rowData
+setMethod(".generateTable", "DETable", function(x, envir) {
+  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", slot(x, .contrastName))
+  if (exists("row_selected", envir = envir, inherits = FALSE)) {
+    cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
+  }
+  .textEval(cmds, envir)
+  cmds
+})

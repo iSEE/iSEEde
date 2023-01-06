@@ -63,15 +63,17 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 
 # iSEE ---
 
-airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+airway <- embedResults(res_deseq2, airway, name = "dex: trt vs untrt")
 
 app <- iSEE(airway, initial = list(
-  VolcanoPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L),
-  MAPlot(ContrastName="dextrt vs dexuntrt", PanelWidth = 6L)
+  DETable(ContrastName="dex: trt vs untrt", HiddenColumns = c("baseMean", 
+    "lfcSE", "stat"), PanelWidth = 4L),
+  VolcanoPlot(ContrastName="dex: trt vs untrt", PanelWidth = 4L),
+  MAPlot(ContrastName="dex: trt vs untrt", PanelWidth = 4L)
 ))
 
 if (interactive()) {
-  shiny::runApp(app)
+    shiny::runApp(app)
 }
 ```
 
@@ -82,7 +84,7 @@ Please run this yourself to check for any updates on how to cite
 **iSEEde**.
 
 ``` r
-print(citation('iSEEde'), bibtex = TRUE)
+print(citation("iSEEde"), bibtex = TRUE)
 #> 
 #> To cite package 'iSEEde' in publications use:
 #> 
