@@ -229,7 +229,7 @@ if (interactive()) {
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("screenshots/methods_side_by_side.png")
+SCREENSHOT("screenshots/methods_side_by_side.png", delay = 20)
 ```
 
 # Reproducibility
