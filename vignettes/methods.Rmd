@@ -209,16 +209,22 @@ rowData(airway)
 ```{r}
 library(iSEE)
 app <- iSEE(airway, initial = list(
-    VolcanoPlot(ContrastName = "Limma-Voom", PanelWidth = 6L),
-    MAPlot(ContrastName = "Limma-Voom", PanelWidth = 6L),
-    VolcanoPlot(ContrastName = "DESeq2", PanelWidth = 6L),
-    MAPlot(ContrastName = "DESeq2", PanelWidth = 6L),
-    VolcanoPlot(ContrastName = "edgeR", PanelWidth = 6L),
-    MAPlot(ContrastName = "edgeR", PanelWidth = 6L)
+  DETable(ContrastName="Limma-Voom", HiddenColumns = HiddenColumns = c("AveExpr", 
+    "t", "B"), PanelWidth = 4L),
+  VolcanoPlot(ContrastName = "Limma-Voom", PanelWidth = 4L),
+  MAPlot(ContrastName = "Limma-Voom", PanelWidth = 4L),
+  DETable(ContrastName="DESeq2", HiddenColumns = c("baseMean", 
+    "lfcSE", "stat"), PanelWidth = 4L),
+  VolcanoPlot(ContrastName = "DESeq2", PanelWidth = 4L),
+  MAPlot(ContrastName = "DESeq2", PanelWidth = 4L),
+  DETable(ContrastName="edgeR", HiddenColumns = c("baseMean", 
+    "lfcSE", "stat"), PanelWidth = 4L),
+  VolcanoPlot(ContrastName = "edgeR", PanelWidth = 4L),
+  MAPlot(ContrastName = "edgeR", PanelWidth = 4L)
 ))
 
 if (interactive()) {
-    shiny::runApp(app)
+  shiny::runApp(app)
 }
 ```
 
