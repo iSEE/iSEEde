@@ -206,7 +206,7 @@ rowData(airway)
 
 # Live app
 
-```{r}
+```{r, message=FALSE}
 library(iSEE)
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="Limma-Voom", HiddenColumns = c("AveExpr", 
@@ -229,7 +229,7 @@ if (interactive()) {
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("screenshots/volcano_plots.png")
+knitr::include_graphics("screenshots/methods_side_by_side.png")
 ```
 
 # Reproducibility
