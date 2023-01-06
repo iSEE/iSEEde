@@ -9,3 +9,4 @@
 ^docs$
 ^pkgdown$
 ^\.Rprofile$
+^_pkgdown.yml$
