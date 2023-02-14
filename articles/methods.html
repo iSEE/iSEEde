@@ -93,7 +93,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">6 January 2023</h4>
+            <h4 data-toc-skip class="date">14 February 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/HEAD/vignettes/methods.Rmd" class="external-link"><code>vignettes/methods.Rmd</code></a></small>
       <div class="hidden name"><code>methods.Rmd</code></div>
@@ -170,13 +170,27 @@ adjusted by cell type, and define this comparison as the
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="va">res_limma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">fit</span>, sort.by <span class="op">=</span> <span class="st">"P"</span>, n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_limma</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                     logFC  AveExpr         t      P.Value    adj.P.Val        B</span></span>
-<span><span class="co">#&gt; ENSG00000165995  3.205606 3.682244  36.52011 2.463606e-11 4.153640e-07 15.90582</span></span>
-<span><span class="co">#&gt; ENSG00000120129  2.864778 6.644455  28.94270 2.090804e-10 9.944584e-07 14.60579</span></span>
-<span><span class="co">#&gt; ENSG00000189221  3.256085 5.950559  28.27912 2.586665e-10 9.944584e-07 14.38248</span></span>
-<span><span class="co">#&gt; ENSG00000152583  4.489009 4.166904  27.98254 2.849300e-10 9.944584e-07 13.91713</span></span>
-<span><span class="co">#&gt; ENSG00000146250 -2.828184 3.224885 -27.49302 3.349813e-10 9.944584e-07 13.71315</span></span>
-<span><span class="co">#&gt; ENSG00000157214  1.894559 6.790009  26.92657 4.054069e-10 9.944584e-07 13.99293</span></span></code></pre></div>
+<span><span class="co">#&gt;                         gene_id gene_name entrezid   gene_biotype gene_seq_start gene_seq_end</span></span>
+<span><span class="co">#&gt; ENSG00000165995 ENSG00000165995    CACNB2       NA protein_coding       18429606     18830798</span></span>
+<span><span class="co">#&gt; ENSG00000120129 ENSG00000120129     DUSP1       NA protein_coding      172195093    172198198</span></span>
+<span><span class="co">#&gt; ENSG00000189221 ENSG00000189221      MAOA       NA protein_coding       43515467     43606068</span></span>
+<span><span class="co">#&gt; ENSG00000152583 ENSG00000152583   SPARCL1       NA protein_coding       88394487     88452213</span></span>
+<span><span class="co">#&gt; ENSG00000146250 ENSG00000146250    PRSS35       NA protein_coding       84222194     84235423</span></span>
+<span><span class="co">#&gt; ENSG00000157214 ENSG00000157214    STEAP2       NA protein_coding       89796904     89867451</span></span>
+<span><span class="co">#&gt;                 seq_name seq_strand seq_coord_system  symbol     logFC  AveExpr         t</span></span>
+<span><span class="co">#&gt; ENSG00000165995       10          1               NA  CACNB2  3.205606 3.682244  36.52011</span></span>
+<span><span class="co">#&gt; ENSG00000120129        5         -1               NA   DUSP1  2.864778 6.644455  28.94270</span></span>
+<span><span class="co">#&gt; ENSG00000189221        X          1               NA    MAOA  3.256085 5.950559  28.27912</span></span>
+<span><span class="co">#&gt; ENSG00000152583        4         -1               NA SPARCL1  4.489009 4.166904  27.98254</span></span>
+<span><span class="co">#&gt; ENSG00000146250        6          1               NA  PRSS35 -2.828184 3.224885 -27.49302</span></span>
+<span><span class="co">#&gt; ENSG00000157214        7          1               NA  STEAP2  1.894559 6.790009  26.92657</span></span>
+<span><span class="co">#&gt;                      P.Value    adj.P.Val        B</span></span>
+<span><span class="co">#&gt; ENSG00000165995 2.463606e-11 4.153640e-07 15.90582</span></span>
+<span><span class="co">#&gt; ENSG00000120129 2.090804e-10 9.944584e-07 14.60579</span></span>
+<span><span class="co">#&gt; ENSG00000189221 2.586665e-10 9.944584e-07 14.38248</span></span>
+<span><span class="co">#&gt; ENSG00000152583 2.849300e-10 9.944584e-07 13.91713</span></span>
+<span><span class="co">#&gt; ENSG00000146250 3.349813e-10 9.944584e-07 13.71315</span></span>
+<span><span class="co">#&gt; ENSG00000157214 4.054069e-10 9.944584e-07 13.99293</span></span></code></pre></div>
 <p>Then, we embed this set of differential expression results in the
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
 method.</p>
@@ -190,22 +204,42 @@ identifying it as a <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" 
 <code>rowData(airway)[["iSEEde"]]</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEEde" class="external-link">iSEEde</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: iSEE</span></span>
+<span><span class="co">#&gt; Loading required package: SingleCellExperiment</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'SingleCellExperiment'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:edgeR':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     cpm</span></span>
 <span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_limma</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"Limma-Voom"</span>, class <span class="op">=</span> <span class="st">"limma"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
-<span><span class="co">#&gt;                             iSEEde</span></span>
-<span><span class="co">#&gt;                        &lt;DataFrame&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000005 &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000419 &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; ...                            ...</span></span>
-<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; DataFrame with 63677 rows and 11 columns</span></span>
+<span><span class="co">#&gt;                         gene_id     gene_name  entrezid   gene_biotype gene_seq_start gene_seq_end</span></span>
+<span><span class="co">#&gt;                     &lt;character&gt;   &lt;character&gt; &lt;integer&gt;    &lt;character&gt;      &lt;integer&gt;    &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 ENSG00000000003        TSPAN6        NA protein_coding       99883667     99894988</span></span>
+<span><span class="co">#&gt; ENSG00000000005 ENSG00000000005          TNMD        NA protein_coding       99839799     99854882</span></span>
+<span><span class="co">#&gt; ENSG00000000419 ENSG00000000419          DPM1        NA protein_coding       49551404     49575092</span></span>
+<span><span class="co">#&gt; ENSG00000000457 ENSG00000000457         SCYL3        NA protein_coding      169818772    169863408</span></span>
+<span><span class="co">#&gt; ENSG00000000460 ENSG00000000460      C1orf112        NA protein_coding      169631245    169823221</span></span>
+<span><span class="co">#&gt; ...                         ...           ...       ...            ...            ...          ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489 ENSG00000273489 RP11-180C16.1        NA      antisense      131178723    131182453</span></span>
+<span><span class="co">#&gt; ENSG00000273490 ENSG00000273490        TSEN34        NA protein_coding       54693789     54697585</span></span>
+<span><span class="co">#&gt; ENSG00000273491 ENSG00000273491  RP11-138A9.2        NA        lincRNA      130600118    130603315</span></span>
+<span><span class="co">#&gt; ENSG00000273492 ENSG00000273492    AP000230.1        NA        lincRNA       27543189     27589700</span></span>
+<span><span class="co">#&gt; ENSG00000273493 ENSG00000273493  RP11-80H18.4        NA        lincRNA       58315692     58315845</span></span>
+<span><span class="co">#&gt;                              seq_name seq_strand seq_coord_system        symbol             iSEEde</span></span>
+<span><span class="co">#&gt;                           &lt;character&gt;  &lt;integer&gt;        &lt;integer&gt;   &lt;character&gt;        &lt;DataFrame&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003                     X         -1               NA        TSPAN6 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000005                     X          1               NA          TNMD &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000419                    20         -1               NA          DPM1 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000457                     1         -1               NA         SCYL3 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000460                     1          1               NA      C1orf112 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ...                               ...        ...              ...           ...                ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489                     7         -1               NA RP11-180C16.1 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273490 HSCHR19LRC_LRC_J_CTG1          1               NA        TSEN34 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273491          HG1308_PATCH          1               NA  RP11-138A9.2 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273492                    21          1               NA    AP000230.1 &lt;iSEELimmaResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273493                     3          1               NA  RP11-80H18.4 &lt;iSEELimmaResults&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="deseq2">DESeq2<a class="anchor" aria-label="anchor" href="#deseq2"></a>
@@ -229,11 +263,11 @@ analysis using <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="
 <span><span class="co">#&gt; DataFrame with 6 rows and 6 columns</span></span>
 <span><span class="co">#&gt;                   baseMean log2FoldChange     lfcSE      stat      pvalue       padj</span></span>
 <span><span class="co">#&gt;                  &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt;  &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000003 708.602170     -0.3812539  0.100654 -3.787752 0.000152016 0.00128363</span></span>
+<span><span class="co">#&gt; ENSG00000000003 708.602170     -0.3812539  0.100654 -3.787752 0.000152016 0.00128292</span></span>
 <span><span class="co">#&gt; ENSG00000000005   0.000000             NA        NA        NA          NA         NA</span></span>
-<span><span class="co">#&gt; ENSG00000000419 520.297901      0.2068127  0.112219  1.842944 0.065337213 0.19654585</span></span>
-<span><span class="co">#&gt; ENSG00000000457 237.163037      0.0379205  0.143445  0.264356 0.791505314 0.91145869</span></span>
-<span><span class="co">#&gt; ENSG00000000460  57.932633     -0.0881679  0.287142 -0.307054 0.758802543 0.89503352</span></span>
+<span><span class="co">#&gt; ENSG00000000419 520.297901      0.2068127  0.112219  1.842944 0.065337213 0.19646961</span></span>
+<span><span class="co">#&gt; ENSG00000000457 237.163037      0.0379205  0.143445  0.264356 0.791505314 0.91141884</span></span>
+<span><span class="co">#&gt; ENSG00000000460  57.932633     -0.0881679  0.287142 -0.307054 0.758802543 0.89500551</span></span>
 <span><span class="co">#&gt; ENSG00000000938   0.318098     -1.3782416  3.499906 -0.393794 0.693733216         NA</span></span></code></pre></div>
 <p>Then, we embed this set of differential expression results in the
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
@@ -248,7 +282,33 @@ such.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"DESeq2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
+<span><span class="co">#&gt; DataFrame with 63677 rows and 11 columns</span></span>
+<span><span class="co">#&gt;                         gene_id     gene_name  entrezid   gene_biotype gene_seq_start gene_seq_end</span></span>
+<span><span class="co">#&gt;                     &lt;character&gt;   &lt;character&gt; &lt;integer&gt;    &lt;character&gt;      &lt;integer&gt;    &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 ENSG00000000003        TSPAN6        NA protein_coding       99883667     99894988</span></span>
+<span><span class="co">#&gt; ENSG00000000005 ENSG00000000005          TNMD        NA protein_coding       99839799     99854882</span></span>
+<span><span class="co">#&gt; ENSG00000000419 ENSG00000000419          DPM1        NA protein_coding       49551404     49575092</span></span>
+<span><span class="co">#&gt; ENSG00000000457 ENSG00000000457         SCYL3        NA protein_coding      169818772    169863408</span></span>
+<span><span class="co">#&gt; ENSG00000000460 ENSG00000000460      C1orf112        NA protein_coding      169631245    169823221</span></span>
+<span><span class="co">#&gt; ...                         ...           ...       ...            ...            ...          ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489 ENSG00000273489 RP11-180C16.1        NA      antisense      131178723    131182453</span></span>
+<span><span class="co">#&gt; ENSG00000273490 ENSG00000273490        TSEN34        NA protein_coding       54693789     54697585</span></span>
+<span><span class="co">#&gt; ENSG00000273491 ENSG00000273491  RP11-138A9.2        NA        lincRNA      130600118    130603315</span></span>
+<span><span class="co">#&gt; ENSG00000273492 ENSG00000273492    AP000230.1        NA        lincRNA       27543189     27589700</span></span>
+<span><span class="co">#&gt; ENSG00000273493 ENSG00000273493  RP11-80H18.4        NA        lincRNA       58315692     58315845</span></span>
+<span><span class="co">#&gt;                              seq_name seq_strand seq_coord_system        symbol</span></span>
+<span><span class="co">#&gt;                           &lt;character&gt;  &lt;integer&gt;        &lt;integer&gt;   &lt;character&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003                     X         -1               NA        TSPAN6</span></span>
+<span><span class="co">#&gt; ENSG00000000005                     X          1               NA          TNMD</span></span>
+<span><span class="co">#&gt; ENSG00000000419                    20         -1               NA          DPM1</span></span>
+<span><span class="co">#&gt; ENSG00000000457                     1         -1               NA         SCYL3</span></span>
+<span><span class="co">#&gt; ENSG00000000460                     1          1               NA      C1orf112</span></span>
+<span><span class="co">#&gt; ...                               ...        ...              ...           ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489                     7         -1               NA RP11-180C16.1</span></span>
+<span><span class="co">#&gt; ENSG00000273490 HSCHR19LRC_LRC_J_CTG1          1               NA        TSEN34</span></span>
+<span><span class="co">#&gt; ENSG00000273491          HG1308_PATCH          1               NA  RP11-138A9.2</span></span>
+<span><span class="co">#&gt; ENSG00000273492                    21          1               NA    AP000230.1</span></span>
+<span><span class="co">#&gt; ENSG00000273493                     3          1               NA  RP11-80H18.4</span></span>
 <span><span class="co">#&gt;                                                 iSEEde</span></span>
 <span><span class="co">#&gt;                                            &lt;DataFrame&gt;</span></span>
 <span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
@@ -257,11 +317,11 @@ such.</p>
 <span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
 <span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
 <span><span class="co">#&gt; ...                                                ...</span></span>
-<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; ENSG00000273489 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273490 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273491 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273492 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273493 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="edger">edgeR<a class="anchor" aria-label="anchor" href="#edger"></a>
@@ -280,41 +340,83 @@ analysis using <code><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="
 <span><span class="va">res_edger</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">lrt</span>, n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_edger</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Coefficient:  -1*dexuntrt 1*dextrt </span></span>
-<span><span class="co">#&gt;                 iSEEde.Limma.Voom.logFC iSEEde.Limma.Voom.AveExpr iSEEde.Limma.Voom.t</span></span>
-<span><span class="co">#&gt; ENSG00000109906                7.069003                 1.3807218            23.92876</span></span>
-<span><span class="co">#&gt; ENSG00000179593                7.988755                -1.4798754            21.51509</span></span>
-<span><span class="co">#&gt; ENSG00000127954                5.184088                 1.6193300            20.41435</span></span>
-<span><span class="co">#&gt; ENSG00000152583                4.489009                 4.1669039            27.98254</span></span>
-<span><span class="co">#&gt; ENSG00000250978                6.031081                -0.7521822            16.23024</span></span>
-<span><span class="co">#&gt; ENSG00000163884                4.433096                 3.2401058            23.42513</span></span>
-<span><span class="co">#&gt;                 iSEEde.Limma.Voom.P.Value iSEEde.Limma.Voom.adj.P.Val iSEEde.Limma.Voom.B</span></span>
-<span><span class="co">#&gt; ENSG00000109906              1.193801e-09                1.222165e-06            9.790766</span></span>
-<span><span class="co">#&gt; ENSG00000179593              4.101487e-07                3.152321e-05            4.032461</span></span>
-<span><span class="co">#&gt; ENSG00000127954              5.076152e-09                2.445255e-06           10.615840</span></span>
-<span><span class="co">#&gt; ENSG00000152583              2.849300e-10                9.944584e-07           13.917129</span></span>
-<span><span class="co">#&gt; ENSG00000250978              4.035046e-08                7.558986e-06            6.919857</span></span>
-<span><span class="co">#&gt; ENSG00000163884              1.449780e-09                1.222165e-06           12.322804</span></span>
-<span><span class="co">#&gt;                 iSEEde.DESeq2.baseMean iSEEde.DESeq2.log2FoldChange iSEEde.DESeq2.lfcSE</span></span>
-<span><span class="co">#&gt; ENSG00000109906              385.07103                     7.352629           0.5363902</span></span>
-<span><span class="co">#&gt; ENSG00000179593               67.24305                     9.505983           1.0545033</span></span>
-<span><span class="co">#&gt; ENSG00000127954              286.38412                     5.207161           0.4930839</span></span>
-<span><span class="co">#&gt; ENSG00000152583              997.43977                     4.574919           0.1840561</span></span>
-<span><span class="co">#&gt; ENSG00000250978               56.31819                     6.327386           0.6777980</span></span>
-<span><span class="co">#&gt; ENSG00000163884              561.10717                     4.459129           0.2348638</span></span>
-<span><span class="co">#&gt;                 iSEEde.DESeq2.stat iSEEde.DESeq2.pvalue iSEEde.DESeq2.padj     logFC   logCPM</span></span>
-<span><span class="co">#&gt; ENSG00000109906          13.707612         9.141717e-43       2.257628e-40  7.183385 4.132638</span></span>
-<span><span class="co">#&gt; ENSG00000179593           9.014654         1.974926e-19       1.253661e-17 10.015847 1.627629</span></span>
-<span><span class="co">#&gt; ENSG00000127954          10.560396         4.547384e-26       5.060508e-24  5.087069 3.672567</span></span>
-<span><span class="co">#&gt; ENSG00000152583          24.856114        2.220777e-136      4.003616e-132  4.498698 5.510213</span></span>
-<span><span class="co">#&gt; ENSG00000250978           9.335209         1.007922e-20       7.210645e-19  6.128131 1.377260</span></span>
-<span><span class="co">#&gt; ENSG00000163884          18.986019         2.225778e-80       2.507895e-77  4.367962 4.681216</span></span>
-<span><span class="co">#&gt;                       LR       PValue          FDR</span></span>
-<span><span class="co">#&gt; ENSG00000109906 238.3947 8.805179e-54 5.644296e-49</span></span>
-<span><span class="co">#&gt; ENSG00000179593 181.0331 2.883024e-41 9.240380e-37</span></span>
-<span><span class="co">#&gt; ENSG00000127954 146.9725 7.957020e-34 1.700203e-29</span></span>
-<span><span class="co">#&gt; ENSG00000152583 140.2205 2.382274e-32 3.817714e-28</span></span>
-<span><span class="co">#&gt; ENSG00000250978 137.4681 9.526183e-32 1.221295e-27</span></span>
-<span><span class="co">#&gt; ENSG00000163884 129.2203 6.069471e-30 6.484420e-26</span></span></code></pre></div>
+<span><span class="co">#&gt;                         gene_id     gene_name entrezid         gene_biotype gene_seq_start</span></span>
+<span><span class="co">#&gt; ENSG00000109906 ENSG00000109906        ZBTB16       NA       protein_coding      113930315</span></span>
+<span><span class="co">#&gt; ENSG00000179593 ENSG00000179593       ALOX15B       NA       protein_coding        7942335</span></span>
+<span><span class="co">#&gt; ENSG00000127954 ENSG00000127954        STEAP4       NA       protein_coding       87905744</span></span>
+<span><span class="co">#&gt; ENSG00000152583 ENSG00000152583       SPARCL1       NA       protein_coding       88394487</span></span>
+<span><span class="co">#&gt; ENSG00000250978 ENSG00000250978 RP11-357D18.1       NA processed_transcript       66759637</span></span>
+<span><span class="co">#&gt; ENSG00000163884 ENSG00000163884         KLF15       NA       protein_coding      126061478</span></span>
+<span><span class="co">#&gt;                 gene_seq_end seq_name seq_strand seq_coord_system        symbol</span></span>
+<span><span class="co">#&gt; ENSG00000109906    114121398       11          1               NA        ZBTB16</span></span>
+<span><span class="co">#&gt; ENSG00000179593      7952452       17          1               NA       ALOX15B</span></span>
+<span><span class="co">#&gt; ENSG00000127954     87936206        7         -1               NA        STEAP4</span></span>
+<span><span class="co">#&gt; ENSG00000152583     88452213        4         -1               NA       SPARCL1</span></span>
+<span><span class="co">#&gt; ENSG00000250978     66771420        5         -1               NA RP11-357D18.1</span></span>
+<span><span class="co">#&gt; ENSG00000163884    126076285        3         -1               NA         KLF15</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.gene_id iSEEde.Limma.Voom.gene_name iSEEde.Limma.Voom.entrezid</span></span>
+<span><span class="co">#&gt; ENSG00000109906           ENSG00000109906                      ZBTB16                         NA</span></span>
+<span><span class="co">#&gt; ENSG00000179593           ENSG00000179593                     ALOX15B                         NA</span></span>
+<span><span class="co">#&gt; ENSG00000127954           ENSG00000127954                      STEAP4                         NA</span></span>
+<span><span class="co">#&gt; ENSG00000152583           ENSG00000152583                     SPARCL1                         NA</span></span>
+<span><span class="co">#&gt; ENSG00000250978           ENSG00000250978               RP11-357D18.1                         NA</span></span>
+<span><span class="co">#&gt; ENSG00000163884           ENSG00000163884                       KLF15                         NA</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.gene_biotype iSEEde.Limma.Voom.gene_seq_start</span></span>
+<span><span class="co">#&gt; ENSG00000109906                 protein_coding                        113930315</span></span>
+<span><span class="co">#&gt; ENSG00000179593                 protein_coding                          7942335</span></span>
+<span><span class="co">#&gt; ENSG00000127954                 protein_coding                         87905744</span></span>
+<span><span class="co">#&gt; ENSG00000152583                 protein_coding                         88394487</span></span>
+<span><span class="co">#&gt; ENSG00000250978           processed_transcript                         66759637</span></span>
+<span><span class="co">#&gt; ENSG00000163884                 protein_coding                        126061478</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.gene_seq_end iSEEde.Limma.Voom.seq_name</span></span>
+<span><span class="co">#&gt; ENSG00000109906                      114121398                         11</span></span>
+<span><span class="co">#&gt; ENSG00000179593                        7952452                         17</span></span>
+<span><span class="co">#&gt; ENSG00000127954                       87936206                          7</span></span>
+<span><span class="co">#&gt; ENSG00000152583                       88452213                          4</span></span>
+<span><span class="co">#&gt; ENSG00000250978                       66771420                          5</span></span>
+<span><span class="co">#&gt; ENSG00000163884                      126076285                          3</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.seq_strand iSEEde.Limma.Voom.seq_coord_system</span></span>
+<span><span class="co">#&gt; ENSG00000109906                            1                                 NA</span></span>
+<span><span class="co">#&gt; ENSG00000179593                            1                                 NA</span></span>
+<span><span class="co">#&gt; ENSG00000127954                           -1                                 NA</span></span>
+<span><span class="co">#&gt; ENSG00000152583                           -1                                 NA</span></span>
+<span><span class="co">#&gt; ENSG00000250978                           -1                                 NA</span></span>
+<span><span class="co">#&gt; ENSG00000163884                           -1                                 NA</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.symbol iSEEde.Limma.Voom.logFC iSEEde.Limma.Voom.AveExpr</span></span>
+<span><span class="co">#&gt; ENSG00000109906                   ZBTB16                7.069003                 1.3807218</span></span>
+<span><span class="co">#&gt; ENSG00000179593                  ALOX15B                7.988755                -1.4798754</span></span>
+<span><span class="co">#&gt; ENSG00000127954                   STEAP4                5.184088                 1.6193300</span></span>
+<span><span class="co">#&gt; ENSG00000152583                  SPARCL1                4.489009                 4.1669039</span></span>
+<span><span class="co">#&gt; ENSG00000250978            RP11-357D18.1                6.031081                -0.7521822</span></span>
+<span><span class="co">#&gt; ENSG00000163884                    KLF15                4.433096                 3.2401058</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.t iSEEde.Limma.Voom.P.Value iSEEde.Limma.Voom.adj.P.Val</span></span>
+<span><span class="co">#&gt; ENSG00000109906            23.92876              1.193801e-09                1.222165e-06</span></span>
+<span><span class="co">#&gt; ENSG00000179593            21.51509              4.101487e-07                3.152321e-05</span></span>
+<span><span class="co">#&gt; ENSG00000127954            20.41435              5.076152e-09                2.445255e-06</span></span>
+<span><span class="co">#&gt; ENSG00000152583            27.98254              2.849300e-10                9.944584e-07</span></span>
+<span><span class="co">#&gt; ENSG00000250978            16.23024              4.035046e-08                7.558986e-06</span></span>
+<span><span class="co">#&gt; ENSG00000163884            23.42513              1.449780e-09                1.222165e-06</span></span>
+<span><span class="co">#&gt;                 iSEEde.Limma.Voom.B iSEEde.DESeq2.baseMean iSEEde.DESeq2.log2FoldChange</span></span>
+<span><span class="co">#&gt; ENSG00000109906            9.790766              385.07103                     7.352629</span></span>
+<span><span class="co">#&gt; ENSG00000179593            4.032461               67.24305                     9.505983</span></span>
+<span><span class="co">#&gt; ENSG00000127954           10.615840              286.38412                     5.207161</span></span>
+<span><span class="co">#&gt; ENSG00000152583           13.917129              997.43977                     4.574919</span></span>
+<span><span class="co">#&gt; ENSG00000250978            6.919857               56.31819                     6.327386</span></span>
+<span><span class="co">#&gt; ENSG00000163884           12.322804              561.10717                     4.459129</span></span>
+<span><span class="co">#&gt;                 iSEEde.DESeq2.lfcSE iSEEde.DESeq2.stat iSEEde.DESeq2.pvalue iSEEde.DESeq2.padj</span></span>
+<span><span class="co">#&gt; ENSG00000109906           0.5363902          13.707612         9.141717e-43       2.256376e-40</span></span>
+<span><span class="co">#&gt; ENSG00000179593           1.0545033           9.014654         1.974926e-19       1.252965e-17</span></span>
+<span><span class="co">#&gt; ENSG00000127954           0.4930839          10.560396         4.547384e-26       5.057701e-24</span></span>
+<span><span class="co">#&gt; ENSG00000152583           0.1840561          24.856114        2.220777e-136      4.001395e-132</span></span>
+<span><span class="co">#&gt; ENSG00000250978           0.6777980           9.335209         1.007922e-20       7.206645e-19</span></span>
+<span><span class="co">#&gt; ENSG00000163884           0.2348638          18.986019         2.225778e-80       2.506504e-77</span></span>
+<span><span class="co">#&gt;                     logFC   logCPM       LR       PValue          FDR</span></span>
+<span><span class="co">#&gt; ENSG00000109906  7.183385 4.132638 238.3947 8.805179e-54 5.606874e-49</span></span>
+<span><span class="co">#&gt; ENSG00000179593 10.015847 1.627629 181.0331 2.883024e-41 9.179116e-37</span></span>
+<span><span class="co">#&gt; ENSG00000127954  5.087069 3.672567 146.9725 7.957020e-34 1.688931e-29</span></span>
+<span><span class="co">#&gt; ENSG00000152583  4.498698 5.510213 140.2205 2.382274e-32 3.792402e-28</span></span>
+<span><span class="co">#&gt; ENSG00000250978  6.128131 1.377260 137.4681 9.526183e-32 1.213198e-27</span></span>
+<span><span class="co">#&gt; ENSG00000163884  4.367962 4.681216 129.2203 6.069471e-30 6.441428e-26</span></span></code></pre></div>
 <p>Then, we embed this set of differential expression results in the
 <code>airway</code> object using the <code><a href="../reference/utils-SummarizedExperiment.html">embedResults()</a></code>
 method.</p>
@@ -327,7 +429,33 @@ to identify it as such.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedResults</a></span><span class="op">(</span><span class="va">res_edger</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"edgeR"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 64102 rows and 1 column</span></span>
+<span><span class="co">#&gt; DataFrame with 63677 rows and 11 columns</span></span>
+<span><span class="co">#&gt;                         gene_id     gene_name  entrezid   gene_biotype gene_seq_start gene_seq_end</span></span>
+<span><span class="co">#&gt;                     &lt;character&gt;   &lt;character&gt; &lt;integer&gt;    &lt;character&gt;      &lt;integer&gt;    &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 ENSG00000000003        TSPAN6        NA protein_coding       99883667     99894988</span></span>
+<span><span class="co">#&gt; ENSG00000000005 ENSG00000000005          TNMD        NA protein_coding       99839799     99854882</span></span>
+<span><span class="co">#&gt; ENSG00000000419 ENSG00000000419          DPM1        NA protein_coding       49551404     49575092</span></span>
+<span><span class="co">#&gt; ENSG00000000457 ENSG00000000457         SCYL3        NA protein_coding      169818772    169863408</span></span>
+<span><span class="co">#&gt; ENSG00000000460 ENSG00000000460      C1orf112        NA protein_coding      169631245    169823221</span></span>
+<span><span class="co">#&gt; ...                         ...           ...       ...            ...            ...          ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489 ENSG00000273489 RP11-180C16.1        NA      antisense      131178723    131182453</span></span>
+<span><span class="co">#&gt; ENSG00000273490 ENSG00000273490        TSEN34        NA protein_coding       54693789     54697585</span></span>
+<span><span class="co">#&gt; ENSG00000273491 ENSG00000273491  RP11-138A9.2        NA        lincRNA      130600118    130603315</span></span>
+<span><span class="co">#&gt; ENSG00000273492 ENSG00000273492    AP000230.1        NA        lincRNA       27543189     27589700</span></span>
+<span><span class="co">#&gt; ENSG00000273493 ENSG00000273493  RP11-80H18.4        NA        lincRNA       58315692     58315845</span></span>
+<span><span class="co">#&gt;                              seq_name seq_strand seq_coord_system        symbol</span></span>
+<span><span class="co">#&gt;                           &lt;character&gt;  &lt;integer&gt;        &lt;integer&gt;   &lt;character&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003                     X         -1               NA        TSPAN6</span></span>
+<span><span class="co">#&gt; ENSG00000000005                     X          1               NA          TNMD</span></span>
+<span><span class="co">#&gt; ENSG00000000419                    20         -1               NA          DPM1</span></span>
+<span><span class="co">#&gt; ENSG00000000457                     1         -1               NA         SCYL3</span></span>
+<span><span class="co">#&gt; ENSG00000000460                     1          1               NA      C1orf112</span></span>
+<span><span class="co">#&gt; ...                               ...        ...              ...           ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489                     7         -1               NA RP11-180C16.1</span></span>
+<span><span class="co">#&gt; ENSG00000273490 HSCHR19LRC_LRC_J_CTG1          1               NA        TSEN34</span></span>
+<span><span class="co">#&gt; ENSG00000273491          HG1308_PATCH          1               NA  RP11-138A9.2</span></span>
+<span><span class="co">#&gt; ENSG00000273492                    21          1               NA    AP000230.1</span></span>
+<span><span class="co">#&gt; ENSG00000273493                     3          1               NA  RP11-80H18.4</span></span>
 <span><span class="co">#&gt;                                                                    iSEEde</span></span>
 <span><span class="co">#&gt;                                                               &lt;DataFrame&gt;</span></span>
 <span><span class="co">#&gt; ENSG00000000003 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
@@ -336,11 +464,11 @@ to identify it as such.</p>
 <span><span class="co">#&gt; ENSG00000000457 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
 <span><span class="co">#&gt; ENSG00000000460 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
 <span><span class="co">#&gt; ...                                                                   ...</span></span>
-<span><span class="co">#&gt; LRG_94          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_96          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_97          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_98          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
-<span><span class="co">#&gt; LRG_99          &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; ENSG00000273489 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273490 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273491 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273492 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273493 &lt;iSEELimmaResults&gt;:&lt;iSEEDESeq2Results&gt;:&lt;iSEEedgeRResults&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -406,17 +534,17 @@ package (Rue-Albrecht, 2022) was made possible thanks to:</p>
 <li>R (R Core Team, 2023)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.17/BiocStyle" class="external-link">BiocStyle</a></em>
-(Oleś, 2022)</li>
+(Oleś, 2023)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
-2022)</li>
+2023)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
 (McLean, 2017)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
 (Allaire, Xie, McPherson, Luraschi, Ushey, Atkins, Wickham, Cheng,
-Chang, and Iannone, 2022)</li>
+Chang, and Iannone, 2023)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em>
 (Wickham, Chang, Flight, Müller, and Hester, 2021)</li>
@@ -435,13 +563,13 @@ Chang, and Iannone, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"methods.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-01-06 19:11:35 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-02-14 21:49:42 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 30.611 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 52.318 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R Under development (unstable) (2023-01-05 r83566)</span></span>
+<span><span class="co">#&gt;  version  R Under development (unstable) (2023-02-09 r83797)</span></span>
 <span><span class="co">#&gt;  os       Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
@@ -449,86 +577,76 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-01-06</span></span>
+<span><span class="co">#&gt;  date     2023-02-14</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package             </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version  </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  airway               * 1.19.0    <span style="color: #555555;">2022-11-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  annotate               1.77.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  AnnotationDbi          1.61.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  assertthat             0.2.1     <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  airway               * 1.19.1    <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  backports              1.4.1     <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bibtex                 0.5.0     <span style="color: #555555;">2022-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  bibtex                 0.5.1     <span style="color: #555555;">2023-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  Biobase              * 2.59.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocGenerics         * 0.45.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocManager            1.30.19   <span style="color: #555555;">2022-10-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  BiocParallel           1.33.9    <span style="color: #555555;">2022-12-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocStyle            * 2.27.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  Biostrings             2.67.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  bit                    4.0.5     <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bit64                  4.0.5     <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle            * 2.27.1    <span style="color: #555555;">2023-01-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  bitops                 1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  blob                   1.2.3     <span style="color: #555555;">2022-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bookdown               0.31      <span style="color: #555555;">2022-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown               0.32      <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bslib                  0.4.2     <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  cachem                 1.0.6     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  circlize               0.4.15    <span style="color: #555555;">2022-05-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  cli                    3.5.0     <span style="color: #555555;">2022-12-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  clue                   0.3-63    <span style="color: #555555;">2022-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  cli                    3.6.0     <span style="color: #555555;">2023-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  clue                   0.3-64    <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  cluster                2.1.4     <span style="color: #555555;">2022-08-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  codetools              0.2-18    <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  colorspace             2.0-3     <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  codetools              0.2-19    <span style="color: #555555;">2023-02-01</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  colorspace             2.1-0     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  colourpicker           1.2.0     <span style="color: #555555;">2022-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  ComplexHeatmap         2.15.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  crayon                 1.5.2     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DBI                    1.1.3     <span style="color: #555555;">2022-06-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DelayedArray           0.25.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  desc                   1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DESeq2               * 1.39.3    <span style="color: #555555;">2022-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  DESeq2               * 1.39.5    <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  digest                 0.6.31    <span style="color: #555555;">2022-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  doParallel             1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dplyr                  1.0.10    <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DT                     0.26      <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  dplyr                  1.1.0     <span style="color: #555555;">2023-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  DT                     0.27      <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  edgeR                * 3.41.2    <span style="color: #555555;">2022-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  ellipsis               0.3.2     <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  evaluate               0.19      <span style="color: #555555;">2022-12-13</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fansi                  1.0.3     <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate               0.20      <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fansi                  1.0.4     <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.1.0     <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fontawesome            0.4.0     <span style="color: #555555;">2022-10-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fontawesome            0.5.0     <span style="color: #555555;">2023-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  foreach                1.5.2     <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fs                     1.5.2     <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  geneplotter            1.77.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  fs                     1.6.1     <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  generics               0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDb         * 1.35.10   <span style="color: #555555;">2023-01-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb         * 1.35.15   <span style="color: #555555;">2023-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDbData       1.2.9     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicRanges        * 1.51.4    <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GetoptLong             1.0.5     <span style="color: #555555;">2020-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ggplot2                3.4.0     <span style="color: #555555;">2022-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ggrepel                0.9.2     <span style="color: #555555;">2022-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2                3.4.1     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggrepel                0.9.3     <span style="color: #555555;">2023-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  GlobalOptions          0.1.2     <span style="color: #555555;">2020-06-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  glue                   1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  gtable                 0.3.1     <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  highr                  0.10      <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  htmltools              0.5.4     <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  htmlwidgets            1.6.0     <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  httpuv                 1.6.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  htmlwidgets            1.6.1     <span style="color: #555555;">2023-01-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  httpuv                 1.6.9     <span style="color: #555555;">2023-02-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  httr                   1.4.4     <span style="color: #555555;">2022-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  igraph                 1.3.5     <span style="color: #555555;">2022-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  igraph                 1.4.0     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  IRanges              * 2.33.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  iSEE                 * 2.11.1    <span style="color: #555555;">2022-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEE                 * 2.11.4    <span style="color: #555555;">2023-02-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2023-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  iterators              1.0.14    <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib              0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jsonlite               1.8.4     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  KEGGREST               1.39.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  knitr                  1.41      <span style="color: #555555;">2022-11-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  knitr                  1.42      <span style="color: #555555;">2023-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  later                  1.3.0     <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  lattice                0.20-45   <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  lifecycle              1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  limma                * 3.55.2    <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  limma                * 3.55.4    <span style="color: #555555;">2023-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  locfit                 1.5-9.7   <span style="color: #555555;">2023-01-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lubridate              1.9.0     <span style="color: #555555;">2022-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  lubridate              1.9.2     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  magrittr               2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  Matrix                 1.5-3     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  MatrixGenerics       * 1.11.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -538,28 +656,27 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  mime                   0.12      <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  miniUI                 0.1.1.1   <span style="color: #555555;">2018-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  munsell                0.5.0     <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  nlme                   3.1-161   <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  nlme                   3.1-162   <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  pillar                 1.8.1     <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  plyr                   1.8.8     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  png                    0.1-8     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  promises               1.2.0.1   <span style="color: #555555;">2021-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  purrr                  1.0.0     <span style="color: #555555;">2022-12-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  purrr                  1.0.1     <span style="color: #555555;">2023-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  R6                     2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ragg                   1.2.4     <span style="color: #555555;">2022-10-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ragg                   1.2.5     <span style="color: #555555;">2023-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  RColorBrewer           1.1-3     <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  Rcpp                   1.0.9     <span style="color: #555555;">2022-07-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  RCurl                  1.98-1.9  <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  Rcpp                   1.0.10    <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl                  1.98-1.10 <span style="color: #555555;">2023-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  RefManageR           * 1.4.0     <span style="color: #555555;">2022-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rintrojs               0.3.2     <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rjson                  0.2.21    <span style="color: #555555;">2022-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rlang                  1.0.6     <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rmarkdown              2.19      <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown              2.20      <span style="color: #555555;">2023-01-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rprojroot              2.0.3     <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  RSQLite                2.2.20    <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  S4Vectors            * 0.37.3    <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  sass                   0.4.4     <span style="color: #555555;">2022-11-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  sass                   0.4.5     <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  scales                 1.2.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo          * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  shape                  1.4.6     <span style="color: #555555;">2021-05-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -567,26 +684,25 @@ Chang, and Iannone, 2022)</li>
 <span><span class="co">#&gt;  shinyAce               0.4.2     <span style="color: #555555;">2022-05-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  shinydashboard         0.7.2     <span style="color: #555555;">2021-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  shinyjs                2.1.0     <span style="color: #555555;">2021-12-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  shinyWidgets           0.7.5     <span style="color: #555555;">2022-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  shinyWidgets           0.7.6     <span style="color: #555555;">2023-01-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  SingleCellExperiment * 1.21.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  stringi                1.7.8     <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  stringi                1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  SummarizedExperiment * 1.29.1    <span style="color: #555555;">2022-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  systemfonts            1.0.4     <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  textshaping            0.3.6     <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  tibble                 3.1.8     <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  tidyselect             1.2.0     <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  timechange             0.1.1     <span style="color: #555555;">2022-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  utf8                   1.2.2     <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  vctrs                  0.5.1     <span style="color: #555555;">2022-11-16</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  timechange             0.2.0     <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  utf8                   1.2.3     <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs                  0.5.2     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  vipor                  0.4.5     <span style="color: #555555;">2017-03-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  viridisLite            0.4.1     <span style="color: #555555;">2022-08-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xfun                   0.36      <span style="color: #555555;">2022-12-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  XML                    3.99-0.13 <span style="color: #555555;">2022-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  xfun                   0.37      <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  xml2                   1.3.3     <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  xtable                 1.8-4     <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  XVector                0.39.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  yaml                   2.3.6     <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  yaml                   2.3.7     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  zlibbioc               1.45.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
@@ -600,14 +716,14 @@ Chang, and Iannone, 2022)</li>
 </h2>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.17/BiocStyle" class="external-link">BiocStyle</a></em>
 <code>r Citep(bib[["BiocStyle"]])</code> with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
-2022) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
-(Allaire, Xie, McPherson et al., 2022) running behind the scenes.</p>
+2023) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
+(Allaire, Xie, McPherson et al., 2023) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
 (McLean, 2017).</p>
 <p>
-<a id="bib-allaire2022rmarkdown"></a><a href="#cite-allaire2022rmarkdown">[1]</a><cite>
+<a id="bib-allaire2023rmarkdown"></a><a href="#cite-allaire2023rmarkdown">[1]</a><cite>
 J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic
-Documents for R</em>. R package version 2.19. 2022. URL:
+Documents for R</em>. R package version 2.20. 2023. URL:
 <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
@@ -618,9 +734,9 @@ References in R”. In: <em>The Journal of Open Source Software</em>
 <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2022biocstyle"></a><a href="#cite-ole2022biocstyle">[3]</a><cite>
+<a id="bib-ole2023biocstyle"></a><a href="#cite-ole2023biocstyle">[3]</a><cite>
 A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
-Bioconductor documents</em>. R package version 2.27.0. 2022. URL:
+Bioconductor documents</em>. R package version 2.27.1. 2023. URL:
 <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
@@ -650,9 +766,9 @@ Information</em>. R package version 1.2.2. 2021. URL:
 <a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">https://CRAN.R-project.org/package=sessioninfo</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2022knitr"></a><a href="#cite-xie2022knitr">[8]</a><cite>
+<a id="bib-xie2023knitr"></a><a href="#cite-xie2023knitr">[8]</a><cite>
 Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report
-Generation in R</em>. R package version 1.41. 2022. URL:
+Generation in R</em>. R package version 1.42. 2023. URL:
 <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
 </p>
 <!-- Links -->

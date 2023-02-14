@@ -105,6 +105,11 @@ It provides methods to access common differential expression statistics (e.g., l
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR" class="external-link">edgeR</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘edgeR’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:SingleCellExperiment’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     cpm</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">SummarizedExperiment</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
@@ -153,14 +158,14 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NA 0.0654656        NA        NA        NA 0.5229531 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     gene.1     gene.2     gene.3     gene.4     gene.5     gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         NA 0.01121685 0.20010102 0.21861264         NA         NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       NA 3.618883       NA       NA       NA 1.287008 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        NA  4.087743 -1.956959  1.739181        NA        NA </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       NA 13.95892       NA       NA       NA 12.81735 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       NA 14.00382 13.20753 13.98138       NA       NA </span>
 </code></pre></div>
     </div>
   </div>
