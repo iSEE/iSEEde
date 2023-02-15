@@ -27,7 +27,6 @@ Depends:
 Imports:
     DESeq2,
     edgeR,
-    iSEE,
     methods,
     S4Vectors,
     shiny,
