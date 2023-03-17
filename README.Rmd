@@ -65,7 +65,7 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 
 # iSEE ---
 
-airway <- embedResults(res_deseq2, airway, name = "dex: trt vs untrt")
+airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="dex: trt vs untrt", HiddenColumns = c("baseMean", 

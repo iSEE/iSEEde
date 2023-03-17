@@ -63,7 +63,7 @@ res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 
 # iSEE ---
 
-airway <- embedResults(res_deseq2, airway, name = "dex: trt vs untrt")
+airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="dex: trt vs untrt", HiddenColumns = c("baseMean", 
@@ -88,9 +88,9 @@ print(citation("iSEEde"), bibtex = TRUE)
 #> 
 #> To cite package 'iSEEde' in publications use:
 #> 
-#>   Kevin Rue-Albrecht (2022). iSEEde: iSEE extension for panels related
-#>   to differential expression analysis. R package version 0.99.0.
-#>   https://github.com/iSEE/iSEEde
+#>   Rue-Albrecht K (2022). _iSEEde: iSEE extension for panels related to
+#>   differential expression analysis_. R package version 0.99.0,
+#>   <https://github.com/iSEE/iSEEde>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
