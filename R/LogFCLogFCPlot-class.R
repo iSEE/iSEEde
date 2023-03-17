@@ -155,9 +155,9 @@ setMethod(".defineDataInterface", "LogFCLogFCPlot", function(x, se, select_info)
                       label="Contrast (X):",
                       selected=x[[.contrastNameX]],
                       choices=cached$valid.contrast.names),
-    .selectInput.iSEE(x, .contrastNameX, 
+    .selectInput.iSEE(x, .contrastNameY, 
                       label="Contrast (Y):",
-                      selected=x[[.contrastNameX]],
+                      selected=x[[.contrastNameY]],
                       choices=cached$valid.contrast.names)
   )
   
