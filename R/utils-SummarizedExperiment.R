@@ -1,14 +1,14 @@
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
-embedResultsMethods <- c(
+embedContrastResultsMethods <- c(
     "limma" = "iSEELimmaResults"
 )
 
 #' @export
-setMethod("embedResults", "ANY", function(x, se, name, ...) {
+setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
     msg <- sprintf(
-        "no 'embedResults' method defined for object
+        "no 'embedContrastResults' method defined for object
       of class %s, consider defining your own.",
         sQuote(class(x))
     )
@@ -48,49 +48,49 @@ setMethod("embedResults", "ANY", function(x, se, name, ...) {
 #' embedded object.
 #'
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedResults,data.frame-method
-setMethod("embedResults", "data.frame", function(x, se, name, class, ...) {
-    if (!class %in% names(embedResultsMethods)) {
+#' @aliases embedContrastResults,data.frame-method
+setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...) {
+    if (!class %in% names(embedContrastResultsMethods)) {
         msg <- sprintf(
             "argument %s must be a value in %s,
       for signature %s.",
-            sQuote("class"), sQuote("names(embedResultsMethods)"),
+            sQuote("class"), sQuote("names(embedContrastResultsMethods)"),
             sQuote("x=data.frame")
         )
         stop(paste(strwrap(msg), collapse = "\n"))
     }
-    constructor <- get(embedResultsMethods[class])
+    constructor <- get(embedContrastResultsMethods[class])
     res <- constructor(x, row.names = rownames(se))
-    embedResults(res, se, name, ...)
+    embedContrastResults(res, se, name, ...)
 })
 
 #' @export
-setMethod("embedResults", "iSEELimmaResults", function(x, se, name, ...) {
+setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
 
 #' @export
 #' @importClassesFrom DESeq2 DESeqResults
-setMethod("embedResults", "DESeqResults", function(x, se, name, ...) {
+setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
     res <- iSEEDESeq2Results(x, row.names = rownames(se))
-    embedResults(res, se, name)
+    embedContrastResults(res, se, name)
 })
 
 #' @export
-setMethod("embedResults", "iSEEDESeq2Results", function(x, se, name, ...) {
+setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
 
 #' @export
 #' @importClassesFrom edgeR TopTags
-setMethod("embedResults", "TopTags", function(x, se, name, ...) {
+setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
     ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
     x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
     res <- iSEEedgeRResults(x_clean, row.names = rownames(se))
-    embedResults(res, se, name)
+    embedContrastResults(res, se, name)
 })
 
 #' @export
-setMethod("embedResults", "iSEEedgeRResults", function(x, se, name, ...) {
+setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })

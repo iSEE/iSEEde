@@ -41,23 +41,23 @@ setGeneric(
 #'
 #' @section Definitions:
 #' \itemize{
-#' \item `embedResults(x, se, name, ...)` embeds the results `x` in the \linkS4class{SummarizedExperiment} `se`.
+#' \item `embedContrastResults(x, se, name, ...)` embeds the results `x` in the \linkS4class{SummarizedExperiment} `se`.
 #' }
 #'
 #' @docType methods
-#' @aliases embedResults
+#' @aliases embedContrastResults
 #' @name utils-SummarizedExperiment
 #' @author Kevin Rue-Albrecht
 #'
 #' @examples
-#' embedResultsMethods
+#' embedContrastResultsMethods
 #'
-#' showMethods(embedResults)
+#' showMethods(embedContrastResults)
 NULL
 
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedResults,ANY-method
+#' @aliases embedContrastResults,ANY-method
 setGeneric(
-    "embedResults",
-    function(x, se, name, ...) standardGeneric("embedResults")
+    "embedContrastResults",
+    function(x, se, name, ...) standardGeneric("embedContrastResults")
 )

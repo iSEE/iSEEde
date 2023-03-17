@@ -8,8 +8,8 @@
 \alias{pValue,iSEEedgeRResults-method}
 \alias{log2FoldChange,iSEEedgeRResults-method}
 \alias{averageLog2,iSEEedgeRResults-method}
-\alias{embedResults,TopTags-method}
-\alias{embedResults,iSEEedgeRResults-method}
+\alias{embedContrastResults,TopTags-method}
+\alias{embedContrastResults,iSEEedgeRResults-method}
 \title{The iSEEedgeRResults class}
 \description{
 The \code{iSEEedgeRResults} class is used to provide an common interface to differential expression results produced by the \pkg{edgeR} package.
@@ -31,7 +31,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{embedResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
 \item \code{pValue(x)} returns the vector of raw p-values.
 \item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
 \item \code{averageLog2(x)} returns the vector of average log2-expression values.

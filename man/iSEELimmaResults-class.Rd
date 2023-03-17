@@ -8,7 +8,7 @@
 \alias{pValue,iSEELimmaResults-method}
 \alias{log2FoldChange,iSEELimmaResults-method}
 \alias{averageLog2,iSEELimmaResults-method}
-\alias{embedResults,iSEELimmaResults-method}
+\alias{embedContrastResults,iSEELimmaResults-method}
 \title{The iSEELimmaResults class}
 \description{
 The \code{iSEELimmaResults} class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
@@ -30,7 +30,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{embedResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
 \item \code{pValue(x)} returns the vector of raw p-values.
 \item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
 \item \code{averageLog2(x)} returns the vector of average log2-expression values.

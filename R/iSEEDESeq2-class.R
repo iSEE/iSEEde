@@ -15,7 +15,7 @@
 #'
 #' @section Supported methods:
 #' \itemize{
-#' \item `embedResults(x, se, name, ...)` embeds `x` in the column `name` of `rowData(se)[["iSEEde"]]`.
+#' \item `embedContrastResults(x, se, name, ...)` embeds `x` in the column `name` of `rowData(se)[["iSEEde"]]`.
 #' \item `pValue(x)` returns the vector of raw p-values.
 #' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
 #' \item `averageLog2(x)` returns the vector of average log2-expression values.
@@ -31,8 +31,8 @@
 #' pValue,iSEEDESeq2Results-method
 #' log2FoldChange,iSEEDESeq2Results-method
 #' averageLog2,iSEEDESeq2Results-method
-#' embedResults,iSEEDESeq2Results-method
-#' embedResults,DESeqResults-method
+#' embedContrastResults,iSEEDESeq2Results-method
+#' embedContrastResults,DESeqResults-method
 #'
 #' @examples
 #' library(DESeq2)

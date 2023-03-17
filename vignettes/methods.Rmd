@@ -120,7 +120,7 @@ head(res_limma)
 ```
 
 Then, we embed this set of differential expression results in the `airway`
-object using the `embedResults()` method. 
+object using the `embedContrastResults()` method. 
 
 Because the output of `limma::topTable()` is a standard `data.frame`, the
 `class=` argument must be used to manually identify the method that produced
@@ -135,7 +135,7 @@ The results are nested as a `DataFrame`-like object in
 
 ```{r}
 library(iSEEde)
-airway <- embedResults(res_limma, airway, name = "Limma-Voom", class = "limma")
+airway <- embedContrastResults(res_limma, airway, name = "Limma-Voom", class = "limma")
 rowData(airway)
 ```
 
@@ -158,17 +158,17 @@ head(res_deseq2)
 ```
 
 Then, we embed this set of differential expression results in the `airway` 
-object using the `embedResults()` method.
+object using the `embedContrastResults()` method.
 
 In this instance, the `r BiocStyle::Biocpkg("DESeq2")` results are stored in a
 recognisable `?DESeqResults` object, which can be given *as is* directly to the
-`embedResults()` method.
+`embedContrastResults()` method.
 
 The function will automatically pass the results object to the 
 `iSEEDESeq2Results()` constructor, to identify it as such.
 
 ```{r}
-airway <- embedResults(res_deseq2, airway, name = "DESeq2")
+airway <- embedContrastResults(res_deseq2, airway, name = "DESeq2")
 rowData(airway)
 ```
 
@@ -191,16 +191,16 @@ head(res_edger)
 ```
 
 Then, we embed this set of differential expression results in the `airway`
-object using the `embedResults()` method.
+object using the `embedContrastResults()` method.
 
 In this instance, the `r BiocStyle::Biocpkg("edgeR")` results are stored in a 
 recognisable `?TopTags` object. As such, the results object can be given *as is*
-directly to the `embedResults()` method. The function will automatically pass
+directly to the `embedContrastResults()` method. The function will automatically pass
 the results object to the `iSEEedgeRResults()` constructor, to identify it as
 such.
 
 ```{r}
-airway <- embedResults(res_edger, airway, name = "edgeR")
+airway <- embedContrastResults(res_edger, airway, name = "edgeR")
 rowData(airway)
 ```
 
