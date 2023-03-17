@@ -21,7 +21,7 @@ test_that(".panelColor(MAPlot) works", {
 test_that("cacheCommonInfo(MAPlot) works", {
     x <- MAPlot()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     out <- .cacheCommonInfo(x, se0)
 
     expect_s4_class(out, "SummarizedExperiment")
@@ -34,7 +34,7 @@ test_that("cacheCommonInfo(MAPlot) works", {
 test_that(".refineParameters(MAPlot) works", {
     x <- MAPlot()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     se0 <- .cacheCommonInfo(x, se0)
     out <- .refineParameters(x, se0)
 
@@ -66,7 +66,7 @@ test_that(".generateDotPlotData(MAplot) works", {
     x <- MAPlot()
     x[["ContrastName"]] <- "edgeR"
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     se0 <- .cacheCommonInfo(x, se0)
     x <- .refineParameters(x, se0)
     env <- new.env()

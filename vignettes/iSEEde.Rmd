@@ -137,7 +137,7 @@ head(res_deseq2)
 
 # iSEE ---
 
-airway <- embedResults(res_deseq2, airway, name = "dex: trt vs untrt")
+airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 rowData(airway)
 
 app <- iSEE(airway, initial = list(

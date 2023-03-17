@@ -136,11 +136,11 @@ head(res_limma)
 ```
 
 Then, we embed this set of differential expression results in the `airway`
-object using the `embedResults()` method.
+object using the `embedContrastResults()` method.
 
 ```{r}
 library(iSEEde)
-airway <- embedResults(res_limma, airway,
+airway <- embedContrastResults(res_limma, airway,
     name = "dextrt - dexuntrt",
     class = "limma"
 )

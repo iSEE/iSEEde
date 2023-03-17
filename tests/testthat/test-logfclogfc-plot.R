@@ -21,7 +21,7 @@ test_that(".panelColor(LogFCLogFCPlot) works", {
 test_that("cacheCommonInfo(LogFCLogFCPlot) works", {
     x <- LogFCLogFCPlot()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     out <- .cacheCommonInfo(x, se0)
 
     expect_s4_class(out, "SummarizedExperiment")
@@ -34,8 +34,8 @@ test_that("cacheCommonInfo(LogFCLogFCPlot) works", {
 test_that(".refineParameters(LogFCLogFCPlot) works", {
     x <- LogFCLogFCPlot()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR1")
-    se0 <- embedResults(res_edger, se0, name = "edgeR2")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR1")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR2")
     se0 <- .cacheCommonInfo(x, se0)
     out <- .refineParameters(x, se0)
 
@@ -68,8 +68,8 @@ test_that(".generateDotPlotData(MAplot) works", {
     x[["ContrastNameX"]] <- "edgeR"
     x[["ContrastNameY"]] <- "DESeq2"
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
-    se0 <- embedResults(res_edger, se0, name = "DESeq2")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "DESeq2")
     se0 <- .cacheCommonInfo(x, se0)
     x <- .refineParameters(x, se0)
     env <- new.env()

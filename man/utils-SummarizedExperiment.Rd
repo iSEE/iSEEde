@@ -3,20 +3,20 @@
 \docType{methods}
 \name{utils-SummarizedExperiment}
 \alias{utils-SummarizedExperiment}
-\alias{embedResults}
-\alias{embedResults,ANY-method}
-\alias{embedResultsMethods}
-\alias{embedResults,data.frame-method}
+\alias{embedContrastResults}
+\alias{embedContrastResults,ANY-method}
+\alias{embedContrastResultsMethods}
+\alias{embedContrastResults,data.frame-method}
 \title{Generics for Embbedding Results into a SummarizedExperiment Object}
 \format{
 An object of class \code{character} of length 1.
 }
 \usage{
-embedResults(x, se, name, ...)
+embedContrastResults(x, se, name, ...)
 
-embedResultsMethods
+embedContrastResultsMethods
 
-\S4method{embedResults}{data.frame}(x, se, name, class, ...)
+\S4method{embedContrastResults}{data.frame}(x, se, name, class, ...)
 }
 \arguments{
 \item{x}{Object to be embedded.}
@@ -40,14 +40,14 @@ An overview of the generics for embedding results into a \linkS4class{Summarized
 \section{Definitions}{
 
 \itemize{
-\item \code{embedResults(x, se, name, ...)} embeds the results \code{x} in the \linkS4class{SummarizedExperiment} \code{se}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds the results \code{x} in the \linkS4class{SummarizedExperiment} \code{se}.
 }
 }
 
 \examples{
-embedResultsMethods
+embedContrastResultsMethods
 
-showMethods(embedResults)
+showMethods(embedContrastResults)
 }
 \author{
 Kevin Rue-Albrecht

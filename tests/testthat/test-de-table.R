@@ -21,7 +21,7 @@ test_that(".panelColor(DETable) works", {
 test_that("cacheCommonInfo(DETable) works", {
     x <- DETable()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     out <- .cacheCommonInfo(x, se0)
 
     expect_s4_class(out, "SummarizedExperiment")
@@ -34,7 +34,7 @@ test_that("cacheCommonInfo(DETable) works", {
 test_that(".refineParameters(DETable) works", {
     x <- DETable()
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     se0 <- .cacheCommonInfo(x, se0)
     out <- .refineParameters(x, se0)
 
@@ -65,7 +65,7 @@ test_that(".generateTable(MAplot) works", {
     x <- DETable()
     x[["ContrastName"]] <- "edgeR"
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     se0 <- .cacheCommonInfo(x, se0)
     x <- .refineParameters(x, se0)
     env <- new.env()
@@ -78,7 +78,7 @@ test_that(".generateTable(MAplot) works", {
 test_that(".generateTable(MAplot) works with incoming selection", {
     x <- DETable(RowSelectionSource = "VolcanoPlot1")
     se0 <- se
-    se0 <- embedResults(res_edger, se0, name = "edgeR")
+    se0 <- embedContrastResults(res_edger, se0, name = "edgeR")
     se0 <- .cacheCommonInfo(x, se0)
     x <- .refineParameters(x, se0)
     
