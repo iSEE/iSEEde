@@ -92,7 +92,7 @@ It provides methods to access common differential expression statistics (e.g., l
     <h2>Supported methods</h2>
     
 
-<ul><li><p><code>embedResults(x, se, name, ...)</code> embeds <code>x</code> in the column <code>name</code> of <code>rowData(se)[["iSEEde"]]</code>.</p></li>
+<ul><li><p><code>embedContrastResults(x, se, name, ...)</code> embeds <code>x</code> in the column <code>name</code> of <code>rowData(se)[["iSEEde"]]</code>.</p></li>
 <li><p><code>pValue(x)</code> returns the vector of raw p-values.</p></li>
 <li><p><code>log2FoldChange(x)</code> returns the vector of log2-fold-change values.</p></li>
 <li><p><code>averageLog2(x)</code> returns the vector of average log2-expression values.</p></li>
@@ -104,7 +104,7 @@ It provides methods to access common differential expression statistics (e.g., l
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR" class="external-link">edgeR</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioinf.wehi.edu.au/edgeR/" class="external-link">edgeR</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘edgeR’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:SingleCellExperiment’:</span>
@@ -159,13 +159,13 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA 0.2608414 0.3190501        NA 0.2543662 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA        NA        NA        NA 0.3063164 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA  2.207063  1.838865        NA -2.099802 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       NA       NA       NA       NA       NA 1.383878 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       NA       NA 13.16867 13.84235       NA 14.02498 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       NA       NA       NA       NA       NA 14.52934 </span>
 </code></pre></div>
     </div>
   </div>
