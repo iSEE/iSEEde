@@ -1,9 +1,13 @@
+# embedContrastResultsMethods ----
+
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
 embedContrastResultsMethods <- c(
     "limma" = "iSEELimmaResults"
 )
+
+# embedContrastResults ----
 
 #' @export
 setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
@@ -94,3 +98,44 @@ setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
 setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
+
+# contrastResultsNames ----
+
+#' Extract results from a DESeq analysis
+#' 
+#' `contrastResultsNames` returns the names of contrast results embedded in `object`.
+#'
+#' @param object A [SummarizedExperiment-class] object.
+#'
+#' @return
+#' For `contrastResultsNames`: the names of embedded contrast results available.
+#' 
+#' @export
+#'
+#' @examples
+#' library("iSEEde")
+#' library("airway")
+#' library("DESeq2")
+#' library("iSEE")
+#' 
+#' ##
+#' # Example data ----
+#' ##
+#' 
+#' data("airway")
+#' airway$dex <- relevel(airway$dex, "untrt")
+#' 
+#' dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+#' 
+#' dds <- DESeq(dds)
+#' res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+#' airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
+#' 
+#' ##
+#' # Demo ---
+#' ##
+#' 
+#' contrastResultsNames(airway)
+contrastResultsNames <- function(object){
+    colnames(rowData(object)[["iSEEde"]])
+}
