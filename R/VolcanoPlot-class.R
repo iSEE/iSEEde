@@ -70,7 +70,7 @@ setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- colnames(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
 })
@@ -154,7 +154,7 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
 
     y_lab <- "-log10(P.Value)"
 
-    data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
+    data_cmds[["de_table"]] <- sprintf("de_table <- contrastResults(se, '%s')", x[[.contrastName]])
 
     # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
     data_cmds[["y"]] <- c(

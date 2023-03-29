@@ -69,7 +69,7 @@ setMethod(".cacheCommonInfo", "DETable", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- colnames(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "DETable", valid.contrast.names = contrast_names)
 })
@@ -149,7 +149,7 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
 #' @importMethodsFrom iSEE .generateTable
 #' @importFrom SummarizedExperiment rowData
 setMethod(".generateTable", "DETable", function(x, envir) {
-  cmds <- sprintf("tab <- as.data.frame(rowData(se)[['iSEEde']][['%s']])", x[[.contrastName]])
+  cmds <- sprintf("tab <- as.data.frame(contrastResults(se, '%s'))", x[[.contrastName]])
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }

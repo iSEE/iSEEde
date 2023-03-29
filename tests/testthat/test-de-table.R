@@ -72,7 +72,7 @@ test_that(".generateTable(MAplot) works", {
     env$se <- se0
     out <- .generateTable(x, env)
 
-    expect_identical(out, "tab <- as.data.frame(rowData(se)[['iSEEde']][['edgeR']])")
+    expect_identical(out, "tab <- as.data.frame(contrastResults(se, 'edgeR'))")
 })
 
 test_that(".generateTable(MAplot) works with incoming selection", {

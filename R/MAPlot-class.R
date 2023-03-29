@@ -69,7 +69,7 @@ setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- names(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "MAPlot", valid.contrast.names = contrast_names)
 })
@@ -153,7 +153,7 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
 
     y_lab <- "logFC"
 
-    data_cmds[["edgeR"]] <- sprintf("de_table <- rowData(se)[['iSEEde']][['%s']]", x[[.contrastName]])
+    data_cmds[["de_table"]] <- sprintf("de_table <- contrastResults(se, '%s')", x[[.contrastName]])
 
     # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
     data_cmds[["y"]] <- c(

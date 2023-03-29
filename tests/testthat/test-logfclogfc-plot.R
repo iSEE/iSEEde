@@ -76,6 +76,6 @@ test_that(".generateDotPlotData(MAplot) works", {
     env$se <- se0
     out <- .generateDotPlotData(x, env)
 
-    expect_identical(out$commands[["x"]], "plot.data$X <- iSEEde::log2FoldChange(rowData(se)[['iSEEde']][['edgeR']])")
-    expect_identical(out$commands[["y2"]], "plot.data$Y <- iSEEde::log2FoldChange(rowData(se)[['iSEEde']][['DESeq2']])")
+    expect_identical(out$commands[["x"]], "plot.data$X <- iSEEde::log2FoldChange(contrastResults(se, 'edgeR'))")
+    expect_identical(out$commands[["y2"]], "plot.data$Y <- iSEEde::log2FoldChange(contrastResults(se, 'DESeq2'))")
 })
