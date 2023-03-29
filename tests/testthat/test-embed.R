@@ -47,3 +47,47 @@ test_that("embedContrastResults(TopTags) works", {
     expect_named(rowData(out), "iSEEde")
     expect_named(rowData(out)[["iSEEde"]], "edgeR")
 })
+
+test_that("contrastResultsNames() works", {
+    out <- contrastResultsNames(se)
+    expect_identical(out, NULL)
+    
+    se <- embedContrastResults(res_limma, se, name = "limma", class = "limma")
+    out <- contrastResultsNames(se)
+    expect_identical(out, "limma")
+    
+    se <- embedContrastResults(res_deseq2, se, name = "DESeq2")
+    
+    out <- contrastResultsNames(se)
+    expect_identical(out, c("limma", "DESeq2"))
+    
+    se <- embedContrastResults(res_edger, se, name = "edgeR")
+    out <- contrastResultsNames(se)
+    expect_identical(out, c("limma", "DESeq2", "edgeR"))
+})
+
+test_that("contrastResults()", {
+    
+    out <- contrastResults(se)
+    expect_identical(out, NULL)
+    
+    se <- embedContrastResults(res_limma, se, name = "limma", class = "limma")
+    se <- embedContrastResults(res_deseq2, se, name = "DESeq2")
+    se <- embedContrastResults(res_edger, se, name = "edgeR")
+    
+    out <- contrastResults(se)
+    expect_s4_class(out, "DataFrame")
+    expect_identical(colnames(out), c("limma", "DESeq2", "edgeR"))
+    
+    out <- contrastResults(se, name = "limma")
+    expect_s4_class(out, "DataFrame")
+    expect_identical(colnames(out), c("logFC", "AveExpr", "t", "P.Value", "adj.P.Val", "B"))
+    
+    out <- contrastResults(se, name = "DESeq2")
+    expect_s4_class(out, "DataFrame")
+    expect_identical(colnames(out), c("baseMean", "log2FoldChange", "lfcSE", "stat", "pvalue", "padj" ))
+    
+    out <- contrastResults(se, name = "edgeR")
+    expect_s4_class(out, "DataFrame")
+    expect_identical(colnames(out), c("logFC", "logCPM", "LR", "PValue", "FDR"))
+})
