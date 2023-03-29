@@ -124,6 +124,9 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating dispersions</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> gene-wise dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean-dispersion relationship</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> -- note: fitType='parametric', but the dispersion trend was not well captured by the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    function: y = a/x + b, and a local regression fit was automatically substituted.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    specify fitType='local' or 'mean' to avoid this message next time.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> final dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fitting model and testing</span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
@@ -131,14 +134,14 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-out co"><span class="r-pr">#&gt;</span> log2 fold change (MLE): cond 2 vs 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wald test p-value: cond 2 vs 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 6 rows and 6 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         baseMean log2FoldChange     lfcSE      stat    pvalue      padj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 1   79.6506       0.466024  0.575785  0.809372  0.418301  0.851852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 2  124.4047      -0.351444  0.591177 -0.594482  0.552190  0.851852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 3   98.2026      -0.660136  0.639255 -1.032664  0.301761  0.851852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 4   53.4693      -0.187412  0.606750 -0.308879  0.757414  0.938190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 5   56.6516       0.258984  1.096942  0.236096  0.813358  0.938190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 6   62.4578      -0.473235  0.629886 -0.751301  0.452471  0.851852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         baseMean log2FoldChange     lfcSE       stat    pvalue      padj</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt;  &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 1  108.7035      0.4200876  0.611991  0.6864274  0.492444  0.962144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 2   83.5636     -0.7723602  0.555491 -1.3904103  0.164404  0.962144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 3   76.0398      0.2711216  0.564716  0.4801026  0.631154  0.962144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 4   93.9459      0.0488246  0.591470  0.0825479  0.934211  0.963104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 5  112.9068     -0.4386889  0.518840 -0.8455187  0.397821  0.962144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene 6   81.0921      0.5492644  0.620680  0.8849404  0.376189  0.962144</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span><span class="co"># iSEEDESeq2Results ----</span></span></span>
@@ -166,13 +169,13 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Gene 1    Gene 2    Gene 3    Gene 4    Gene 5    Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4183010 0.5521898 0.3017613 0.7574138 0.8133582 0.4524713 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4924436 0.1644043 0.6311545 0.9342110 0.3978213 0.3761888 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Gene 1     Gene 2     Gene 3     Gene 4     Gene 5     Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.4660240 -0.3514441 -0.6601357 -0.1874121  0.2589835 -0.4732345 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Gene 1      Gene 2      Gene 3      Gene 4      Gene 5      Gene 6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.42008756 -0.77236018  0.27112157  0.04882458 -0.43868895  0.54926442 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Gene 1   Gene 2   Gene 3   Gene 4   Gene 5   Gene 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.315613 6.958897 6.617689 5.740639 5.824044 5.964809 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.764255 6.384803 6.248682 6.553758 6.818989 6.341489 </span>
 </code></pre></div>
     </div>
   </div>
