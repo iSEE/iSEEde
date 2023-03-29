@@ -101,14 +101,30 @@ setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...)
 
 # contrastResultsNames ----
 
-#' Extract results from a DESeq analysis
-#' 
+#' @export
+#' @rdname contrastResults
+contrastResultsNames <- function(object){
+    colnames(rowData(object)[["iSEEde"]])
+}
+
+#' Extract contrast results embedded in a SummarizedExperiment object
+#' `getContrastResults`
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
 #' @param object A [SummarizedExperiment-class] object.
 #'
 #' @return
 #' For `contrastResultsNames`: the names of embedded contrast results available.
+#' 
+#'
+#' @param name Name of a single contrast result name to extract.
+#' Use `contrastResultsNames(object)` to list available names.
+#' 
+#' If missing, all contrast results are returned as a nested `DataFrame`.
+#'
+#' @return
+#' If `name` is missing, a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
+#' If `name` is given, a [`DataFrame-class`] that contains the results of a single contrast.
 #' 
 #' @export
 #'
@@ -132,10 +148,32 @@ setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...)
 #' airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 #' 
 #' ##
-#' # Demo ---
+#' # List result names ---
 #' ##
 #' 
 #' contrastResultsNames(airway)
-contrastResultsNames <- function(object){
-    colnames(rowData(object)[["iSEEde"]])
+#' 
+#' ##
+#' # Extract results ---
+#' ##
+#' 
+#' contrastResults(airway)
+#' contrastResults(airway, "dex: trt vs untrt")
+contrastResults <- function(object, name) {
+    results_df <- rowData(object)[["iSEEde"]]
+    
+    if (missing(name)) {
+        return(results_df)
+    }
+    
+    if (!name %in% colnames(results_df)) {
+        msg <- sprintf(
+            "'%s' is not a valid contrast result name,
+      use contrastResultsNames(object) to list valid names.",
+      name
+        )
+        stop(paste(strwrap(msg), collapse = "\n"))
+    }
+    
+    results_df[[name]]
 }
