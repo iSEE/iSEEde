@@ -69,7 +69,7 @@ setMethod(".cacheCommonInfo", "MAPlot", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- names(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "MAPlot", valid.contrast.names = contrast_names)
 })

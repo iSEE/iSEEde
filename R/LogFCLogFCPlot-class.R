@@ -79,7 +79,7 @@ setMethod(".cacheCommonInfo", "LogFCLogFCPlot", function(x, se) {
   
   se <- callNextMethod()
   
-  contrast_names <- names(rowData(se)[["iSEEde"]])
+  contrast_names <- contrastResultsNames(se)
   
   .setCachedCommonInfo(se, "LogFCLogFCPlot", valid.contrast.names = contrast_names)
 })

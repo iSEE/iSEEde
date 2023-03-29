@@ -70,7 +70,7 @@ setMethod(".cacheCommonInfo", "VolcanoPlot", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- colnames(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "VolcanoPlot", valid.contrast.names = contrast_names)
 })

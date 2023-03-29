@@ -69,7 +69,7 @@ setMethod(".cacheCommonInfo", "DETable", function(x, se) {
 
     se <- callNextMethod()
 
-    contrast_names <- colnames(rowData(se)[["iSEEde"]])
+    contrast_names <- contrastResultsNames(se)
 
     .setCachedCommonInfo(se, "DETable", valid.contrast.names = contrast_names)
 })
