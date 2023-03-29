@@ -34,6 +34,10 @@ setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
         )
         warning(paste(strwrap(msg), collapse = "\n"))
     }
+    # reorder results to match rownames(se)
+    x <- x[rownames(se), , drop = FALSE]
+    # remove rownames of embedded results; use rownames(se) instead
+    rownames(x) <- NULL
     iseede_data[[name]] <- x
     rowData(se)[["iSEEde"]] <- iseede_data
     se
@@ -66,8 +70,6 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
     constructor <- get(embedContrastResultsMethods[class])
     # rownames(se) ensures that results are embedded in matching order
     res <- constructor(x, row.names = rownames(se))
-    # remove rownames in embedded results; use rownames(se) instead
-    rownames(res) <- NULL
     embedContrastResults(res, se, name, ...)
 })
 
