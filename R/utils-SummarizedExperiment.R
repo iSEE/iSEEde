@@ -24,7 +24,7 @@ setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
 .embed_de_result <- function(x, se, name) {
     iseede_data <- rowData(se)[["iSEEde"]]
     if (is.null(iseede_data)) {
-        iseede_data <- DataFrame(row.names = rownames(se))
+        iseede_data <- DataFrame(row.names = seq_len(nrow(se)))
     }
     if (name %in% names(iseede_data)) {
         msg <- sprintf(
@@ -64,7 +64,10 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
         stop(paste(strwrap(msg), collapse = "\n"))
     }
     constructor <- get(embedContrastResultsMethods[class])
+    # rownames(se) ensures that results are embedded in matching order
     res <- constructor(x, row.names = rownames(se))
+    # remove rownames in embedded results; use rownames(se) instead
+    rownames(res) <- NULL
     embedContrastResults(res, se, name, ...)
 })
 
@@ -163,6 +166,9 @@ contrastResults <- function(object, name) {
     results_df <- rowData(object)[["iSEEde"]]
     
     if (missing(name)) {
+        if (!is.null(results_df)) {
+            rownames(results_df) <- rownames(object)
+        }
         return(results_df)
     }
     
@@ -175,5 +181,8 @@ contrastResults <- function(object, name) {
         stop(paste(strwrap(msg), collapse = "\n"))
     }
     
-    results_df[[name]]
+    results_df <- results_df[[name]]
+    rownames(results_df) <- rownames(object)
+    return(results_df)
+    
 }
