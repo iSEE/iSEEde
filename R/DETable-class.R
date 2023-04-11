@@ -85,6 +85,10 @@ setMethod(".refineParameters", "DETable", function(x, se) {
     }
 
     contrast_names <- .getCachedCommonInfo(se, "DETable")$valid.contrast.names
+    
+    if (is.null(contrast_names)) {
+      return(NULL)
+    }
     x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
 
     x
@@ -128,7 +132,7 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
         )
     })
     # nocov end
-    cached <- .getCachedCommonInfo(se, "VolcanoPlot")
+    cached <- .getCachedCommonInfo(se, "DETable")
 
     extra_inputs <- list(
         .selectInput.iSEE(x, .contrastName,
@@ -153,6 +157,10 @@ setMethod(".generateTable", "DETable", function(x, envir) {
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }
+  
+  cmds <- c(cmds, .define_table_rounding_commands(x))
+  
   .textEval(cmds, envir)
+  
   cmds
 })
