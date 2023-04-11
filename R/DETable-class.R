@@ -51,13 +51,12 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 #' @export
 #' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
-setMethod("initialize", "DETable", function(.Object,
-                                            ContrastName = NA_character_,
-                                            RoundDigits = FALSE,
-                                            SignifDigits = 3L, ...) {
-    args <- list(ContrastName = ContrastName,
-                 SignifDigits = SignifDigits,
-                 RoundDigits = RoundDigits, ...)
+setMethod("initialize", "DETable", function(.Object, ...) {
+    args <- list(...)
+    
+    args <- .emptyDefault(args, .contrastName, NA_character_)
+    args <- .emptyDefault(args, .roundDigits, getPanelDefault(.roundDigits))
+    args <- .emptyDefault(args, .significantDigits, getPanelDefault(.significantDigits))
 
     do.call(callNextMethod, c(list(.Object), args))
 })
