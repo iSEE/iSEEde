@@ -24,7 +24,9 @@ NULL
 #' @importClassesFrom iSEE RowTable
 setClass("DETable",
     contains = "RowTable",
-    slots = c(ContrastName = "character", SignifDigits = "integer")
+    slots = c(ContrastName = "character",
+              RoundDigits = "logical",
+              SignifDigits = "integer")
 )
 
 #' @export
@@ -40,9 +42,12 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 #' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
 setMethod("initialize", "DETable", function(.Object,
-                                                ContrastName = NA_character_,
-                                                SignifDigits = 6L, ...) {
-    args <- list(ContrastName = ContrastName, SignifDigits = SignifDigits, ...)
+                                            ContrastName = NA_character_,
+                                            RoundDigits = FALSE,
+                                            SignifDigits = 6L, ...) {
+    args <- list(ContrastName = ContrastName,
+                 SignifDigits = SignifDigits,
+                 RoundDigits = RoundDigits, ...)
 
     do.call(callNextMethod, c(list(.Object), args))
 })
@@ -110,7 +115,7 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
     )
     
     .createUnprotectedParameterObservers(plot_name,
-        fields = c(.significantDigits),
+        fields = c(.roundDigits, .significantDigits),
         input = input, pObjects = pObjects, rObjects = rObjects)
 
     invisible(NULL)
@@ -146,11 +151,17 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
             choices = cached$valid.contrast.names
         ),
         hr(),
-        .numericInput.iSEE(x, .significantDigits,
-            label = "Significant digits:",
-            value = x[[.significantDigits]],
-            min = 1L,
-            max = 6L)
+        .checkboxInput.iSEE(x, .roundDigits,
+            label = "Round digits?",
+            value = x[[.roundDigits]]),
+        .conditionalOnCheckSolo(
+          paste0(plot_name, "_", .roundDigits),
+          on_select = TRUE,
+          .numericInput.iSEE(x, .significantDigits,
+                label = "Significant digits:",
+                value = x[[.significantDigits]],
+                min = 1L,
+                max = 6L))
     )
 
     c(
