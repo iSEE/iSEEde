@@ -2,6 +2,16 @@
 #'
 #' The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
+#' 
+#' @section Slot overview:
+#' The following slots control the test procedure:
+#' \itemize{
+#' \item `ContrastName`, a character scalar indicating the name of the contrast to display.
+#' \item `RoundDigits`, a logical scalar indicating whether to round numeric values (see `SignifDigits`).
+#' \item `SignifDigits`, an integer scalar indicating the number of significant digits to use for rounding numbers  (see `RoundDigits`).
+#' }
+#' 
+#' In addition, this class inherits all slots from its parent [RowTable-class] and [Table-class] classes.
 #'
 #' @docType methods
 #' @aliases DETable DETable-class
@@ -24,7 +34,9 @@ NULL
 #' @importClassesFrom iSEE RowTable
 setClass("DETable",
     contains = "RowTable",
-    slots = c(ContrastName = "character")
+    slots = c(ContrastName = "character",
+              RoundDigits = "logical",
+              SignifDigits = "integer")
 )
 
 #' @export
@@ -39,9 +51,12 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 #' @export
 #' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
-setMethod("initialize", "DETable", function(.Object,
-                                                ContrastName = NA_character_, ...) {
-    args <- list(ContrastName = ContrastName, ...)
+setMethod("initialize", "DETable", function(.Object, ...) {
+    args <- list(...)
+    
+    args <- .emptyDefault(args, .contrastName, NA_character_)
+    args <- .emptyDefault(args, .roundDigits, getPanelDefault(.roundDigits))
+    args <- .emptyDefault(args, .significantDigits, getPanelDefault(.significantDigits))
 
     do.call(callNextMethod, c(list(.Object), args))
 })
@@ -85,6 +100,10 @@ setMethod(".refineParameters", "DETable", function(x, se) {
     }
 
     contrast_names <- .getCachedCommonInfo(se, "DETable")$valid.contrast.names
+    
+    if (is.null(contrast_names)) {
+      return(NULL)
+    }
     x <- .replaceMissingWithFirst(x, .contrastName, contrast_names)
 
     x
@@ -103,6 +122,10 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
         fields = c(.contrastName),
         input = input, pObjects = pObjects, rObjects = rObjects
     )
+    
+    .createUnprotectedParameterObservers(plot_name,
+        fields = c(.roundDigits, .significantDigits),
+        input = input, pObjects = pObjects, rObjects = rObjects)
 
     invisible(NULL)
 })
@@ -128,14 +151,26 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
         )
     })
     # nocov end
-    cached <- .getCachedCommonInfo(se, "VolcanoPlot")
+    cached <- .getCachedCommonInfo(se, "DETable")
 
     extra_inputs <- list(
         .selectInput.iSEE(x, .contrastName,
             label = "Contrast:",
             selected = x[[.contrastName]],
             choices = cached$valid.contrast.names
-        )
+        ),
+        hr(),
+        .checkboxInput.iSEE(x, .roundDigits,
+            label = "Round digits?",
+            value = x[[.roundDigits]]),
+        .conditionalOnCheckSolo(
+          paste0(plot_name, "_", .roundDigits),
+          on_select = TRUE,
+          .numericInput.iSEE(x, .significantDigits,
+                label = "Significant digits:",
+                value = x[[.significantDigits]],
+                min = 1L,
+                max = 6L))
     )
 
     c(
@@ -153,6 +188,10 @@ setMethod(".generateTable", "DETable", function(x, envir) {
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }
+  
+  cmds <- c(cmds, .define_table_rounding_commands(x))
+  
   .textEval(cmds, envir)
+  
   cmds
 })
