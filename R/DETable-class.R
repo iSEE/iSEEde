@@ -24,7 +24,7 @@ NULL
 #' @importClassesFrom iSEE RowTable
 setClass("DETable",
     contains = "RowTable",
-    slots = c(ContrastName = "character")
+    slots = c(ContrastName = "character", SignifDigits = "integer")
 )
 
 #' @export
@@ -40,8 +40,9 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 #' @importMethodsFrom methods initialize
 #' @importFrom methods callNextMethod
 setMethod("initialize", "DETable", function(.Object,
-                                                ContrastName = NA_character_, ...) {
-    args <- list(ContrastName = ContrastName, ...)
+                                                ContrastName = NA_character_,
+                                                SignifDigits = 6L, ...) {
+    args <- list(ContrastName = ContrastName, SignifDigits = SignifDigits, ...)
 
     do.call(callNextMethod, c(list(.Object), args))
 })
@@ -107,6 +108,10 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
         fields = c(.contrastName),
         input = input, pObjects = pObjects, rObjects = rObjects
     )
+    
+    .createUnprotectedParameterObservers(plot_name,
+        fields = c(.significantDigits),
+        input = input, pObjects = pObjects, rObjects = rObjects)
 
     invisible(NULL)
 })
@@ -139,7 +144,13 @@ setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
             label = "Contrast:",
             selected = x[[.contrastName]],
             choices = cached$valid.contrast.names
-        )
+        ),
+        hr(),
+        .numericInput.iSEE(x, .significantDigits,
+            label = "Significant digits:",
+            value = x[[.significantDigits]],
+            min = 1L,
+            max = 6L)
     )
 
     c(
