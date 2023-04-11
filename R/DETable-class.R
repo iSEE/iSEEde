@@ -44,7 +44,7 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 setMethod("initialize", "DETable", function(.Object,
                                             ContrastName = NA_character_,
                                             RoundDigits = FALSE,
-                                            SignifDigits = 6L, ...) {
+                                            SignifDigits = 3L, ...) {
     args <- list(ContrastName = ContrastName,
                  SignifDigits = SignifDigits,
                  RoundDigits = RoundDigits, ...)
