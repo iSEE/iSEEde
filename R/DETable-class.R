@@ -2,6 +2,16 @@
 #'
 #' The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
+#' 
+#' @section Slot overview:
+#' The following slots control the test procedure:
+#' \itemize{
+#' \item `ContrastName`, a character scalar indicating the name of the contrast to display.
+#' \item `RoundDigits`, a logical scalar indicating whether to round numeric values (see `SignifDigits`).
+#' \item `SignifDigits`, an integer scalar indicating the number of significant digits to use for rounding numbers  (see `RoundDigits`).
+#' }
+#' 
+#' In addition, this class inherits all slots from its parent [RowTable-class] and [Table-class] classes.
 #'
 #' @docType methods
 #' @aliases DETable DETable-class
