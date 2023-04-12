@@ -50,6 +50,7 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 
 #' @export
 #' @importMethodsFrom methods initialize
+#' @importFrom iSEE .emptyDefault getPanelDefault
 #' @importFrom methods callNextMethod
 setMethod("initialize", "DETable", function(.Object, ...) {
     args <- list(...)
@@ -111,7 +112,7 @@ setMethod(".refineParameters", "DETable", function(x, se) {
 
 #' @export
 #' @importMethodsFrom iSEE .createObservers
-#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers
+#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers .createUnprotectedParameterObservers
 #' @importFrom methods callNextMethod
 setMethod(".createObservers", "DETable", function(x, se, input, session, pObjects, rObjects) {
     callNextMethod()
@@ -134,7 +135,7 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
-#' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
+#' @importFrom iSEE .addSpecificTour .checkboxInput.iSEE .conditionalOnCheckSolo .getCachedCommonInfo .getEncodedName .numericInput.iSEE
 #' .selectInput.iSEE
 setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
     plot_name <- .getEncodedName(x)
