@@ -173,7 +173,12 @@ setMethod(".defineDataInterface", "LogFCLogFCPlot", function(x, se, select_info)
 setMethod(".generateDotPlotData", "LogFCLogFCPlot", function(x, envir) {
   data_cmds <- list()
   
-  y_lab <- sprintf("%s (log2FC)", x[[.contrastNameY]])
+  y_lab <- parse(text = paste(
+    dQuote(x[[.contrastNameY]], FALSE),
+    dQuote(" (", FALSE),
+    "log[2]",
+    dQuote(" fold change)", FALSE),
+    sep = "*"))
   
   # NOTE: deparse() automatically adds quotes, AND protects against existing quotes/escapes.
   data_cmds[["y"]] <- c(
@@ -182,7 +187,12 @@ setMethod(".generateDotPlotData", "LogFCLogFCPlot", function(x, envir) {
   )
   
   # Prepare X-axis data.
-  x_lab <- sprintf("%s (log2FC)", x[[.contrastNameX]])
+  x_lab <- parse(text = paste(
+    dQuote(x[[.contrastNameX]], FALSE),
+    dQuote(" (", FALSE),
+    "log[2]",
+    dQuote(" fold change)", FALSE),
+    sep = "*"))
   data_cmds[["x"]] <- sprintf("plot.data$X <- iSEEde::log2FoldChange(contrastResults(se, '%s'))", x[[.contrastNameX]])
   
   plot_title <- sprintf("%s vs %s", x[[.contrastNameY]], x[[.contrastNameX]])
