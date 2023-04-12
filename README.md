@@ -61,7 +61,7 @@ dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
 dds <- DESeq(dds)
 res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 
-# iSEE ---
+# iSEE / iSEEde ---
 
 airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 
