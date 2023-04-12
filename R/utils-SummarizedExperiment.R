@@ -3,6 +3,7 @@
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
+#' @format `embedContrastResultsMethods`: Named character vector mapping keywords to class names designed to store differential expression results.
 embedContrastResultsMethods <- c(
     "limma" = "iSEELimmaResults"
 )
@@ -10,6 +11,9 @@ embedContrastResultsMethods <- c(
 # embedContrastResults ----
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedContrastResults,ANY-method
 setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
     msg <- sprintf(
         "no 'embedContrastResults' method defined for object
@@ -73,37 +77,6 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
     embedContrastResults(res, se, name, ...)
 })
 
-#' @export
-setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
-#' @export
-#' @importClassesFrom DESeq2 DESeqResults
-setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
-    res <- iSEEDESeq2Results(x, row.names = rownames(se))
-    embedContrastResults(res, se, name)
-})
-
-#' @export
-setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
-#' @export
-#' @importClassesFrom edgeR TopTags
-setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
-    ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
-    x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
-    res <- iSEEedgeRResults(x_clean, row.names = rownames(se))
-    embedContrastResults(res, se, name)
-})
-
-#' @export
-setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
 # contrastResultsNames ----
 
 #' @export
@@ -113,21 +86,21 @@ contrastResultsNames <- function(object){
 }
 
 #' Extract contrast results embedded in a SummarizedExperiment object
-#' `getContrastResults`
+#' 
+#' @description
+#' `contrastResults` returns either all contrasts results stored in `object` or a single contrast result by name.
+#' 
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
 #' @param object A [SummarizedExperiment-class] object.
+#' @param name Name of a single contrast result name to extract.
+#' Use `contrastResultsNames(object)` to list available names.
 #'
 #' @return
 #' For `contrastResultsNames`: the names of embedded contrast results available.
 #' 
-#'
-#' @param name Name of a single contrast result name to extract.
-#' Use `contrastResultsNames(object)` to list available names.
+#' For `contrastResults`: a `DataFrame` of differential expression statistics.
 #' 
-#' If missing, all contrast results are returned as a nested `DataFrame`.
-#'
-#' @return
 #' If `name` is missing, a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
 #' If `name` is given, a [`DataFrame-class`] that contains the results of a single contrast.
 #' 

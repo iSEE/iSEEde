@@ -57,12 +57,12 @@ bib <- c(
 
 ## Install `iSEEde`
 
-`R` is an open-source statistical environment which can be easily modified to
-enhance its functionality via packages. `r Biocpkg("iSEEde")` is a `R` package
+`r fontawesome::fa("r-project")` is an open-source statistical environment which can be easily modified to
+enhance its functionality via packages. `r Biocpkg("iSEEde")` is an `r fontawesome::fa("r-project")` package
 available via the [Bioconductor](http://bioconductor.org) repository for
-packages. `R` can be installed on any operating system from
+packages. `r fontawesome::fa("r-project")` can be installed on any operating system from
 [CRAN](https://cran.r-project.org/) after which you can install 
-`r Biocpkg("iSEEde")` by using the following commands in your `R` session:
+`r Biocpkg("iSEEde")` by using the following commands in your `r fontawesome::fa("r-project")` session:
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -77,7 +77,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("iSEEindex")` is based on many other packages and in particular on
+`r Biocpkg("iSEEde")` is based on many other packages and in particular on
 those that have implemented the infrastructure needed for dealing with omics 
 data and interactive visualisation.
 That is, packages like `r BiocStyle::Biocpkg("SummarizedExperiment")`, 
@@ -91,7 +91,7 @@ you might be interested in
 ## Asking for help
 
 As package developers, we try to explain clearly how to use our packages and in
-which order to use the functions. But `R` and `Bioconductor` have a steep
+which order to use the functions. But `r fontawesome::fa("r-project")` and `Bioconductor` have a steep
 learning curve so it is critical to learn where to ask for help. The blog post
 quoted above mentions some but we would like to highlight the 
 [Bioconductor support site](https://support.bioconductor.org/) 
@@ -118,6 +118,12 @@ citation("iSEEde")
 
 # Quick start to using to `iSEEde`
 
+The example below demonstrates how to use `r Biocpkg("iSEEde")` functionality in a simple differential expression workflow.
+
+Specifically, the `r Biocpkg("DESeq2")` package is used to perform a simple differential expression analysis.
+Then, the results of one contrast -- extracted using the function `DESeq2::results()` function -- are embedded into the `r Biocpkg("SummarizedExperiment")` object `airway` using the function `iSEEde::embedContrastResults()`.
+This ensures that the differential expression results for that contrast are accessible to specialised interactive panels in `r Biocpkg("iSEE")` applications.
+
 ```{r "start", message=FALSE, warning=FALSE}
 library("iSEEde")
 library("airway")
@@ -135,10 +141,10 @@ dds <- DESeq(dds)
 res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 head(res_deseq2)
 
-# iSEE ---
+# iSEE / iSEEde ---
 
 airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
-rowData(airway)
+contrastResults(airway)
 
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="dex: trt vs untrt", HiddenColumns = c("baseMean", 
@@ -199,7 +205,7 @@ totalTime <- diff(c(startTime, Sys.time()))
 round(totalTime, digits = 3)
 ```
 
-`R` session information.
+`r fontawesome::fa("r-project")` session information.
 
 ```{r reproduce3, echo=FALSE}
 ## Session info

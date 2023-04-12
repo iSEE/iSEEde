@@ -16,8 +16,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEde/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEde` is to provide panels to facilitate the interactive
-visualisation of differential expression results in
+The goal of `iSEEde` is to provide panels that facilitate the
+interactive visualisation of differential expression results in
 *[iSEE](https://bioconductor.org/packages/3.16/iSEE)* applications.
 
 ## Installation instructions
@@ -61,7 +61,7 @@ dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
 dds <- DESeq(dds)
 res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 
-# iSEE ---
+# iSEE / iSEEde ---
 
 airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 

@@ -56,7 +56,7 @@ setGeneric(
 NULL
 
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedContrastResults,ANY-method
+#' @export
 setGeneric(
     "embedContrastResults",
     function(x, se, name, ...) standardGeneric("embedContrastResults")

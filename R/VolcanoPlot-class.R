@@ -152,7 +152,7 @@ setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
 setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
     data_cmds <- list()
 
-    y_lab <- "-log10(P.Value)"
+    y_lab <- expression(-log[10]*" ("*italic(P)*"-value)")
 
     data_cmds[["de_table"]] <- sprintf("de_table <- contrastResults(se, '%s')", x[[.contrastName]])
 
@@ -163,7 +163,7 @@ setMethod(".generateDotPlotData", "VolcanoPlot", function(x, envir) {
     )
 
     # Prepare X-axis data.
-    x_lab <- "logFC"
+    x_lab <- expression(log[2]*" fold change")
     data_cmds[["x"]] <- "plot.data$X <- iSEEde::log2FoldChange(de_table)"
 
     plot_title <- x[[.contrastName]]

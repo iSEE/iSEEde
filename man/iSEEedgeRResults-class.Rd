@@ -31,7 +31,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in \code{se} under the identifier \code{name}. See \code{\link[=embedContrastResults]{embedContrastResults()}} for more details.
 \item \code{pValue(x)} returns the vector of raw p-values.
 \item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
 \item \code{averageLog2(x)} returns the vector of average log2-expression values.
@@ -43,22 +43,35 @@ library(edgeR)
 library(SummarizedExperiment)
 
 ##
-# From edgeR::topTags() ----
+# From edgeR::glmLRT() ----
 ##
 
-# generate raw counts from NB, create list object
-y <- matrix(rnbinom(80, size = 1, mu = 10), nrow = 20)
-d <- DGEList(counts = y, group = rep(1:2, each = 2), lib.size = rep(c(1000:1001), 2))
-rownames(d$counts) <- paste("gene", 1:nrow(d$counts), sep = ".")
+nlibs <- 3
+ngenes <- 100
+dispersion.true <- 0.1
 
-# estimate common dispersion and find differences in expression
-# here we demonstrate the 'exact' methods, but the use of topTags is
-# the same for a GLM analysis
-d <- estimateCommonDisp(d)
-de <- exactTest(d)
+# Make first gene respond to covariate x
+x <- 0:2
+design <- model.matrix(~x)
+beta.true <- cbind(Beta1=2,Beta2=c(2,rep(0,ngenes-1)))
+mu.true <- 2^(beta.true \%*\% t(design))
 
-# look at top 10
-res <- topTags(de)
+# Generate count data
+y <- rnbinom(ngenes*nlibs,mu=mu.true,size=1/dispersion.true)
+y <- matrix(y,ngenes,nlibs)
+colnames(y) <- c("x0","x1","x2")
+rownames(y) <- paste("gene",1:ngenes,sep=".")
+d <- DGEList(y)
+
+# Normalize
+d <- calcNormFactors(d)
+
+# Fit the NB GLMs
+fit <- glmFit(d, design, dispersion=dispersion.true)
+
+# Likelihood ratio tests for trend
+results <- glmLRT(fit, coef=2)
+tt <- topTags(results)
 
 ##
 # iSEEedgeRResults ----
@@ -67,21 +80,20 @@ res <- topTags(de)
 # Simulate the original SummarizedExperiment object
 se <- SummarizedExperiment(assays = list(counts = d$counts))
 
-# Package the results in a iSEEedgeRResults object
-iseede_table <- iSEEedgeRResults(res, row.names = rownames(se))
-
-# Store the iSEEedgeRResults object in the SummarizedExperiment rowData
-rowData(se)[["iSEEde"]] <- DataFrame(edgeR = I(iseede_table))
-
-se
+# Embed the edgeR results in the SummarizedExperiment object
+se <- embedContrastResults(tt, se, name = "edgeR")
 
 ##
-# Methods ----
+# Access ----
 ##
 
-head(pValue(iseede_table))
-head(log2FoldChange(iseede_table))
-head(averageLog2(iseede_table))
+contrastResultsNames(se)
+contrastResults(se)
+contrastResults(se, "edgeR")
+
+head(pValue(contrastResults(se, "edgeR")))
+head(log2FoldChange(contrastResults(se, "edgeR")))
+head(averageLog2(contrastResults(se, "edgeR")))
 }
 \author{
 Kevin Rue-Albrecht

@@ -4,17 +4,19 @@
 \name{utils-SummarizedExperiment}
 \alias{utils-SummarizedExperiment}
 \alias{embedContrastResults}
-\alias{embedContrastResults,ANY-method}
 \alias{embedContrastResultsMethods}
+\alias{embedContrastResults,ANY-method}
 \alias{embedContrastResults,data.frame-method}
 \title{Generics for Embbedding Results into a SummarizedExperiment Object}
 \format{
-An object of class \code{character} of length 1.
+\code{embedContrastResultsMethods}: Named character vector mapping keywords to class names designed to store differential expression results.
 }
 \usage{
 embedContrastResults(x, se, name, ...)
 
 embedContrastResultsMethods
+
+\S4method{embedContrastResults}{ANY}(x, se, name, ...)
 
 \S4method{embedContrastResults}{data.frame}(x, se, name, class, ...)
 }

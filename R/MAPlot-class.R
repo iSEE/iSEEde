@@ -151,7 +151,7 @@ setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
 setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
     data_cmds <- list()
 
-    y_lab <- "logFC"
+    y_lab <- expression(log[2]*" fold change")
 
     data_cmds[["de_table"]] <- sprintf("de_table <- contrastResults(se, '%s')", x[[.contrastName]])
 
@@ -162,7 +162,7 @@ setMethod(".generateDotPlotData", "MAPlot", function(x, envir) {
     )
 
     # Prepare X-axis data.
-    x_lab <- "AveExpr"
+    x_lab <- "Average expression"
     data_cmds[["x"]] <- "plot.data$X <- iSEEde::averageLog2(de_table)"
 
     plot_title <- x[[.contrastName]]

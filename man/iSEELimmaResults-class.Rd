@@ -30,7 +30,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
+\item \code{embedContrastResults(x, se, name, class = "limma", ...)} embeds \code{x} in \code{se} under the identifier \code{name}. See \code{\link[=embedContrastResults]{embedContrastResults()}} for more details.
 \item \code{pValue(x)} returns the vector of raw p-values.
 \item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
 \item \code{averageLog2(x)} returns the vector of average log2-expression values.
@@ -63,21 +63,20 @@ head(tt)
 # Simulate the original SummarizedExperiment object
 se <- SummarizedExperiment(assays = list(counts = y))
 
-# Package the results in a iSEELimmaResults object
-iseede_table <- iSEELimmaResults(tt, row.names = rownames(y))
-
-# Store the iSEELimmaResults object in the SummarizedExperiment rowData
-rowData(se)[["iSEEde"]] <- DataFrame(limma = I(iseede_table))
-
-se
+# Embed the Limma-Voom results in the SummarizedExperiment object
+se <- embedContrastResults(tt, se, name = "Limma-Voom", class = "limma")
 
 ##
-# Methods ----
+# Access ----
 ##
 
-head(pValue(iseede_table))
-head(log2FoldChange(iseede_table))
-head(averageLog2(iseede_table))
+contrastResultsNames(se)
+contrastResults(se)
+contrastResults(se, "Limma-Voom")
+
+head(pValue(contrastResults(se, "Limma-Voom")))
+head(log2FoldChange(contrastResults(se, "Limma-Voom")))
+head(averageLog2(contrastResults(se, "Limma-Voom")))
 }
 \author{
 Kevin Rue-Albrecht

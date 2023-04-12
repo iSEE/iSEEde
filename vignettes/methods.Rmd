@@ -53,34 +53,40 @@ bib <- c(
 )
 ```
 
-# Differential expression results
+# Implementation
 
-## Formats
+## User-facing storage and access
 
 Differential expression results are generally reported as tables of statistics,
-including (log) fold-change, p-value, average expression, etc.
+including (log~2~) fold-change, p-value, average expression, etc.
 
 Those statistics being reported for individual features (e.g., genes), the
 `rowData()` component of `SummarizedExperiment()` objects provides a natural
-home for that information. Specifically, `r BiocStyle::Biocpkg("iSEEde")`
-searches for differential expression results in `rowData(se)[["iSEEde"]]`.
+home for that information.
+Specifically, `r BiocStyle::Biocpkg("iSEEde")` stores and retrieves differential expression results in `rowData(se)[["iSEEde"]]`.
+However, the `rowData()` function should not be used to access or edit that information.
+Instead, the functions `embedContrastResults()` and `contrastResults()`, should be used to store and retrieve contrast results, respectively, as those functions ensure that feature names are kept synchronised with the enclosing `SummarizedExperiment` object.
 
-The first challenge arises when differential expression statistics are computed
-only for a subset of features. In that case, `r BiocStyle::Biocpkg("iSEEde")`
-populates missing information with `NA`.
+Moreover, the function `contrastResultsNames()` can be used to retrieve the names of contrast available in a given `SummarizedExperiment` object.
 
-The second challenge arises from the different names of columns used by
-individual differential expression methods to store differential expression
-common statistics. To address this, `r BiocStyle::Biocpkg("iSEEde")` provides S4
-classes creating a common interface to supported differential expression
-methods.
+## Additional considerations
+
+The first challenge arises when differential expression statistics are computed only for a subset of features.
+In that case, `embedContrastResults()` populates missing information with `NA` values.
+
+The second challenge arises from the different names of columns used by individual differential expression methods to store differential expression common statistics.
+To address this, `r BiocStyle::Biocpkg("iSEEde")` provides S4 classes creating a common interface to supported differential expression methods.
+Each class of differential expression results implements the following methods:
+
+- `pValue()` returns the vector of raw p-values.
+- `log2FoldChange()` returns the vector of log2-fold-change values.
+- `averageLog2()` returns the vector of average log2-expression values.
 
 # Example data
 
-We use the `?airway` data set.
+In this example, we use the `?airway` data set.
 
-We briefly adjust the reference level of the treatment factor to the untreated 
-condition.
+We briefly adjust the reference level of the treatment factor to the untreated condition.
 
 ```{r, message=FALSE, warning=FALSE}
 library("airway")
@@ -130,13 +136,13 @@ This manual method is preferable to any automated heuristic, e.g. using the
 column names of the `data.frame` for identifying it as a `limma::topTable()`
 output.
 
-The results are nested as a `DataFrame`-like object in 
-`rowData(airway)[["iSEEde"]]`.
+The results embedded in the `airway` object can be accessed using the `contrastResults()` function.
 
-```{r}
+```{r, message=FALSE}
 library(iSEEde)
 airway <- embedContrastResults(res_limma, airway, name = "Limma-Voom", class = "limma")
-rowData(airway)
+contrastResults(airway)
+contrastResults(airway, "Limma-Voom")
 ```
 
 ## DESeq2
@@ -167,9 +173,12 @@ recognisable `?DESeqResults` object, which can be given *as is* directly to the
 The function will automatically pass the results object to the 
 `iSEEDESeq2Results()` constructor, to identify it as such.
 
+The results embedded in the airway object can be accessed using the `contrastResults()` function.
+
 ```{r}
 airway <- embedContrastResults(res_deseq2, airway, name = "DESeq2")
-rowData(airway)
+contrastResults(airway)
+contrastResults(airway, "DESeq2")
 ```
 
 ## edgeR
@@ -199,12 +208,19 @@ directly to the `embedContrastResults()` method. The function will automatically
 the results object to the `iSEEedgeRResults()` constructor, to identify it as
 such.
 
+The results embedded in the airway object can be accessed using the `contrastResults()` function.
+
 ```{r}
 airway <- embedContrastResults(res_edger, airway, name = "edgeR")
-rowData(airway)
+contrastResults(airway)
+contrastResults(airway, "edgeR")
 ```
 
 # Live app
+
+In this example, we used the `r BiocStyle::Biocpkg("iSEEde")` functions `DETable()`, `VolcanoPlot()`, and `MAPlot()` to add panels that facilitate the visualisation of differential expression results in an `r BiocStyle::Biocpkg("iSEE")` app.
+
+Specifically, we add one set of panels for each differential expression method used in this vignette (i.e., Limma-Voom, DESeq2, edgeR).
 
 ```{r, message=FALSE}
 library(iSEE)
@@ -234,7 +250,10 @@ SCREENSHOT("screenshots/methods_side_by_side.png", delay = 20)
 
 # Comparing two contrasts
 
-The `?LogFCLogFCPlot` class allows users to compare the log-fold-change value of features between two differential expression contrasts.
+The `?LogFCLogFCPlot` class allows users to compare the log~2~ fold-change value of features between two differential expression contrasts.
+
+In this example, we add one `?LogFCLogFCPlot` panel comparing the same contrast using the Limma-Voom and DESeq2 methods, alongside one `?VolcanoPlot` panel for each of those two contrasts.
+Moreover, we pre-select an area of the `?LogFCLogFCPlot` and highlight the selected features in the two `?VolcanoPlot` panels.
 
 ```{r, message=FALSE, warning=FALSE}
 library(iSEE)

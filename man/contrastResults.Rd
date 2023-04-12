@@ -3,9 +3,7 @@
 \name{contrastResultsNames}
 \alias{contrastResultsNames}
 \alias{contrastResults}
-\title{Extract contrast results embedded in a SummarizedExperiment object
-\code{getContrastResults}
-\code{contrastResultsNames} returns the names of contrast results embedded in \code{object}.}
+\title{Extract contrast results embedded in a SummarizedExperiment object}
 \usage{
 contrastResultsNames(object)
 
@@ -15,19 +13,19 @@ contrastResults(object, name)
 \item{object}{A \linkS4class{SummarizedExperiment} object.}
 
 \item{name}{Name of a single contrast result name to extract.
-Use \code{contrastResultsNames(object)} to list available names.
-
-If missing, all contrast results are returned as a nested \code{DataFrame}.}
+Use \code{contrastResultsNames(object)} to list available names.}
 }
 \value{
 For \code{contrastResultsNames}: the names of embedded contrast results available.
+
+For \code{contrastResults}: a \code{DataFrame} of differential expression statistics.
 
 If \code{name} is missing, a nested \code{\linkS4class{DataFrame}} in which each column contains the results of a single contrast.
 If \code{name} is given, a \code{\linkS4class{DataFrame}} that contains the results of a single contrast.
 }
 \description{
-Extract contrast results embedded in a SummarizedExperiment object
-\code{getContrastResults}
+\code{contrastResults} returns either all contrasts results stored in \code{object} or a single contrast result by name.
+
 \code{contrastResultsNames} returns the names of contrast results embedded in \code{object}.
 }
 \examples{
