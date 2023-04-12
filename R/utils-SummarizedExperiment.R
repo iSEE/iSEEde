@@ -80,7 +80,6 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedContrastResults,iSEELimmaResults-method
 setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
@@ -89,7 +88,6 @@ setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...)
 #'
 #' @rdname utils-SummarizedExperiment
 #' @importClassesFrom DESeq2 DESeqResults
-#' @aliases embedContrastResults,DESeqResults-method
 setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
     res <- iSEEDESeq2Results(x, row.names = rownames(se))
     embedContrastResults(res, se, name)
@@ -98,7 +96,6 @@ setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedContrastResults,iSEEDESeq2Results-method
 setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
@@ -107,7 +104,6 @@ setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...
 #'
 #' @rdname utils-SummarizedExperiment
 #' @importClassesFrom edgeR TopTags
-#' @aliases embedContrastResults,TopTags-method
 setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
     ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
     x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
@@ -119,7 +115,6 @@ setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
-#' @aliases embedContrastResults,iSEEedgeRResults-method
 setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
