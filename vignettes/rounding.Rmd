@@ -174,11 +174,11 @@ Code for creating the vignette
 ```{r createVignette, eval=FALSE}
 ## Create the vignette
 library("rmarkdown")
-system.time(render("methods.Rmd", "BiocStyle::html_document"))
+system.time(render("rounding.Rmd", "BiocStyle::html_document"))
 
 ## Extract the R code
 library("knitr")
-knit("methods.Rmd", tangle = TRUE)
+knit("rounding.Rmd", tangle = TRUE)
 ```
 
 Date the vignette was generated.

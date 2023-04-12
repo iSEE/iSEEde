@@ -113,21 +113,22 @@ contrastResultsNames <- function(object){
 }
 
 #' Extract contrast results embedded in a SummarizedExperiment object
-#' `getContrastResults`
+#' 
+#' `contrastResults` returns either all contrasts results stored in `object` or a single contrast result by name.
+#' 
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
 #' @param object A [SummarizedExperiment-class] object.
+#' @param name Name of a single contrast result name to extract.
+#' Use `contrastResultsNames(object)` to list available names.
 #'
 #' @return
 #' For `contrastResultsNames`: the names of embedded contrast results available.
 #' 
-#'
-#' @param name Name of a single contrast result name to extract.
-#' Use `contrastResultsNames(object)` to list available names.
-#' 
 #' If missing, all contrast results are returned as a nested `DataFrame`.
-#'
-#' @return
+#' 
+#' For `contrastResults`: a `DataFrame` of differential expression statistics.
+#' 
 #' If `name` is missing, a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
 #' If `name` is given, a [`DataFrame-class`] that contains the results of a single contrast.
 #' 
