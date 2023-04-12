@@ -57,12 +57,12 @@ bib <- c(
 
 ## Install `iSEEde`
 
-`R` is an open-source statistical environment which can be easily modified to
-enhance its functionality via packages. `r Biocpkg("iSEEde")` is a `R` package
+`r fontawesome::fa("r-project")` is an open-source statistical environment which can be easily modified to
+enhance its functionality via packages. `r Biocpkg("iSEEde")` is an `r fontawesome::fa("r-project")` package
 available via the [Bioconductor](http://bioconductor.org) repository for
-packages. `R` can be installed on any operating system from
+packages. `r fontawesome::fa("r-project")` can be installed on any operating system from
 [CRAN](https://cran.r-project.org/) after which you can install 
-`r Biocpkg("iSEEde")` by using the following commands in your `R` session:
+`r Biocpkg("iSEEde")` by using the following commands in your `r fontawesome::fa("r-project")` session:
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -91,7 +91,7 @@ you might be interested in
 ## Asking for help
 
 As package developers, we try to explain clearly how to use our packages and in
-which order to use the functions. But `R` and `Bioconductor` have a steep
+which order to use the functions. But `r fontawesome::fa("r-project")` and `Bioconductor` have a steep
 learning curve so it is critical to learn where to ask for help. The blog post
 quoted above mentions some but we would like to highlight the 
 [Bioconductor support site](https://support.bioconductor.org/) 
@@ -199,7 +199,7 @@ totalTime <- diff(c(startTime, Sys.time()))
 round(totalTime, digits = 3)
 ```
 
-`R` session information.
+`r fontawesome::fa("r-project")` session information.
 
 ```{r reproduce3, echo=FALSE}
 ## Session info
