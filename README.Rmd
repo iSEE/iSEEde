@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/iSEE/iSEEde/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEde` is to provide panels to facilitate the interactive visualisation of differential expression results in `r BiocStyle::Biocpkg("iSEE")` applications.
+The goal of `iSEEde` is to provide panels that facilitate the interactive visualisation of differential expression results in `r BiocStyle::Biocpkg("iSEE")` applications.
 
 ## Installation instructions
 
