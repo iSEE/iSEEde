@@ -18,8 +18,6 @@ Use \code{contrastResultsNames(object)} to list available names.}
 \value{
 For \code{contrastResultsNames}: the names of embedded contrast results available.
 
-If missing, all contrast results are returned as a nested \code{DataFrame}.
-
 For \code{contrastResults}: a \code{DataFrame} of differential expression statistics.
 
 If \code{name} is missing, a nested \code{\linkS4class{DataFrame}} in which each column contains the results of a single contrast.
@@ -27,8 +25,7 @@ If \code{name} is given, a \code{\linkS4class{DataFrame}} that contains the resu
 }
 \description{
 \code{contrastResults} returns either all contrasts results stored in \code{object} or a single contrast result by name.
-}
-\details{
+
 \code{contrastResultsNames} returns the names of contrast results embedded in \code{object}.
 }
 \examples{

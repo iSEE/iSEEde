@@ -3,6 +3,7 @@
 #' @export
 #'
 #' @rdname utils-SummarizedExperiment
+#' @format `embedContrastResultsMethods`: Named character vector mapping keywords to class names designed to store differential expression results.
 embedContrastResultsMethods <- c(
     "limma" = "iSEELimmaResults"
 )
@@ -10,6 +11,9 @@ embedContrastResultsMethods <- c(
 # embedContrastResults ----
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedContrastResults,ANY-method
 setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
     msg <- sprintf(
         "no 'embedContrastResults' method defined for object
@@ -74,24 +78,36 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
 })
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedContrastResults,iSEELimmaResults-method
 setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
 #' @importClassesFrom DESeq2 DESeqResults
+#' @aliases embedContrastResults,DESeqResults-method
 setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
     res <- iSEEDESeq2Results(x, row.names = rownames(se))
     embedContrastResults(res, se, name)
 })
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedContrastResults,iSEEDESeq2Results-method
 setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
 
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
 #' @importClassesFrom edgeR TopTags
+#' @aliases embedContrastResults,TopTags-method
 setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
     ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
     x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
@@ -99,7 +115,11 @@ setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
     embedContrastResults(res, se, name)
 })
 
+
 #' @export
+#'
+#' @rdname utils-SummarizedExperiment
+#' @aliases embedContrastResults,iSEEedgeRResults-method
 setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
     .embed_de_result(x, se, name)
 })
@@ -114,6 +134,7 @@ contrastResultsNames <- function(object){
 
 #' Extract contrast results embedded in a SummarizedExperiment object
 #' 
+#' @description
 #' `contrastResults` returns either all contrasts results stored in `object` or a single contrast result by name.
 #' 
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
@@ -124,8 +145,6 @@ contrastResultsNames <- function(object){
 #'
 #' @return
 #' For `contrastResultsNames`: the names of embedded contrast results available.
-#' 
-#' If missing, all contrast results are returned as a nested `DataFrame`.
 #' 
 #' For `contrastResults`: a `DataFrame` of differential expression statistics.
 #' 
