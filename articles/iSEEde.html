@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/annotations.html">Using annotations to facilitate interactive exploration</a>
     </li>
+    <li>
+      <a href="../articles/rounding.html">Rounding numeric values</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -93,7 +96,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">11 April 2023</h4>
+            <h4 data-toc-skip class="date">12 April 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/HEAD/vignettes/iSEEde.Rmd" class="external-link"><code>vignettes/iSEEde.Rmd</code></a></small>
       <div class="hidden name"><code>iSEEde.Rmd</code></div>
@@ -108,12 +111,18 @@ Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-
 <div class="section level3">
 <h3 id="install-iseede">Install <code>iSEEde</code><a class="anchor" aria-label="anchor" href="#install-iseede"></a>
 </h3>
-<p><code>R</code> is an open-source statistical environment which can be
-easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em> is
-a <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages.
-<code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install
+<p><svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+is an open-source statistical environment which can be easily modified
+to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em> is
+an
+<svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages.
+<svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install
 <em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em> by
-using the following commands in your <code>R</code> session:</p>
+using the following commands in your
+<svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -127,8 +136,8 @@ using the following commands in your <code>R</code> session:</p>
 <div class="section level3">
 <h3 id="required-knowledge">Required knowledge<a class="anchor" aria-label="anchor" href="#required-knowledge"></a>
 </h3>
-<p><em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-is based on many other packages and in particular on those that have
+<p><em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em> is
+based on many other packages and in particular on those that have
 implemented the infrastructure needed for dealing with omics data and
 interactive visualisation. That is, packages like <em><a href="https://bioconductor.org/packages/3.17/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>,
 <em><a href="https://bioconductor.org/packages/3.17/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>,
@@ -142,10 +151,11 @@ blog post</a>.</p>
 <h3 id="asking-for-help">Asking for help<a class="anchor" aria-label="anchor" href="#asking-for-help"></a>
 </h3>
 <p>As package developers, we try to explain clearly how to use our
-packages and in which order to use the functions. But <code>R</code> and
-<code>Bioconductor</code> have a steep learning curve so it is critical
-to learn where to ask for help. The blog post quoted above mentions some
-but we would like to highlight the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
+packages and in which order to use the functions. But
+<svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+and <code>Bioconductor</code> have a steep learning curve so it is
+critical to learn where to ask for help. The blog post quoted above
+mentions some but we would like to highlight the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
 as the main resource for getting help: remember to use the
 <code>iSEEde</code> tag and check <a href="https://support.bioconductor.org/t/iSEEde/" class="external-link">the older posts</a>.
 Other alternatives are available such as creating GitHub issues and
@@ -183,6 +193,17 @@ to cite the package and the overall approach. Thank you!</p>
 <div class="section level2">
 <h2 id="quick-start-to-using-to-iseede">Quick start to using to <code>iSEEde</code><a class="anchor" aria-label="anchor" href="#quick-start-to-using-to-iseede"></a>
 </h2>
+<p>The example below demonstrates how to use <em><a href="https://bioconductor.org/packages/3.17/iSEEde" class="external-link">iSEEde</a></em>
+functionality in a simple differential expression workflow.</p>
+<p>Specifically, the <em><a href="https://bioconductor.org/packages/3.17/DESeq2" class="external-link">DESeq2</a></em>
+package is used to perform a simple differential expression analysis.
+Then, the results of one contrast – extracted using the function
+<code><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">DESeq2::results()</a></code> function – are embedded into the <em><a href="https://bioconductor.org/packages/3.17/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+object <code>airway</code> using the function
+<code><a href="../reference/utils-SummarizedExperiment.html">iSEEde::embedContrastResults()</a></code>. This ensures that the
+differential expression results for that contrast are accessible to
+specialised interactive panels in <em><a href="https://bioconductor.org/packages/3.17/iSEE" class="external-link">iSEE</a></em>
+applications.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEde" class="external-link">"iSEEde"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></span>
@@ -211,37 +232,24 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt; ENSG00000000460  57.932633     -0.0881679  0.287142 -0.307054 0.758802543 0.89500551</span></span>
 <span><span class="co">#&gt; ENSG00000000938   0.318098     -1.3782416  3.499906 -0.393794 0.693733216         NA</span></span>
 <span></span>
-<span><span class="co"># iSEE ---</span></span>
+<span><span class="co"># iSEE / iSEEde ---</span></span>
 <span></span>
 <span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/utils-SummarizedExperiment.html">embedContrastResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"dex: trt vs untrt"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 63677 rows and 11 columns</span></span>
-<span><span class="co">#&gt;                         gene_id     gene_name  entrezid   gene_biotype gene_seq_start gene_seq_end</span></span>
-<span><span class="co">#&gt;                     &lt;character&gt;   &lt;character&gt; &lt;integer&gt;    &lt;character&gt;      &lt;integer&gt;    &lt;integer&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000003 ENSG00000000003        TSPAN6        NA protein_coding       99883667     99894988</span></span>
-<span><span class="co">#&gt; ENSG00000000005 ENSG00000000005          TNMD        NA protein_coding       99839799     99854882</span></span>
-<span><span class="co">#&gt; ENSG00000000419 ENSG00000000419          DPM1        NA protein_coding       49551404     49575092</span></span>
-<span><span class="co">#&gt; ENSG00000000457 ENSG00000000457         SCYL3        NA protein_coding      169818772    169863408</span></span>
-<span><span class="co">#&gt; ENSG00000000460 ENSG00000000460      C1orf112        NA protein_coding      169631245    169823221</span></span>
-<span><span class="co">#&gt; ...                         ...           ...       ...            ...            ...          ...</span></span>
-<span><span class="co">#&gt; ENSG00000273489 ENSG00000273489 RP11-180C16.1        NA      antisense      131178723    131182453</span></span>
-<span><span class="co">#&gt; ENSG00000273490 ENSG00000273490        TSEN34        NA protein_coding       54693789     54697585</span></span>
-<span><span class="co">#&gt; ENSG00000273491 ENSG00000273491  RP11-138A9.2        NA        lincRNA      130600118    130603315</span></span>
-<span><span class="co">#&gt; ENSG00000273492 ENSG00000273492    AP000230.1        NA        lincRNA       27543189     27589700</span></span>
-<span><span class="co">#&gt; ENSG00000273493 ENSG00000273493  RP11-80H18.4        NA        lincRNA       58315692     58315845</span></span>
-<span><span class="co">#&gt;                              seq_name seq_strand seq_coord_system        symbol              iSEEde</span></span>
-<span><span class="co">#&gt;                           &lt;character&gt;  &lt;integer&gt;        &lt;integer&gt;   &lt;character&gt;         &lt;DataFrame&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000003                     X         -1               NA        TSPAN6 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000005                     X          1               NA          TNMD &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000419                    20         -1               NA          DPM1 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000457                     1         -1               NA         SCYL3 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000000460                     1          1               NA      C1orf112 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ...                               ...        ...              ...           ...                 ...</span></span>
-<span><span class="co">#&gt; ENSG00000273489                     7         -1               NA RP11-180C16.1 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000273490 HSCHR19LRC_LRC_J_CTG1          1               NA        TSEN34 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000273491          HG1308_PATCH          1               NA  RP11-138A9.2 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000273492                    21          1               NA    AP000230.1 &lt;iSEEDESeq2Results&gt;</span></span>
-<span><span class="co">#&gt; ENSG00000273493                     3          1               NA  RP11-80H18.4 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="fu"><a href="../reference/contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 63677 rows and 1 column</span></span>
+<span><span class="co">#&gt;                   dex: trt vs untrt</span></span>
+<span><span class="co">#&gt;                 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000003 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000005 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000419 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000457 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000000460 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ...                             ...</span></span>
+<span><span class="co">#&gt; ENSG00000273489 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273490 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273491 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273492 &lt;iSEEDESeq2Results&gt;</span></span>
+<span><span class="co">#&gt; ENSG00000273493 &lt;iSEEDESeq2Results&gt;</span></span>
 <span></span>
 <span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/DETable-class.html">DETable</a></span><span class="op">(</span>ContrastName<span class="op">=</span><span class="st">"dex: trt vs untrt"</span>, HiddenColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseMean"</span>, </span>
@@ -293,10 +301,11 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"iSEEde.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-11 18:03:50 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-04-12 17:09:31 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 27.531 secs</span></span></code></pre>
-<p><code>R</code> session information.</p>
+<pre><code><span><span class="co">#&gt; Time difference of 26.935 secs</span></span></code></pre>
+<p><svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>
+session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
 <span><span class="co">#&gt;  version  R version 4.3.0 beta (2023-04-06 r84184)</span></span>
@@ -307,7 +316,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-04-11</span></span>
+<span><span class="co">#&gt;  date     2023-04-12</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -366,7 +375,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  igraph                 1.4.2     <span style="color: #555555;">2023-04-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  IRanges              * 2.33.1    <span style="color: #555555;">2023-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  iSEE                 * 2.11.4    <span style="color: #555555;">2023-02-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2023-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEEde               * 0.99.0    <span style="color: #555555;">2023-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  iterators              1.0.14    <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib              0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jsonlite               1.8.4     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>

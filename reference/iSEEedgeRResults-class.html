@@ -41,6 +41,9 @@ It provides methods to access common differential expression statistics (e.g., l
     <li>
       <a href="../articles/annotations.html">Using annotations to facilitate interactive exploration</a>
     </li>
+    <li>
+      <a href="../articles/rounding.html">Rounding numeric values</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -92,7 +95,7 @@ It provides methods to access common differential expression statistics (e.g., l
     <h2>Supported methods</h2>
     
 
-<ul><li><p><code>embedContrastResults(x, se, name, ...)</code> embeds <code>x</code> in the column <code>name</code> of <code>rowData(se)[["iSEEde"]]</code>.</p></li>
+<ul><li><p><code>embedContrastResults(x, se, name, ...)</code> embeds <code>x</code> in <code>se</code> under the identifier <code>name</code>. See <code><a href="utils-SummarizedExperiment.html">embedContrastResults()</a></code> for more details.</p></li>
 <li><p><code>pValue(x)</code> returns the vector of raw p-values.</p></li>
 <li><p><code>log2FoldChange(x)</code> returns the vector of log2-fold-change values.</p></li>
 <li><p><code>averageLog2(x)</code> returns the vector of average log2-expression values.</p></li>
@@ -113,22 +116,35 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">SummarizedExperiment</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
-<span class="r-in"><span><span class="co"># From edgeR::topTags() ----</span></span></span>
+<span class="r-in"><span><span class="co"># From edgeR::glmLRT() ----</span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># generate raw counts from NB, create list object</span></span></span>
-<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html" class="external-link">rnbinom</a></span><span class="op">(</span><span class="fl">80</span>, size <span class="op">=</span> <span class="fl">1</span>, mu <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/DGEList.html" class="external-link">DGEList</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="va">y</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, lib.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">:</span><span class="fl">1001</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"gene"</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nlibs</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="va">ngenes</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">dispersion.true</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># estimate common dispersion and find differences in expression</span></span></span>
-<span class="r-in"><span><span class="co"># here we demonstrate the 'exact' methods, but the use of topTags is</span></span></span>
-<span class="r-in"><span><span class="co"># the same for a GLM analysis</span></span></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/estimateCommonDisp.html" class="external-link">estimateCommonDisp</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/exactTest.html" class="external-link">exactTest</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Make first gene respond to covariate x</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">beta.true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>Beta1<span class="op">=</span><span class="fl">2</span>,Beta2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">ngenes</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mu.true</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="va">beta.true</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># look at top 10</span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Generate count data</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html" class="external-link">rnbinom</a></span><span class="op">(</span><span class="va">ngenes</span><span class="op">*</span><span class="va">nlibs</span>,mu<span class="op">=</span><span class="va">mu.true</span>,size<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="va">dispersion.true</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">ngenes</span>,<span class="va">nlibs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x0"</span>,<span class="st">"x1"</span>,<span class="st">"x2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"gene"</span>,<span class="fl">1</span><span class="op">:</span><span class="va">ngenes</span>,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/DGEList.html" class="external-link">DGEList</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Normalize</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html" class="external-link">calcNormFactors</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fit the NB GLMs</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="external-link">glmFit</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">design</span>, dispersion<span class="op">=</span><span class="va">dispersion.true</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Likelihood ratio tests for trend</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html" class="external-link">glmLRT</a></span><span class="op">(</span><span class="va">fit</span>, coef<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span><span class="co"># iSEEedgeRResults ----</span></span></span>
@@ -137,35 +153,55 @@ It provides methods to access common differential expression statistics (e.g., l
 <span class="r-in"><span><span class="co"># Simulate the original SummarizedExperiment object</span></span></span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a></span><span class="op">(</span>assays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Package the results in a iSEEedgeRResults object</span></span></span>
-<span class="r-in"><span><span class="va">iseede_table</span> <span class="op">&lt;-</span> <span class="fu">iSEEedgeRResults</span><span class="op">(</span><span class="va">res</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Store the iSEEedgeRResults object in the SummarizedExperiment rowData</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[[</span><span class="st">"iSEEde"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></span><span class="op">(</span>edgeR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">se</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: SummarizedExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 20 4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): counts</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(20): gene.1 gene.2 ... gene.19 gene.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): iSEEde</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(4): Sample1 Sample2 Sample3 Sample4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(0):</span>
+<span class="r-in"><span><span class="co"># Embed the edgeR results in the SummarizedExperiment object</span></span></span>
+<span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="utils-SummarizedExperiment.html">embedContrastResults</a></span><span class="op">(</span><span class="va">tt</span>, <span class="va">se</span>, name <span class="op">=</span> <span class="st">"edgeR"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
-<span class="r-in"><span><span class="co"># Methods ----</span></span></span>
+<span class="r-in"><span><span class="co"># Access ----</span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NA 0.1683769 0.4585562 0.1804914 0.3321905        NA </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.1    gene.2    gene.3    gene.4    gene.5    gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NA  3.397959 -1.842525  3.430067 -2.162059        NA </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="va">iseede_table</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="contrastResults.html">contrastResultsNames</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "edgeR"</span>
+<span class="r-in"><span><span class="fu"><a href="contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 100 rows and 1 column</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       edgeR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.1   &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.2   &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.3   &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.4   &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.5   &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                     ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.96  &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.97  &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.98  &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.99  &lt;iSEEedgeRResults&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.100 &lt;iSEEedgeRResults&gt;</span>
+<span class="r-in"><span><span class="fu"><a href="contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">"edgeR"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iSEEedgeRResults with 100 rows and 5 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              logFC    logCPM        LR      PValue       FDR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.1     1.28454   16.0395    10.999 0.000911601 0.0911601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.2          NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.3          NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.4          NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.5          NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...            ...       ...       ...         ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.96  -0.981841   14.3686   3.07178   0.0796622  0.953621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.97         NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.98         NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.99         NA        NA        NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene.100        NA        NA        NA          NA        NA</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">pValue</a></span><span class="op">(</span><span class="fu"><a href="contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">"edgeR"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       gene.1       gene.2       gene.3       gene.4       gene.5       gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.0009116011           NA           NA           NA           NA           NA </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">log2FoldChange</a></span><span class="op">(</span><span class="fu"><a href="contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">"edgeR"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       NA 13.45157 12.71417 13.04649 14.46717       NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.284545       NA       NA       NA       NA       NA </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="de-generics.html">averageLog2</a></span><span class="op">(</span><span class="fu"><a href="contrastResults.html">contrastResults</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">"edgeR"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.1   gene.2   gene.3   gene.4   gene.5   gene.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16.03953       NA       NA       NA       NA       NA </span>
 </code></pre></div>
     </div>
   </div>

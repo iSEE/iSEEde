@@ -65,6 +65,9 @@
     <li>
       <a href="articles/annotations.html">Using annotations to facilitate interactive exploration</a>
     </li>
+    <li>
+      <a href="articles/rounding.html">Rounding numeric values</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -95,7 +98,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>iSEEde</code> is to provide panels to facilitate the interactive visualisation of differential expression results in <em><a href="https://bioconductor.org/packages/3.16/iSEE" class="external-link">iSEE</a></em> applications.</p>
+<p>The goal of <code>iSEEde</code> is to provide panels that facilitate the interactive visualisation of differential expression results in <em><a href="https://bioconductor.org/packages/3.16/iSEE" class="external-link">iSEE</a></em> applications.</p>
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
@@ -130,7 +133,7 @@
 <span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
 <span><span class="va">res_deseq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"dextrt"</span>, <span class="st">"dexuntrt"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># iSEE ---</span></span>
+<span><span class="co"># iSEE / iSEEde ---</span></span>
 <span></span>
 <span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/utils-SummarizedExperiment.html">embedContrastResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"dex: trt vs untrt"</span><span class="op">)</span></span>
 <span></span>
