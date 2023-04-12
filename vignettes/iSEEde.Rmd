@@ -141,7 +141,7 @@ dds <- DESeq(dds)
 res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 head(res_deseq2)
 
-# iSEE ---
+# iSEE / iSEEde ---
 
 airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
 contrastResults(airway)
