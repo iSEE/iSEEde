@@ -1,5 +1,5 @@
 ---
-title: "Rounding numerical values"
+title: "Rounding numeric values"
 author: 
   - name: Kevin Rue-Albrecht
     affiliation:
@@ -15,7 +15,7 @@ output:
 date: "`r doc_date()`"
 package: "`r pkg_ver('iSEEde')`"
 vignette: >
-  %\VignetteIndexEntry{Rounding numerical values}
+  %\VignetteIndexEntry{Rounding numeric values}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
