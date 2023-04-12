@@ -55,7 +55,7 @@ bib <- c(
 
 # Example data
 
-We use the `?airway` data set. 
+In this example, we use the `?airway` data set. 
 
 ```{r, message=FALSE, warning=FALSE}
 library("airway")
@@ -136,7 +136,7 @@ head(res_limma)
 ```
 
 Then, we embed this set of differential expression results in the `airway`
-object using the `embedContrastResults()` method.
+object using the `embedContrastResults()` method and we use the function `contrastResults()` to display the contrast results stored in the `airway` object.
 
 ```{r}
 library(iSEEde)
@@ -144,7 +144,8 @@ airway <- embedContrastResults(res_limma, airway,
     name = "dextrt - dexuntrt",
     class = "limma"
 )
-rowData(airway)
+contrastResults(airway)
+contrastResults(airway, "dextrt - dexuntrt")
 ```
 
 # Live app
