@@ -118,6 +118,12 @@ citation("iSEEde")
 
 # Quick start to using to `iSEEde`
 
+The example below demonstrates how to use `r Biocpkg("iSEEde")` functionality in a simple differential expression workflow.
+
+Specifically, the `r Biocpkg("DESeq2")` package is used to perform a simple differential expression analysis.
+Then, the results of one contrast -- extracted using the function `DESeq2::results()` function -- are embedded into the `r Biocpkg("SummarizedExperiment")` object `airway` using the function `iSEEde::embedContrastResults()`.
+This ensures that the differential expression results for that contrast are accessible to specialised interactive panels in `r Biocpkg("iSEE")` applications.
+
 ```{r "start", message=FALSE, warning=FALSE}
 library("iSEEde")
 library("airway")
@@ -138,7 +144,7 @@ head(res_deseq2)
 # iSEE ---
 
 airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
-rowData(airway)
+contrastResults(airway)
 
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="dex: trt vs untrt", HiddenColumns = c("baseMean", 
