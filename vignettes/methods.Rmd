@@ -138,7 +138,7 @@ output.
 
 The results embedded in the `airway` object can be accessed using the `contrastResults()` function.
 
-```{r}
+```{r, message=FALSE}
 library(iSEEde)
 airway <- embedContrastResults(res_limma, airway, name = "Limma-Voom", class = "limma")
 contrastResults(airway)
