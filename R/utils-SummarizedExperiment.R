@@ -77,48 +77,6 @@ setMethod("embedContrastResults", "data.frame", function(x, se, name, class, ...
     embedContrastResults(res, se, name, ...)
 })
 
-#' @export
-#'
-#' @rdname utils-SummarizedExperiment
-setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
-#' @export
-#'
-#' @rdname utils-SummarizedExperiment
-#' @importClassesFrom DESeq2 DESeqResults
-setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
-    res <- iSEEDESeq2Results(x, row.names = rownames(se))
-    embedContrastResults(res, se, name)
-})
-
-#' @export
-#'
-#' @rdname utils-SummarizedExperiment
-setMethod("embedContrastResults", "iSEEDESeq2Results", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
-#' @export
-#'
-#' @rdname utils-SummarizedExperiment
-#' @importClassesFrom edgeR TopTags
-setMethod("embedContrastResults", "TopTags", function(x, se, name, ...) {
-    ## Remove other rowData columns that might have been picked up by edgeR:::SE2DGEList()
-    x_clean <- x[, c("logFC", "logCPM", "LR", "PValue", "FDR")]
-    res <- iSEEedgeRResults(x_clean, row.names = rownames(se))
-    embedContrastResults(res, se, name)
-})
-
-
-#' @export
-#'
-#' @rdname utils-SummarizedExperiment
-setMethod("embedContrastResults", "iSEEedgeRResults", function(x, se, name, ...) {
-    .embed_de_result(x, se, name)
-})
-
 # contrastResultsNames ----
 
 #' @export

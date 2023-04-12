@@ -7,11 +7,6 @@
 \alias{embedContrastResultsMethods}
 \alias{embedContrastResults,ANY-method}
 \alias{embedContrastResults,data.frame-method}
-\alias{embedContrastResults,iSEELimmaResults-method}
-\alias{embedContrastResults,DESeqResults-method}
-\alias{embedContrastResults,iSEEDESeq2Results-method}
-\alias{embedContrastResults,TopTags-method}
-\alias{embedContrastResults,iSEEedgeRResults-method}
 \title{Generics for Embbedding Results into a SummarizedExperiment Object}
 \format{
 \code{embedContrastResultsMethods}: Named character vector mapping keywords to class names designed to store differential expression results.
@@ -24,16 +19,6 @@ embedContrastResultsMethods
 \S4method{embedContrastResults}{ANY}(x, se, name, ...)
 
 \S4method{embedContrastResults}{data.frame}(x, se, name, class, ...)
-
-\S4method{embedContrastResults}{iSEELimmaResults}(x, se, name, ...)
-
-\S4method{embedContrastResults}{DESeqResults}(x, se, name, ...)
-
-\S4method{embedContrastResults}{iSEEDESeq2Results}(x, se, name, ...)
-
-\S4method{embedContrastResults}{TopTags}(x, se, name, ...)
-
-\S4method{embedContrastResults}{iSEEedgeRResults}(x, se, name, ...)
 }
 \arguments{
 \item{x}{Object to be embedded.}

@@ -31,7 +31,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 \section{Supported methods}{
 
 \itemize{
-\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in the column \code{name} of \code{rowData(se)[["iSEEde"]]}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds \code{x} in \code{se} under the identifier \code{name}. See \code{\link[=embedContrastResults]{embedContrastResults()}} for more details.
 \item \code{pValue(x)} returns the vector of raw p-values.
 \item \code{log2FoldChange(x)} returns the vector of log2-fold-change values.
 \item \code{averageLog2(x)} returns the vector of average log2-expression values.
@@ -61,21 +61,20 @@ head(res)
 # iSEEDESeq2Results ----
 ##
 
-# Package the results in a iSEEDESeq2Results object
-iseede_table <- iSEEDESeq2Results(res, row.names = rownames(dds))
-
-# Store the iSEEDESeq2Results object in the SummarizedExperiment rowData
-rowData(dds)[["iSEEde"]] <- DataFrame(DESeq2 = I(iseede_table))
-
-dds
+# Embed the DESeq2 results in the SummarizedExperiment object
+dds <- embedContrastResults(res, dds, name = "DESeq2")
 
 ##
-# Methods ----
+# Access ----
 ##
 
-head(pValue(iseede_table))
-head(log2FoldChange(iseede_table))
-head(averageLog2(iseede_table))
+contrastResultsNames(dds)
+contrastResults(dds)
+contrastResults(dds, "DESeq2")
+
+head(pValue(contrastResults(dds, "DESeq2")))
+head(log2FoldChange(contrastResults(dds, "DESeq2")))
+head(averageLog2(contrastResults(dds, "DESeq2")))
 }
 \author{
 Kevin Rue-Albrecht

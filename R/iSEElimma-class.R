@@ -15,7 +15,7 @@
 #'
 #' @section Supported methods:
 #' \itemize{
-#' \item `embedContrastResults(x, se, name, ...)` embeds `x` in the column `name` of `rowData(se)[["iSEEde"]]`.
+#' \item `embedContrastResults(x, se, name, class = "limma", ...)` embeds `x` in `se` under the identifier `name`. See [`embedContrastResults()`] for more details.
 #' \item `pValue(x)` returns the vector of raw p-values.
 #' \item `log2FoldChange(x)` returns the vector of log2-fold-change values.
 #' \item `averageLog2(x)` returns the vector of average log2-expression values.
@@ -60,21 +60,20 @@
 #' # Simulate the original SummarizedExperiment object
 #' se <- SummarizedExperiment(assays = list(counts = y))
 #'
-#' # Package the results in a iSEELimmaResults object
-#' iseede_table <- iSEELimmaResults(tt, row.names = rownames(y))
-#'
-#' # Store the iSEELimmaResults object in the SummarizedExperiment rowData
-#' rowData(se)[["iSEEde"]] <- DataFrame(limma = I(iseede_table))
-#'
-#' se
-#'
+#' # Embed the Limma-Voom results in the SummarizedExperiment object
+#' se <- embedContrastResults(tt, se, name = "Limma-Voom", class = "limma")
+#' 
 #' ##
-#' # Methods ----
+#' # Access ----
 #' ##
+#' 
+#' contrastResultsNames(se)
+#' contrastResults(se)
+#' contrastResults(se, "Limma-Voom")
 #'
-#' head(pValue(iseede_table))
-#' head(log2FoldChange(iseede_table))
-#' head(averageLog2(iseede_table))
+#' head(pValue(contrastResults(se, "Limma-Voom")))
+#' head(log2FoldChange(contrastResults(se, "Limma-Voom")))
+#' head(averageLog2(contrastResults(se, "Limma-Voom")))
 NULL
 
 setClass("iSEELimmaResults", contains = "DFrame")
@@ -130,4 +129,9 @@ setMethod("averageLog2", "iSEELimmaResults", function(x) {
     out <- x[["AveExpr"]]
     names(out) <- rownames(x)
     out
+})
+
+#' @export
+setMethod("embedContrastResults", "iSEELimmaResults", function(x, se, name, class, ...) {
+  .embed_de_result(x, se, name)
 })
