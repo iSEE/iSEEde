@@ -77,7 +77,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("iSEEindex")` is based on many other packages and in particular on
+`r Biocpkg("iSEEde")` is based on many other packages and in particular on
 those that have implemented the infrastructure needed for dealing with omics 
 data and interactive visualisation.
 That is, packages like `r BiocStyle::Biocpkg("SummarizedExperiment")`, 
