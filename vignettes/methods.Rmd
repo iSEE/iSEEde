@@ -134,7 +134,8 @@ those results.
 
 Supported classes are listed in the object `iSEEde::embedContrastResultsMethods`, i.e.
 
-```{r}
+```{r, message=FALSE}
+library(iSEEde)
 embedContrastResultsMethods
 ```
 
@@ -144,8 +145,7 @@ output).
 
 The results embedded in the `airway` object can be accessed using the `contrastResults()` function.
 
-```{r, message=FALSE}
-library(iSEEde)
+```{r}
 airway <- embedContrastResults(res_limma, airway, name = "Limma-Voom", class = "limma")
 contrastResults(airway)
 contrastResults(airway, "Limma-Voom")
