@@ -132,9 +132,15 @@ Because the output of `limma::topTable()` is a standard `data.frame`, the
 `class=` argument must be used to manually identify the method that produced
 those results.
 
-This manual method is preferable to any automated heuristic, e.g. using the
+Supported classes are listed in the object `iSEEde::embedContrastResultsMethods`, i.e.
+
+```{r}
+embedContrastResultsMethods
+```
+
+This manual method is preferable to any automated heuristic (e.g. using the
 column names of the `data.frame` for identifying it as a `limma::topTable()`
-output.
+output).
 
 The results embedded in the `airway` object can be accessed using the `contrastResults()` function.
 
