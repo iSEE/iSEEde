@@ -23,11 +23,11 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/iSEE/iSEEde/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEde` is to provide panels that facilitate the interactive visualisation of differential expression results in `r BiocStyle::Biocpkg("iSEE")` applications.
+The goal of `r BiocStyle::Biocpkg("iSEEde")` is to provide panels that facilitate the interactive visualisation of differential expression results in `r BiocStyle::Biocpkg("iSEE")` applications.
 
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `iSEEde` from [Bioconductor](http://bioconductor.org/) using the following code:
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `r BiocStyle::Biocpkg("iSEEde")` from [Bioconductor](http://bioconductor.org/) using the following code:
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -88,11 +88,11 @@ run this yourself to check for any updates on how to cite __iSEEde__.
 print(citation("iSEEde"), bibtex = TRUE)
 ```
 
-Please note that the `iSEEde` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
+Please note that the `r BiocStyle::Biocpkg("iSEEde")` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
 
 ## Code of Conduct
 
-Please note that the `iSEEde` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+Please note that the `r BiocStyle::Biocpkg("iSEEde")` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
