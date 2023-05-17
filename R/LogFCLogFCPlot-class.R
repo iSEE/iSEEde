@@ -3,6 +3,15 @@
 #' The LogFCLogFCPlot class is a \linkS4class{RowDataPlot} subclass that is dedicated to comparing the log-fold-change value of two contrasts.
 #' It retrieves the log-fold change of the two selected contrasts and creates a row-based plot where each point represents a feature.
 #' 
+#' @section Slot overview:
+#' The following slots control the test procedure:
+#' \itemize{
+#' \item `ContrastNameX`, a character scalar indicating the name of the contrast to display on the x-axis.
+#' \item `ContrastNameY`, a character scalar indicating the name of the contrast to display on the y-axis.
+#' }
+#' 
+#' In addition, this class inherits all slots from its parent [RowDotPlot-class], [DotPlot-class], and [Panel-class] classes.
+#' 
 #' @docType methods
 #' @aliases LogFCLogFCPlot LogFCLogFCPlot-class
 #' initialize,LogFCLogFCPlot-method
@@ -18,10 +27,7 @@
 #' 
 #' @examples 
 #' x <- LogFCLogFCPlot()
-#' x[["ContrastNameX"]]
-#' x[["ContrastNameX"]] <- "treatment1 vs control"
-#' x[["ContrastNameY"]]
-#' x[["ContrastNameY"]] <- "treatment2 vs control"
+#' x
 NULL
 
 #' @export
