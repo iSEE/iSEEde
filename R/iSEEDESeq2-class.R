@@ -1,6 +1,6 @@
 #' The iSEEDESeq2Results class
 #'
-#' The `iSEEDESeq2Results` class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
+#' The `iSEEDESeq2Results` class is used to provide a common interface to differential expression results produced by the \pkg{DESeq2} package.
 #' It provides methods to access common differential expression statistics (e.g., log2 fold-change, p-value, log2 average abundance).
 #'
 #' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.

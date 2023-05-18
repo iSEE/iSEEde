@@ -101,8 +101,8 @@ contrastResultsNames <- function(object){
 #' 
 #' For `contrastResults`: a `DataFrame` of differential expression statistics.
 #' 
-#' If `name` is missing, a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
-#' If `name` is given, a [`DataFrame-class`] that contains the results of a single contrast.
+#' If `name` is missing, `contrastResults` returns a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
+#' If `name` is given, `contrastResults` returns a [`DataFrame-class`] that contains the results of a single contrast.
 #' 
 #' @export
 #'
