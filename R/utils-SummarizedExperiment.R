@@ -93,7 +93,7 @@ contrastResultsNames <- function(object){
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
 #' @param object A [SummarizedExperiment-class] object.
-#' @param name Name of a single contrast result name to extract.
+#' @param name (Optional) Name of a single contrast result name to extract.
 #' Use `contrastResultsNames(object)` to list available names.
 #'
 #' @return
