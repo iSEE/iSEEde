@@ -12,7 +12,7 @@ contrastResults(object, name)
 \arguments{
 \item{object}{A \linkS4class{SummarizedExperiment} object.}
 
-\item{name}{Name of a single contrast result name to extract.
+\item{name}{(Optional) Name of a single contrast result name to extract.
 Use \code{contrastResultsNames(object)} to list available names.}
 }
 \value{
@@ -20,8 +20,8 @@ For \code{contrastResultsNames}: the names of embedded contrast results availabl
 
 For \code{contrastResults}: a \code{DataFrame} of differential expression statistics.
 
-If \code{name} is missing, a nested \code{\linkS4class{DataFrame}} in which each column contains the results of a single contrast.
-If \code{name} is given, a \code{\linkS4class{DataFrame}} that contains the results of a single contrast.
+If \code{name} is missing, \code{contrastResults} returns a nested \code{\linkS4class{DataFrame}} in which each column contains the results of a single contrast.
+If \code{name} is given, \code{contrastResults} returns a \code{\linkS4class{DataFrame}} that contains the results of a single contrast.
 }
 \description{
 \code{contrastResults} returns either all contrasts results stored in \code{object} or a single contrast result by name.

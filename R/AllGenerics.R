@@ -4,9 +4,9 @@
 #'
 #' @section Definitions:
 #' \itemize{
-#' \item `pValue(x)` returns a numeric vector of raw p-values.
-#' \item `log2FoldChange(x)` returns a numeric vector of log2-fold-change values.
-#' \item `averageLog2(x)` returns a numeric vector of average log2-expression values.
+#' \item `pValue(x)` returns a named numeric vector of raw p-values.
+#' \item `log2FoldChange(x)` returns a named numeric vector of log2-fold-change values.
+#' \item `averageLog2(x)` returns a named numeric vector of average log2-expression values.
 #' }
 #'
 #' @docType methods

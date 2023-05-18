@@ -2,6 +2,14 @@
 #'
 #' The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
+#' 
+#' @section Slot overview:
+#' The following slots control the test procedure:
+#' \itemize{
+#' \item `ContrastName`, a character scalar indicating the name of the contrast to display.
+#' }
+#' 
+#' In addition, this class inherits all slots from its parent [RowDotPlot-class], [DotPlot-class], and [Panel-class] classes.
 #'
 #' @docType methods
 #' @aliases VolcanoPlot VolcanoPlot-class
@@ -18,8 +26,7 @@
 #'
 #' @examples
 #' x <- VolcanoPlot()
-#' x[["ContrastName"]]
-#' x[["ContrastName"]] <- "treated vs control"
+#' x
 NULL
 
 #' @export

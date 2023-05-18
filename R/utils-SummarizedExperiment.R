@@ -93,7 +93,7 @@ contrastResultsNames <- function(object){
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
 #' @param object A [SummarizedExperiment-class] object.
-#' @param name Name of a single contrast result name to extract.
+#' @param name (Optional) Name of a single contrast result name to extract.
 #' Use `contrastResultsNames(object)` to list available names.
 #'
 #' @return
@@ -101,8 +101,8 @@ contrastResultsNames <- function(object){
 #' 
 #' For `contrastResults`: a `DataFrame` of differential expression statistics.
 #' 
-#' If `name` is missing, a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
-#' If `name` is given, a [`DataFrame-class`] that contains the results of a single contrast.
+#' If `name` is missing, `contrastResults` returns a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
+#' If `name` is given, `contrastResults` returns a [`DataFrame-class`] that contains the results of a single contrast.
 #' 
 #' @export
 #'

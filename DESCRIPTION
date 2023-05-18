@@ -5,7 +5,11 @@ Date: 2022-12-02
 Authors@R: 
     c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
              role = c("aut", "cre"),
-             comment = c(ORCID = "0000-0003-3899-3872")))
+             comment = c(ORCID = "0000-0003-3899-3872")),
+    person("Thomas", "Sandmann", email = "tomsing1@gmail.com",
+             role = c("ctb"),
+             comment = c(ORCID = "0000-0002-6601-8890")),
+    person("Denali Therapeutics", role = c("fnd")))
 Description: This package contains diverse functionality to extend the usage
     of the iSEE package, including additional classes for the panels or modes
     facilitating the analysis of differential expression results.

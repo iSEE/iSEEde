@@ -12,7 +12,7 @@
 \alias{embedContrastResults,DESeqResults-method}
 \title{The iSEEDESeq2Results class}
 \description{
-The \code{iSEEDESeq2Results} class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
+The \code{iSEEDESeq2Results} class is used to provide a common interface to differential expression results produced by the \pkg{DESeq2} package.
 It provides methods to access common differential expression statistics (e.g., log2 fold-change, p-value, log2 average abundance).
 }
 \details{

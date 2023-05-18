@@ -67,7 +67,7 @@ airway$dex <- relevel(airway$dex, "untrt")
 
 # Differential expression
 
-We run a standard `r BiocStyle::Biocpkg("edgeR")` analysis using `glmFit()` and
+To generate some example results, we run a standard `r BiocStyle::Biocpkg("edgeR")` analysis using `glmFit()` and
 `glmLRT()`.
 
 The differential expression results are fetched using `topTags()`.
@@ -97,7 +97,7 @@ contrastResults(airway, "edgeR")
 
 # Set a default rounding configuration
 
-Differential expression methods generally return precise numeric values with many digits after the decimal point.
+Differential expression methods generally return precise numeric values with several digits after the decimal point.
 This level of precision can be unnecessarily overwhelming and users may wish to round numeric values to a limited number of significant digits.
 
 The builtin default configuration for rounding in `r BiocStyle::Biocpkg("iSEEde")` is `RoundDigit = FALSE` and `SignifDigits = 3`.
@@ -129,17 +129,17 @@ SCREENSHOT("screenshots/rounding_default.png", delay = 20)
 
 # Configuring rounding in individual panels
 
-The default rounding configuration can be overridden in individual panel configuration.
+The default rounding configuration can be overridden in individual panel configurations.
 
 The slots `RoundDigits` and `SignifDigits` can be set directly in the individual calls to the `DETable()` constructor function.
 
-In the example below, we add two tables, one rounding numeric values to two significant digits, the other rounding the same values to three significant digits.
+In the example below, we add two tables, one rounding numeric values to the default value of two significant digits set above, the other rounding the same values to three significant digits.
 
 ```{r, message=FALSE}
 library(iSEE)
 app <- iSEE(airway, initial = list(
   DETable(ContrastName="edgeR", HiddenColumns = c("logCPM", "LR"),
-          PanelWidth = 6L, RoundDigits = TRUE, SignifDigits = 2L),
+          PanelWidth = 6L, RoundDigits = TRUE),
   DETable(ContrastName="edgeR", HiddenColumns = c("logCPM", "LR"),
           PanelWidth = 6L, RoundDigits = TRUE, SignifDigits = 3L)
 ))

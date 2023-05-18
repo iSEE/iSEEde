@@ -15,7 +15,7 @@
 \title{The DETable class}
 \description{
 The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
-It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
+It retrieves the table of results for the selected differential expression contrast and creates an interactive table where each row represents a feature.
 }
 \section{Slot overview}{
 
@@ -31,4 +31,5 @@ In addition, this class inherits all slots from its parent \linkS4class{RowTable
 
 \examples{
 x <- DETable()
+x
 }

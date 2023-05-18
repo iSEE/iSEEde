@@ -11,7 +11,7 @@
 \alias{embedContrastResults,iSEELimmaResults-method}
 \title{The iSEELimmaResults class}
 \description{
-The \code{iSEELimmaResults} class is used to provide an common interface to differential expression results produced by the \pkg{limma} package.
+The \code{iSEELimmaResults} class is used to provide a common interface to differential expression results produced by the \pkg{limma} package.
 It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 }
 \details{

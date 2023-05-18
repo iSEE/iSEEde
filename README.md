@@ -16,14 +16,16 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEde/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEde` is to provide panels that facilitate the
-interactive visualisation of differential expression results in
+The goal of *[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* is
+to provide panels that facilitate the interactive visualisation of
+differential expression results in
 *[iSEE](https://bioconductor.org/packages/3.16/iSEE)* applications.
 
 ## Installation instructions
 
 Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install `iSEEde` from
+[CRAN](http://cran.r-project.org/). Then install
+*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* from
 [Bioconductor](http://bioconductor.org/) using the following code:
 
 ``` r
@@ -103,14 +105,18 @@ print(citation("iSEEde"), bibtex = TRUE)
 #>   }
 ```
 
-Please note that the `iSEEde` was only made possible thanks to many
-other R and bioinformatics software authors, which are cited either in
-the vignettes and/or the paper(s) describing this package.
+Please note that the
+*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* was only made
+possible thanks to many other R and bioinformatics software authors,
+which are cited either in the vignettes and/or the paper(s) describing
+this package.
 
 ## Code of Conduct
 
-Please note that the `iSEEde` project is released with a [Contributor
-Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
+Please note that the
+*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* project is
+released with a [Contributor Code of
+Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
 
 ## Development tools
