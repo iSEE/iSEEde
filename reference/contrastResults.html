@@ -86,7 +86,7 @@ contrastResultsNames returns the names of contrast results embedded in object.">
 
 
 <dt>name</dt>
-<dd><p>Name of a single contrast result name to extract.
+<dd><p>(Optional) Name of a single contrast result name to extract.
 Use <code>contrastResultsNames(object)</code> to list available names.</p></dd>
 
 </dl></div>
@@ -100,8 +100,8 @@ Use <code>contrastResultsNames(object)</code> to list available names.</p></dd>
 <p>For <code>contrastResults</code>: a <code>DataFrame</code> of differential expression statistics.</p>
 
 
-<p>If <code>name</code> is missing, a nested <code><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></code> in which each column contains the results of a single contrast.
-If <code>name</code> is given, a <code><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></code> that contains the results of a single contrast.</p>
+<p>If <code>name</code> is missing, <code>contrastResults</code> returns a nested <code><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></code> in which each column contains the results of a single contrast.
+If <code>name</code> is given, <code>contrastResults</code> returns a <code><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html" class="external-link">DataFrame</a></code> that contains the results of a single contrast.</p>
     </div>
 
     <div id="ref-examples">
@@ -194,7 +194,7 @@ If <code>name</code> is given, a <code><a href="https://rdrr.io/pkg/S4Vectors/ma
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Kevin Rue-Albrecht.</p>
+  <p></p><p>Developed by Kevin Rue-Albrecht, Denali Therapeutics.</p>
 </div>
 
 <div class="pkgdown">
