@@ -1,3 +1,5 @@
+requireNamespace("DESeq2")
+
 #' The iSEEDESeq2Results class
 #'
 #' The `iSEEDESeq2Results` class is used to provide a common interface to differential expression results produced by the \pkg{DESeq2} package.
