@@ -130,7 +130,6 @@ setMethod("averageLog2", "iSEEDESeq2Results", function(x) {
 })
 
 #' @export
-#' @importClassesFrom DESeq2 DESeqResults
 setMethod("embedContrastResults", "DESeqResults", function(x, se, name, ...) {
   res <- iSEEDESeq2Results(x, row.names = rownames(se))
   embedContrastResults(res, se, name)

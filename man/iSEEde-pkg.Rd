@@ -4,6 +4,7 @@
 \name{iSEEde-pkg}
 \alias{iSEEde}
 \alias{iSEEde-package}
+\alias{iSEEde-pkg}
 \title{iSEE extension for panels related to differential expression analysis}
 \description{
 \code{iSEEde} is a package that provides panels for \pkg{iSEE},
