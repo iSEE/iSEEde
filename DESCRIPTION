@@ -36,6 +36,7 @@ Imports:
     SummarizedExperiment
 Suggests: 
     airway,
+    BiocCheck,
     BiocStyle,
     covr,
     DESeq2,
