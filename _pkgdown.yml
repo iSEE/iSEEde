@@ -1,3 +1,6 @@
+url: https://isee.github.io/iSEE/
+template:
+  bootstrap: 5
 articles:
 - title: Vignettes
   navbar: ~
