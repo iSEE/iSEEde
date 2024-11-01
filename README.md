@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # iSEEde
 
 <!-- badges: start -->
@@ -13,19 +10,19 @@ pulls](https://img.shields.io/github/issues-pr/iSEE/iSEEde)](https://github.com/
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check-bioc](https://github.com/iSEE/iSEEde/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/iSEE/iSEEde/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/iSEE/iSEEde/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=main)
+coverage](https://codecov.io/gh/iSEE/iSEEde/branch/devel/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=devel)
 <!-- badges: end -->
 
-The goal of *[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* is
+The goal of *[iSEEde](https://bioconductor.org/packages/iSEEde)* is
 to provide panels that facilitate the interactive visualisation of
 differential expression results in
-*[iSEE](https://bioconductor.org/packages/3.16/iSEE)* applications.
+*[iSEE](https://bioconductor.org/packages/iSEE)* applications.
 
 ## Installation instructions
 
 Get the latest stable `R` release from
 [CRAN](http://cran.r-project.org/). Then install
-*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* from
+*[iSEEde](https://bioconductor.org/packages/iSEEde)* from
 [Bioconductor](http://bioconductor.org/) using the following code:
 
 ``` r
@@ -36,7 +33,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("iSEEde")
 ```
 
-And the development version from
+And the bleeding edge development version from
 [GitHub](https://github.com/iSEE/iSEEde) with:
 
 ``` r
@@ -45,7 +42,11 @@ BiocManager::install("iSEE/iSEEde")
 
 ## Example
 
-This is a basic example which shows you how to load the package:
+This is a basic example which shows you how to interactively explore
+differential expression results for an example data set in an
+*[iSEE](https://bioconductor.org/packages/iSEE)* application,
+using designated panels implemented in
+*[iSEEde](https://bioconductor.org/packages/iSEEde)*:
 
 ``` r
 library("iSEEde")
@@ -106,7 +107,7 @@ print(citation("iSEEde"), bibtex = TRUE)
 ```
 
 Please note that the
-*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* was only made
+*[iSEEde](https://bioconductor.org/packages/iSEEde)* was only made
 possible thanks to many other R and bioinformatics software authors,
 which are cited either in the vignettes and/or the paper(s) describing
 this package.
@@ -114,7 +115,7 @@ this package.
 ## Code of Conduct
 
 Please note that the
-*[iSEEde](https://bioconductor.org/packages/3.16/iSEEde)* project is
+*[iSEEde](https://bioconductor.org/packages/iSEEde)* project is
 released with a [Contributor Code of
 Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
@@ -128,7 +129,7 @@ contributing to this project, you agree to abide by its terms.
   *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
   to use [Bioconductor’s docker
   containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+  *[BiocCheck](https://bioconductor.org/packages/BiocCheck)*.
 - Code coverage assessment is possible thanks to
   [codecov](https://codecov.io/gh) and
   *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -144,7 +145,7 @@ contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/biocthis)*.
 
 ## Code of Conduct
 
