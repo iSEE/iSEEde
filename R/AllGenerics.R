@@ -37,11 +37,11 @@ setGeneric(
 
 #' Generics for Embbedding Results into a SummarizedExperiment Object
 #'
-#' An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
+#' An overview of the generics for embedding results into a \linkS4class[SummarizedExperiment]{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
 #'
 #' @section Definitions:
 #' \itemize{
-#' \item `embedContrastResults(x, se, name, ...)` embeds the results `x` in the \linkS4class{SummarizedExperiment} `se`.
+#' \item `embedContrastResults(x, se, name, ...)` embeds the results `x` in the \linkS4class[SummarizedExperiment]{SummarizedExperiment} `se`.
 #' }
 #'
 #' @docType methods

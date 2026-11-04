@@ -14,7 +14,7 @@
 \alias{.refineParameters,DETable-method}
 \title{The DETable class}
 \description{
-The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
+The DETable class is a \linkS4class[iSEE]{RowTable} subclass that is dedicated to creating a volcano plot.
 It retrieves the table of results for the selected differential expression contrast and creates an interactive table where each row represents a feature.
 }
 \section{Slot overview}{
@@ -26,7 +26,7 @@ The following slots control the test procedure:
 \item \code{SignifDigits}, an integer scalar indicating the number of significant digits to use for rounding numbers  (see \code{RoundDigits}).
 }
 
-In addition, this class inherits all slots from its parent \linkS4class{RowTable} and \linkS4class{Table} classes.
+In addition, this class inherits all slots from its parent \linkS4class[iSEE]{RowTable} and \linkS4class[iSEE]{Table} classes.
 }
 
 \examples{

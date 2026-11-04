@@ -14,7 +14,7 @@
 \alias{.refineParameters,VolcanoPlot-method}
 \title{The VolcanoPlot class}
 \description{
-The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
+The VolcanoPlot is a \linkS4class[iSEE]{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
 }
 \section{Slot overview}{
@@ -24,7 +24,7 @@ The following slots control the test procedure:
 \item \code{ContrastName}, a character scalar indicating the name of the contrast to display.
 }
 
-In addition, this class inherits all slots from its parent \linkS4class{RowDotPlot}, \linkS4class{DotPlot}, and \linkS4class{Panel} classes.
+In addition, this class inherits all slots from its parent \link[iSEE:RowDotPlot-class]{RowDotPlot}, \link[iSEE:DotPlot-class]{DotPlot}, and \link[iSEE:Panel-class]{Panel} classes.
 }
 
 \examples{

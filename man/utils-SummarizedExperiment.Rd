@@ -23,7 +23,7 @@ embedContrastResultsMethods
 \arguments{
 \item{x}{Object to be embedded.}
 
-\item{se}{A \linkS4class{SummarizedExperiment} object.}
+\item{se}{A \linkS4class[SummarizedExperiment]{SummarizedExperiment} object.}
 
 \item{name}{Identifier for the embedded object.}
 
@@ -33,16 +33,16 @@ embedContrastResultsMethods
 not uniquely identify the package that generated the object.}
 }
 \value{
-An updated \linkS4class{SummarizedExperiment} object that contains the
+An updated \linkS4class[SummarizedExperiment]{SummarizedExperiment} object that contains the
 embedded object.
 }
 \description{
-An overview of the generics for embedding results into a \linkS4class{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
+An overview of the generics for embedding results into a \linkS4class[SummarizedExperiment]{SummarizedExperiment} object, in a format compatible with \pkg{iSEEde}.
 }
 \section{Definitions}{
 
 \itemize{
-\item \code{embedContrastResults(x, se, name, ...)} embeds the results \code{x} in the \linkS4class{SummarizedExperiment} \code{se}.
+\item \code{embedContrastResults(x, se, name, ...)} embeds the results \code{x} in the \linkS4class[SummarizedExperiment]{SummarizedExperiment} \code{se}.
 }
 }
 
@@ -54,4 +54,3 @@ showMethods(embedContrastResults)
 \author{
 Kevin Rue-Albrecht
 }
-\keyword{datasets}

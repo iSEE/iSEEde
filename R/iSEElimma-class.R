@@ -3,14 +3,14 @@
 #' The `iSEELimmaResults` class is used to provide a common interface to differential expression results produced by the \pkg{limma} package.
 #' It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 #'
-#' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
+#' This class inherits all its slots directly from its parent class \linkS4class[S4Vectors]{DataFrame}.
 #'
 #' @section Constructor:
 #' \code{iSEELimmaResults(data, row.names = rownames(data))} creates an instance of a `iSEELimmaResults` class, with:
 #'
 #' \describe{
 #' \item{`data`}{A `data.frame` produced by `limma::topTable()`.}
-#' \item{`row.names`}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
+#' \item{`row.names`}{The character vector of rownames for the \linkS4class[SummarizedExperiment]{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
 #' }
 #'
 #' @section Supported methods:
@@ -25,13 +25,7 @@
 #'
 #' @docType methods
 #' @name iSEELimmaResults-class
-#' @aliases
-#' iSEELimmaResults
-#' showAsCell,iSEELimmaResults-method
-#' pValue,iSEELimmaResults-method
-#' log2FoldChange,iSEELimmaResults-method
-#' averageLog2,iSEELimmaResults-method
-#' embedContrastResults,iSEELimmaResults-method
+#' @aliases iSEELimmaResults showAsCell,iSEELimmaResults-method pValue,iSEELimmaResults-method log2FoldChange,iSEELimmaResults-method averageLog2,iSEELimmaResults-method embedContrastResults,iSEELimmaResults-method
 #'
 #' @examples
 #' library(limma)
@@ -62,11 +56,11 @@
 #'
 #' # Embed the Limma-Voom results in the SummarizedExperiment object
 #' se <- embedContrastResults(tt, se, name = "Limma-Voom", class = "limma")
-#' 
+#'
 #' ##
 #' # Access ----
 #' ##
-#' 
+#'
 #' contrastResultsNames(se)
 #' contrastResults(se)
 #' contrastResults(se, "Limma-Voom")

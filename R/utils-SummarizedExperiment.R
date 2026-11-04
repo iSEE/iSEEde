@@ -50,13 +50,13 @@ setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
 #' @export
 #'
 #' @param x Object to be embedded.
-#' @param se A \linkS4class{SummarizedExperiment} object.
+#' @param se A \linkS4class[SummarizedExperiment]{SummarizedExperiment} object.
 #' @param name Identifier for the embedded object.
 #' @param class Class to use for embedding `x`. Only used when `class(x)` does
 #' not uniquely identify the package that generated the object.
 #' @param ... Arguments passed to and from other methods.
 #'
-#' @return An updated \linkS4class{SummarizedExperiment} object that contains the
+#' @return An updated \linkS4class[SummarizedExperiment]{SummarizedExperiment} object that contains the
 #' embedded object.
 #'
 #' @rdname utils-SummarizedExperiment
@@ -86,24 +86,24 @@ contrastResultsNames <- function(object){
 }
 
 #' Extract contrast results embedded in a SummarizedExperiment object
-#' 
+#'
 #' @description
 #' `contrastResults` returns either all contrasts results stored in `object` or a single contrast result by name.
-#' 
+#'
 #' `contrastResultsNames` returns the names of contrast results embedded in `object`.
 #'
-#' @param object A [SummarizedExperiment-class] object.
+#' @param object A \linkS4class[SummarizedExperiment]{SummarizedExperiment} object.
 #' @param name (Optional) Name of a single contrast result name to extract.
 #' Use `contrastResultsNames(object)` to list available names.
 #'
 #' @return
 #' For `contrastResultsNames`: the names of embedded contrast results available.
-#' 
+#'
 #' For `contrastResults`: a `DataFrame` of differential expression statistics.
-#' 
+#'
 #' If `name` is missing, `contrastResults` returns a nested [`DataFrame-class`] in which each column contains the results of a single contrast.
 #' If `name` is given, `contrastResults` returns a [`DataFrame-class`] that contains the results of a single contrast.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -111,42 +111,42 @@ contrastResultsNames <- function(object){
 #' library("airway")
 #' library("DESeq2")
 #' library("iSEE")
-#' 
+#'
 #' ##
 #' # Example data ----
 #' ##
-#' 
+#'
 #' data("airway")
 #' airway$dex <- relevel(airway$dex, "untrt")
-#' 
+#'
 #' dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
-#' 
+#'
 #' dds <- DESeq(dds)
 #' res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
 #' airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
-#' 
+#'
 #' ##
 #' # List result names ---
 #' ##
-#' 
+#'
 #' contrastResultsNames(airway)
-#' 
+#'
 #' ##
 #' # Extract results ---
 #' ##
-#' 
+#'
 #' contrastResults(airway)
 #' contrastResults(airway, "dex: trt vs untrt")
 contrastResults <- function(object, name) {
     results_df <- rowData(object)[["iSEEde"]]
-    
+
     if (missing(name)) {
         if (!is.null(results_df)) {
             rownames(results_df) <- rownames(object)
         }
         return(results_df)
     }
-    
+
     if (!name %in% colnames(results_df)) {
         msg <- sprintf(
             "'%s' is not a valid contrast result name,
@@ -155,9 +155,9 @@ contrastResults <- function(object, name) {
         )
         stop(paste(strwrap(msg), collapse = "\n"))
     }
-    
+
     results_df <- results_df[[name]]
     rownames(results_df) <- rownames(object)
     return(results_df)
-    
+
 }
