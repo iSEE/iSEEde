@@ -1,7 +1,7 @@
 Package: iSEEde
 Title: iSEE extension for panels related to differential expression analysis
-Version: 1.11.0
-Date: 2024-10-01
+Version: 1.11.1
+Date: 2026-11-04
 Authors@R: 
     c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
              role = c("aut", "cre"),
