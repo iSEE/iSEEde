@@ -26,7 +26,7 @@ The following slots control the test procedure:
 \item \code{SignifDigits}, an integer scalar indicating the number of significant digits to use for rounding numbers  (see \code{RoundDigits}).
 }
 
-In addition, this class inherits all slots from its parent \link[iSEE:RowTable-class]{RowTable} and \link[iSEE:Table-class]{Table} classes.
+In addition, this class inherits all slots from its parent \linkS4class[iSEE]{RowTable} and \linkS4class[iSEE]{Table} classes.
 }
 
 \examples{

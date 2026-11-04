@@ -11,7 +11,7 @@
 #' \item `SignifDigits`, an integer scalar indicating the number of significant digits to use for rounding numbers  (see `RoundDigits`).
 #' }
 #'
-#' In addition, this class inherits all slots from its parent [RowTable-class] and [Table-class] classes.
+#' In addition, this class inherits all slots from its parent \linkS4class[iSEE]{RowTable} and \linkS4class[iSEE]{Table} classes.
 #'
 #' @docType methods
 #' @aliases DETable DETable-class initialize,DETable-method .cacheCommonInfo,DETable-method .createObservers,DETable-method .defineDataInterface,DETable-method .fullName,DETable-method .generateTable,DETable-method .panelColor,DETable-method .refineParameters,DETable-method

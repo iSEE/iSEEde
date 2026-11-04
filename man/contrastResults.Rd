@@ -10,7 +10,7 @@ contrastResultsNames(object)
 contrastResults(object, name)
 }
 \arguments{
-\item{object}{A \link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment} object.}
+\item{object}{A \linkS4class[SummarizedExperiment]{SummarizedExperiment} object.}
 
 \item{name}{(Optional) Name of a single contrast result name to extract.
 Use \code{contrastResultsNames(object)} to list available names.}
