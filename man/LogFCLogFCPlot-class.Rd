@@ -14,7 +14,7 @@
 \alias{.refineParameters,LogFCLogFCPlot-method}
 \title{The LogFCLogFCPlot class}
 \description{
-The LogFCLogFCPlot class is a \linkS4class{RowDataPlot} subclass that is dedicated to comparing the log-fold-change value of two contrasts.
+The LogFCLogFCPlot class is a \linkS4class[iSEE]{RowDataPlot} subclass that is dedicated to comparing the log-fold-change value of two contrasts.
 It retrieves the log-fold change of the two selected contrasts and creates a row-based plot where each point represents a feature.
 }
 \section{Slot overview}{
@@ -25,7 +25,7 @@ The following slots control the test procedure:
 \item \code{ContrastNameY}, a character scalar indicating the name of the contrast to display on the y-axis.
 }
 
-In addition, this class inherits all slots from its parent \linkS4class{RowDotPlot}, \linkS4class{DotPlot}, and \linkS4class{Panel} classes.
+In addition, this class inherits all slots from its parent \link[iSEE:RowDotPlot-class]{RowDotPlot}, \link[iSEE:DotPlot-class]{DotPlot}, and \link[iSEE:Panel-class]{Panel} classes.
 }
 
 \examples{
