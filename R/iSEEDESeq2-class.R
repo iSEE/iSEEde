@@ -3,14 +3,14 @@
 #' The `iSEEDESeq2Results` class is used to provide a common interface to differential expression results produced by the \pkg{DESeq2} package.
 #' It provides methods to access common differential expression statistics (e.g., log2 fold-change, p-value, log2 average abundance).
 #'
-#' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
+#' This class inherits all its slots directly from its parent class \linkS4class[S4Vectors]{DataFrame}.
 #'
 #' @section Constructor:
 #' \code{iSEEDESeq2Results(data, row.names = rownames(data))} creates an instance of a `iSEEDESeq2Results` class, with:
 #'
 #' \describe{
 #' \item{`data`}{A `data.frame` produced by `DESeq2::results()` or `DESeq2::lfcShrink()`.}
-#' \item{`row.names`}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
+#' \item{`row.names`}{The character vector of rownames for the \linkS4class[SummarizedExperiment]{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
 #' }
 #'
 #' @section Supported methods:
@@ -25,14 +25,7 @@
 #'
 #' @docType methods
 #' @name iSEEDESeq2Results-class
-#' @aliases
-#' iSEEDESeq2Results
-#' showAsCell,iSEEDESeq2Results-method
-#' pValue,iSEEDESeq2Results-method
-#' log2FoldChange,iSEEDESeq2Results-method
-#' averageLog2,iSEEDESeq2Results-method
-#' embedContrastResults,iSEEDESeq2Results-method
-#' embedContrastResults,DESeqResults-method
+#' @aliases iSEEDESeq2Results showAsCell,iSEEDESeq2Results-method pValue,iSEEDESeq2Results-method log2FoldChange,iSEEDESeq2Results-method averageLog2,iSEEDESeq2Results-method embedContrastResults,iSEEDESeq2Results-method embedContrastResults,DESeqResults-method
 #'
 #' @examples
 #' library(DESeq2)
@@ -59,11 +52,11 @@
 #'
 #' # Embed the DESeq2 results in the SummarizedExperiment object
 #' dds <- embedContrastResults(res, dds, name = "DESeq2")
-#' 
+#'
 #' ##
 #' # Access ----
 #' ##
-#' 
+#'
 #' contrastResultsNames(dds)
 #' contrastResults(dds)
 #' contrastResults(dds, "DESeq2")

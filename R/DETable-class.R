@@ -1,8 +1,8 @@
 #' The DETable class
 #'
-#' The DETable class is a \linkS4class{RowTable} subclass that is dedicated to creating a volcano plot.
+#' The DETable class is a \linkS4class[iSEE]{RowTable} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the table of results for the selected differential expression contrast and creates an interactive table where each row represents a feature.
-#' 
+#'
 #' @section Slot overview:
 #' The following slots control the test procedure:
 #' \itemize{
@@ -10,19 +10,11 @@
 #' \item `RoundDigits`, a logical scalar indicating whether to round numeric values (see `SignifDigits`).
 #' \item `SignifDigits`, an integer scalar indicating the number of significant digits to use for rounding numbers  (see `RoundDigits`).
 #' }
-#' 
+#'
 #' In addition, this class inherits all slots from its parent [RowTable-class] and [Table-class] classes.
 #'
 #' @docType methods
-#' @aliases DETable DETable-class
-#' initialize,DETable-method
-#' .cacheCommonInfo,DETable-method
-#' .createObservers,DETable-method
-#' .defineDataInterface,DETable-method
-#' .fullName,DETable-method
-#' .generateTable,DETable-method
-#' .panelColor,DETable-method
-#' .refineParameters,DETable-method
+#' @aliases DETable DETable-class initialize,DETable-method .cacheCommonInfo,DETable-method .createObservers,DETable-method .defineDataInterface,DETable-method .fullName,DETable-method .generateTable,DETable-method .panelColor,DETable-method .refineParameters,DETable-method
 #'
 #' @name DETable-class
 #'
@@ -55,7 +47,7 @@ setMethod(".panelColor", "DETable", function(x) "#DEAE10")
 #' @importFrom methods callNextMethod
 setMethod("initialize", "DETable", function(.Object, ...) {
     args <- list(...)
-    
+
     args <- .emptyDefault(args, .contrastName, NA_character_)
     args <- .emptyDefault(args, .roundDigits, getPanelDefault(.roundDigits))
     args <- .emptyDefault(args, .significantDigits, getPanelDefault(.significantDigits))
@@ -102,7 +94,7 @@ setMethod(".refineParameters", "DETable", function(x, se) {
     }
 
     contrast_names <- .getCachedCommonInfo(se, "DETable")$valid.contrast.names
-    
+
     if (is.null(contrast_names)) {
       return(NULL)
     }
@@ -113,7 +105,8 @@ setMethod(".refineParameters", "DETable", function(x, se) {
 
 #' @export
 #' @importMethodsFrom iSEE .createObservers
-#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers .createUnprotectedParameterObservers
+#' @importFrom iSEE .getEncodedName .createProtectedParameterObservers
+#'   .createUnprotectedParameterObservers
 #' @importFrom methods callNextMethod
 setMethod(".createObservers", "DETable", function(x, se, input, session, pObjects, rObjects) {
     callNextMethod()
@@ -124,7 +117,7 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
         fields = c(.contrastName),
         input = input, pObjects = pObjects, rObjects = rObjects
     )
-    
+
     .createUnprotectedParameterObservers(plot_name,
         fields = c(.roundDigits, .significantDigits),
         input = input, pObjects = pObjects, rObjects = rObjects)
@@ -136,8 +129,8 @@ setMethod(".createObservers", "DETable", function(x, se, input, session, pObject
 #' @importMethodsFrom iSEE .defineDataInterface
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
-#' @importFrom iSEE .addSpecificTour .checkboxInput.iSEE .conditionalOnCheckSolo .getCachedCommonInfo .getEncodedName .numericInput.iSEE
-#' .selectInput.iSEE
+#' @importFrom iSEE .addSpecificTour .checkboxInput.iSEE .conditionalOnCheckSolo
+#'   .getCachedCommonInfo .getEncodedName .numericInput.iSEE .selectInput.iSEE
 setMethod(".defineDataInterface", "DETable", function(x, se, select_info) {
     plot_name <- .getEncodedName(x)
     input_FUN <- function(field) paste0(plot_name, "_", field)
@@ -190,10 +183,10 @@ setMethod(".generateTable", "DETable", function(x, envir) {
   if (exists("row_selected", envir = envir, inherits = FALSE)) {
     cmds <- c(cmds, "tab <- tab[unique(unlist(row_selected)), , drop=FALSE]")
   }
-  
+
   cmds <- c(cmds, .define_table_rounding_commands(x))
-  
+
   .textEval(cmds, envir)
-  
+
   cmds
 })

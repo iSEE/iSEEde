@@ -1,26 +1,18 @@
 #' The MAPlot class
 #'
-#' The MAPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating an MA plot.
+#' The MAPlot is a \linkS4class[iSEE]{RowDataPlot} subclass that is dedicated to creating an MA plot.
 #' It retrieves the log-fold change (M) and mean average (A) values and creates a row-based plot where each point represents a feature.
-#' 
+#'
 #' @section Slot overview:
 #' The following slots control the test procedure:
 #' \itemize{
 #' \item `ContrastName`, a character scalar indicating the name of the contrast to display.
 #' }
-#' 
+#'
 #' In addition, this class inherits all slots from its parent [RowDotPlot-class], [DotPlot-class], and [Panel-class] classes.
 #'
 #' @docType methods
-#' @aliases MAPlot MAPlot-class
-#' initialize,MAPlot-method
-#' .cacheCommonInfo,MAPlot-method
-#' .createObservers,MAPlot-method
-#' .defineDataInterface,MAPlot-method
-#' .fullName,MAPlot-method
-#' .generateDotPlotData,MAPlot-method
-#' .panelColor,MAPlot-method
-#' .refineParameters,MAPlot-method
+#' @aliases MAPlot MAPlot-class initialize,MAPlot-method .cacheCommonInfo,MAPlot-method .createObservers,MAPlot-method .defineDataInterface,MAPlot-method .fullName,MAPlot-method .generateDotPlotData,MAPlot-method .panelColor,MAPlot-method .refineParameters,MAPlot-method
 #'
 #' @name MAPlot-class
 #'
@@ -119,7 +111,7 @@ setMethod(".createObservers", "MAPlot", function(x, se, input, session, pObjects
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
 #' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
-#' .selectInput.iSEE
+#'   .selectInput.iSEE
 setMethod(".defineDataInterface", "MAPlot", function(x, se, select_info) {
     plot_name <- .getEncodedName(x)
     input_FUN <- function(field) paste0(plot_name, "_", field)

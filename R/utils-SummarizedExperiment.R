@@ -50,13 +50,13 @@ setMethod("embedContrastResults", "ANY", function(x, se, name, ...) {
 #' @export
 #'
 #' @param x Object to be embedded.
-#' @param se A \linkS4class{SummarizedExperiment} object.
+#' @param se A \linkS4class[SummarizedExperiment]{SummarizedExperiment} object.
 #' @param name Identifier for the embedded object.
 #' @param class Class to use for embedding `x`. Only used when `class(x)` does
 #' not uniquely identify the package that generated the object.
 #' @param ... Arguments passed to and from other methods.
 #'
-#' @return An updated \linkS4class{SummarizedExperiment} object that contains the
+#' @return An updated \linkS4class[SummarizedExperiment]{SummarizedExperiment} object that contains the
 #' embedded object.
 #'
 #' @rdname utils-SummarizedExperiment
