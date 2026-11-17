@@ -25,7 +25,7 @@ The following slots control the test procedure:
 \item \code{ContrastNameY}, a character scalar indicating the name of the contrast to display on the y-axis.
 }
 
-In addition, this class inherits all slots from its parent \link[iSEE:RowDotPlot-class]{RowDotPlot}, \link[iSEE:DotPlot-class]{DotPlot}, and \link[iSEE:Panel-class]{Panel} classes.
+In addition, this class inherits all slots from its parent \linkS4class[iSEE]{RowDotPlot}, \linkS4class[iSEE]{DotPlot}, and \linkS4class[iSEE]{Panel} classes.
 }
 
 \examples{

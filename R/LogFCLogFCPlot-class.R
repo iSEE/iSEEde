@@ -10,7 +10,7 @@
 #' \item `ContrastNameY`, a character scalar indicating the name of the contrast to display on the y-axis.
 #' }
 #'
-#' In addition, this class inherits all slots from its parent [RowDotPlot-class], [DotPlot-class], and [Panel-class] classes.
+#' In addition, this class inherits all slots from its parent \linkS4class[iSEE]{RowDotPlot}, \linkS4class[iSEE]{DotPlot}, and \linkS4class[iSEE]{Panel} classes.
 #'
 #' @docType methods
 #' @aliases LogFCLogFCPlot LogFCLogFCPlot-class initialize,LogFCLogFCPlot-method .cacheCommonInfo,LogFCLogFCPlot-method .createObservers,LogFCLogFCPlot-method .defineDataInterface,LogFCLogFCPlot-method .fullName,LogFCLogFCPlot-method .generateDotPlotData,LogFCLogFCPlot-method .panelColor,LogFCLogFCPlot-method .refineParameters,LogFCLogFCPlot-method
