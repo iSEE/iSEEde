@@ -13,6 +13,15 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEde/branch/devel/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEde?branch=devel)
 <!-- badges: end -->
 
+## Bioconductor release status
+
+|      Branch      |    R CMD check   | Last updated |
+|:----------------:|:----------------:|:------------:|
+| [_devel_](http://bioconductor.org/packages/devel/bioc/html/iSEEde.html) | [![Bioconductor-devel Build Status](http://bioconductor.org/shields/build/devel/bioc/iSEEde.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/iSEEde) | ![](http://bioconductor.org/shields/lastcommit/devel/bioc/iSEEde.svg) |
+| [_release_](http://bioconductor.org/packages/release/bioc/html/iSEEde.html) | [![Bioconductor-release Build Status](http://bioconductor.org/shields/build/release/bioc/iSEEde.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/iSEEde) | ![](http://bioconductor.org/shields/lastcommit/release/bioc/iSEEde.svg) |
+
+## Overview
+
 The goal of *[iSEEde](https://bioconductor.org/packages/iSEEde)* is
 to provide panels that facilitate the interactive visualisation of
 differential expression results in
