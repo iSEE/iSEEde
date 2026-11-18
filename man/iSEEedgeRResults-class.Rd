@@ -16,7 +16,7 @@ The \code{iSEEedgeRResults} class is used to provide a common interface to diffe
 It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 }
 \details{
-This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
+This class inherits all its slots directly from its parent class \linkS4class[S4Vectors]{DataFrame}.
 }
 \section{Constructor}{
 
@@ -24,7 +24,7 @@ This class inherits all its slots directly from its parent class \linkS4class{Da
 
 \describe{
 \item{\code{data}}{A \code{data.frame} produced by \code{edgeR::topTags()}.}
-\item{\code{row.names}}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of \code{rownames(data)}.}
+\item{\code{row.names}}{The character vector of rownames for the \linkS4class[SummarizedExperiment]{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of \code{rownames(data)}.}
 }
 }
 

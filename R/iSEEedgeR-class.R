@@ -3,14 +3,14 @@
 #' The `iSEEedgeRResults` class is used to provide a common interface to differential expression results produced by the \pkg{edgeR} package.
 #' It provides methods to access common differential expression statistics (e.g., log fold-change, p-value, log2 average abundance).
 #'
-#' This class inherits all its slots directly from its parent class \linkS4class{DataFrame}.
+#' This class inherits all its slots directly from its parent class \linkS4class[S4Vectors]{DataFrame}.
 #'
 #' @section Constructor:
 #' \code{iSEEedgeRResults(data, row.names = rownames(data))} creates an instance of a `iSEEedgeRResults` class, with:
 #'
 #' \describe{
 #' \item{`data`}{A `data.frame` produced by `edgeR::topTags()`.}
-#' \item{`row.names`}{The character vector of rownames for the \linkS4class{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
+#' \item{`row.names`}{The character vector of rownames for the \linkS4class[SummarizedExperiment]{SummarizedExperiment} object in which the object is to be embedded. Must be a superset of `rownames(data)`.}
 #' }
 #'
 #' @section Supported methods:
@@ -25,14 +25,7 @@
 #'
 #' @docType methods
 #' @name iSEEedgeRResults-class
-#' @aliases
-#' iSEEedgeRResults
-#' showAsCell,iSEEedgeRResults-method
-#' pValue,iSEEedgeRResults-method
-#' log2FoldChange,iSEEedgeRResults-method
-#' averageLog2,iSEEedgeRResults-method
-#' embedContrastResults,TopTags-method
-#' embedContrastResults,iSEEedgeRResults-method
+#' @aliases iSEEedgeRResults showAsCell,iSEEedgeRResults-method pValue,iSEEedgeRResults-method log2FoldChange,iSEEedgeRResults-method averageLog2,iSEEedgeRResults-method embedContrastResults,TopTags-method embedContrastResults,iSEEedgeRResults-method
 #'
 #' @examples
 #' library(edgeR)
@@ -45,26 +38,26 @@
 #' nlibs <- 3
 #' ngenes <- 100
 #' dispersion.true <- 0.1
-#' 
+#'
 #' # Make first gene respond to covariate x
 #' x <- 0:2
 #' design <- model.matrix(~x)
 #' beta.true <- cbind(Beta1=2,Beta2=c(2,rep(0,ngenes-1)))
 #' mu.true <- 2^(beta.true %*% t(design))
-#' 
+#'
 #' # Generate count data
 #' y <- rnbinom(ngenes*nlibs,mu=mu.true,size=1/dispersion.true)
 #' y <- matrix(y,ngenes,nlibs)
 #' colnames(y) <- c("x0","x1","x2")
 #' rownames(y) <- paste("gene",1:ngenes,sep=".")
 #' d <- DGEList(y)
-#' 
+#'
 #' # Normalize
 #' d <- calcNormFactors(d)
-#' 
+#'
 #' # Fit the NB GLMs
 #' fit <- glmFit(d, design, dispersion=dispersion.true)
-#' 
+#'
 #' # Likelihood ratio tests for trend
 #' results <- glmLRT(fit, coef=2)
 #' tt <- topTags(results)
@@ -78,11 +71,11 @@
 #'
 #' # Embed the edgeR results in the SummarizedExperiment object
 #' se <- embedContrastResults(tt, se, name = "edgeR")
-#' 
+#'
 #' ##
 #' # Access ----
 #' ##
-#' 
+#'
 #' contrastResultsNames(se)
 #' contrastResults(se)
 #' contrastResults(se, "edgeR")

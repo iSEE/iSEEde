@@ -32,28 +32,36 @@ importClassesFrom(DESeq2,DESeqResults)
 importClassesFrom(edgeR,TopTags)
 importClassesFrom(iSEE,RowDotPlot)
 importClassesFrom(iSEE,RowTable)
-importFrom(S4Vectors,DataFrame)
-importFrom(S4Vectors,setValidity2)
-importFrom(SummarizedExperiment,"rowData<-")
-importFrom(SummarizedExperiment,rowData)
-importFrom(iSEE,.addSpecificTour)
-importFrom(iSEE,.checkboxInput.iSEE)
-importFrom(iSEE,.conditionalOnCheckSolo)
-importFrom(iSEE,.createProtectedParameterObservers)
-importFrom(iSEE,.createUnprotectedParameterObservers)
-importFrom(iSEE,.emptyDefault)
-importFrom(iSEE,.getCachedCommonInfo)
-importFrom(iSEE,.getEncodedName)
-importFrom(iSEE,.numericInput.iSEE)
-importFrom(iSEE,.replaceMissingWithFirst)
-importFrom(iSEE,.selectInput.iSEE)
-importFrom(iSEE,.setCachedCommonInfo)
-importFrom(iSEE,.textEval)
-importFrom(iSEE,getPanelDefault)
-importFrom(iSEE,panelDefaults)
-importFrom(methods,callNextMethod)
-importFrom(methods,is)
-importFrom(methods,new)
+importFrom(S4Vectors,
+  DataFrame,
+  setValidity2
+)
+importFrom(SummarizedExperiment,
+  "rowData<-",
+  rowData
+)
+importFrom(iSEE,
+  .addSpecificTour,
+  .checkboxInput.iSEE,
+  .conditionalOnCheckSolo,
+  .createProtectedParameterObservers,
+  .createUnprotectedParameterObservers,
+  .emptyDefault,
+  .getCachedCommonInfo,
+  .getEncodedName,
+  .numericInput.iSEE,
+  .replaceMissingWithFirst,
+  .selectInput.iSEE,
+  .setCachedCommonInfo,
+  .textEval,
+  getPanelDefault,
+  panelDefaults
+)
+importFrom(methods,
+  callNextMethod,
+  is,
+  new
+)
 importFrom(shiny,hr)
 importMethodsFrom(S4Vectors,showAsCell)
 importMethodsFrom(iSEE,.cacheCommonInfo)

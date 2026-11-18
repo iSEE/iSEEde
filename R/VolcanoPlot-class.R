@@ -1,26 +1,18 @@
 #' The VolcanoPlot class
 #'
-#' The VolcanoPlot is a \linkS4class{RowDataPlot} subclass that is dedicated to creating a volcano plot.
+#' The VolcanoPlot is a \linkS4class[iSEE]{RowDataPlot} subclass that is dedicated to creating a volcano plot.
 #' It retrieves the log-fold change and p-value from and creates a row-based plot where each point represents a feature.
-#' 
+#'
 #' @section Slot overview:
 #' The following slots control the test procedure:
 #' \itemize{
 #' \item `ContrastName`, a character scalar indicating the name of the contrast to display.
 #' }
-#' 
+#'
 #' In addition, this class inherits all slots from its parent [RowDotPlot-class], [DotPlot-class], and [Panel-class] classes.
 #'
 #' @docType methods
-#' @aliases VolcanoPlot VolcanoPlot-class
-#' initialize,VolcanoPlot-method
-#' .cacheCommonInfo,VolcanoPlot-method
-#' .createObservers,VolcanoPlot-method
-#' .defineDataInterface,VolcanoPlot-method
-#' .fullName,VolcanoPlot-method
-#' .generateDotPlotData,VolcanoPlot-method
-#' .panelColor,VolcanoPlot-method
-#' .refineParameters,VolcanoPlot-method
+#' @aliases VolcanoPlot VolcanoPlot-class initialize,VolcanoPlot-method .cacheCommonInfo,VolcanoPlot-method .createObservers,VolcanoPlot-method .defineDataInterface,VolcanoPlot-method .fullName,VolcanoPlot-method .generateDotPlotData,VolcanoPlot-method .panelColor,VolcanoPlot-method .refineParameters,VolcanoPlot-method
 #'
 #' @name VolcanoPlot-class
 #'
@@ -120,7 +112,7 @@ setMethod(".createObservers", "VolcanoPlot", function(x, se, input, session, pOb
 #' @importFrom methods callNextMethod
 #' @importFrom shiny hr
 #' @importFrom iSEE .addSpecificTour .getCachedCommonInfo .getEncodedName
-#' .selectInput.iSEE
+#'   .selectInput.iSEE
 setMethod(".defineDataInterface", "VolcanoPlot", function(x, se, select_info) {
     plot_name <- .getEncodedName(x)
     input_FUN <- function(field) paste0(plot_name, "_", field)
