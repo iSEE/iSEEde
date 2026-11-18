@@ -90,7 +90,7 @@ The final differential expression results are fetched using
 [`limma::topTable()`](https://rdrr.io/pkg/limma/man/toptable.html).
 
 \
-[`library`](https://rdrr.io/r/base/library.html)`(`[`"edgeR"`](https://bioinf.wehi.edu.au/edgeR/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`"edgeR"`](https://github.com/SmythLab/edgeR)`)`\
 \
 `design`` ``<-`` `[`model.matrix`](https://rdrr.io/r/stats/model.matrix.html)`(``~`` ``0`` ``+`` ``dex`` ``+`` ``cell``, data ``=`` `[`colData`](https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html)`(``airway``)``)`\
 \
@@ -229,7 +229,7 @@ Finally, the configured app is launched.
 ## Reproducibility
 
 The *[iSEEde](https://bioconductor.org/packages/3.24/iSEEde)* package
-(Rue-Albrecht, 2024) was made possible thanks to:
+(Rue-Albrecht, 2026) was made possible thanks to:
 
 - R (R Core Team, 2026)
 - *[BiocStyle](https://bioconductor.org/packages/3.24/BiocStyle)* (Oleś,
@@ -261,11 +261,11 @@ Code for creating the vignette
 
 Date the vignette was generated.
 
-    #> [1] "2026-10-22 13:56:26 UTC"
+    #> [1] "2026-11-18 11:21:33 UTC"
 
 Wallclock time spent generating the vignette.
 
-    #> Time difference of 11.316 secs
+    #> Time difference of 14.513 secs
 
 `R` session information.
 
@@ -279,8 +279,8 @@ Wallclock time spent generating the vignette.
     #>  collate  en_US.UTF-8
     #>  ctype    en_US.UTF-8
     #>  tz       UTC
-    #>  date     2026-10-22
-    #>  pandoc   3.12.1 @ /usr/bin/ (via rmarkdown)
+    #>  date     2026-11-18
+    #>  pandoc   3.13 @ /usr/bin/ (via rmarkdown)
     #>  quarto   1.10.18 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -292,7 +292,7 @@ Wallclock time spent generating the vignette.
     #>  bibtex                 0.5.3    2026-09-22 [1] RSPM (R 4.6.0)
     #>  Biobase              * 2.73.2   2026-07-29 [1] Bioconductor 3.24 (R 4.6.1)
     #>  BiocBaseUtils          1.15.1   2026-05-10 [1] Bioconductor 3.24 (R 4.6.1)
-    #>  BiocGenerics         * 0.59.12  2026-08-11 [1] Bioconductor 3.24 (R 4.6.1)
+    #>  BiocGenerics         * 0.59.13  2026-11-11 [1] Bioconductor 3.24 (R 4.6.1)
     #>  BiocManager            1.30.27  2025-11-14 [2] CRAN (R 4.6.1)
     #>  BiocParallel           1.47.0   2026-04-28 [1] Bioconductor 3.24 (R 4.6.1)
     #>  BiocStyle            * 2.41.0   2026-04-28 [1] Bioconductor 3.24 (R 4.6.1)
@@ -315,12 +315,12 @@ Wallclock time spent generating the vignette.
     #>  DBI                    1.3.0    2026-02-25 [1] RSPM (R 4.6.0)
     #>  DelayedArray           0.39.8   2026-09-30 [1] Bioconductor 3.24 (R 4.6.1)
     #>  desc                   1.4.3    2023-12-10 [2] RSPM (R 4.6.0)
-    #>  DESeq2                 1.53.6   2026-10-02 [1] Bioconductor 3.24 (R 4.6.1)
+    #>  DESeq2                 1.53.7   2026-11-04 [1] Bioconductor 3.24 (R 4.6.1)
     #>  digest                 0.6.39   2025-11-19 [2] RSPM (R 4.6.0)
     #>  doParallel             1.0.17   2022-02-07 [1] RSPM (R 4.6.0)
     #>  dplyr                  1.2.1    2026-04-03 [1] RSPM (R 4.6.0)
     #>  DT                     0.34.0   2025-09-02 [1] RSPM (R 4.6.0)
-    #>  edgeR                * 4.99.10  2026-10-18 [1] Bioconductor 3.24 (R 4.6.1)
+    #>  edgeR                * 4.99.13  2026-11-15 [1] Bioconductor 3.24 (R 4.6.1)
     #>  evaluate               1.0.5    2025-08-27 [2] RSPM (R 4.6.0)
     #>  farver                 2.1.2    2024-05-13 [1] RSPM (R 4.6.0)
     #>  fastmap                1.2.0    2024-05-15 [2] RSPM (R 4.6.0)
@@ -342,7 +342,7 @@ Wallclock time spent generating the vignette.
     #>  igraph                 2.3.4    2026-09-30 [1] RSPM (R 4.6.0)
     #>  IRanges              * 2.47.5   2026-08-27 [1] Bioconductor 3.24 (R 4.6.1)
     #>  iSEE                 * 2.25.1   2026-07-13 [1] Bioconductor 3.24 (R 4.6.1)
-    #>  iSEEde               * 1.11.0   2026-10-22 [1] Bioconductor
+    #>  iSEEde               * 1.11.1   2026-11-18 [1] Bioconductor
     #>  iterators              1.0.14   2022-02-05 [1] RSPM (R 4.6.0)
     #>  jquerylib              0.1.4    2021-04-26 [2] RSPM (R 4.6.0)
     #>  jsonlite               2.0.0    2025-03-27 [2] RSPM (R 4.6.0)
@@ -351,7 +351,7 @@ Wallclock time spent generating the vignette.
     #>  later                  1.4.8    2026-03-05 [2] RSPM (R 4.6.0)
     #>  lattice                0.23-1   2026-08-12 [2] RSPM (R 4.6.0)
     #>  lifecycle              1.0.5    2026-01-08 [2] RSPM (R 4.6.0)
-    #>  limma                * 3.99.2   2026-10-13 [1] Bioconductor 3.24 (R 4.6.1)
+    #>  limma                * 3.99.5   2026-11-15 [1] Bioconductor 3.24 (R 4.6.1)
     #>  listviewer             4.0.0    2023-09-30 [1] RSPM (R 4.6.0)
     #>  locfit                 1.5-9.12 2025-03-05 [1] RSPM (R 4.6.0)
     #>  lubridate              1.9.5    2026-02-04 [1] RSPM (R 4.6.0)
@@ -364,7 +364,7 @@ Wallclock time spent generating the vignette.
     #>  mime                   0.13     2025-03-17 [2] RSPM (R 4.6.0)
     #>  miniUI                 0.1.2    2025-04-17 [2] RSPM (R 4.6.0)
     #>  nlme                   3.1-171  2026-09-01 [2] RSPM (R 4.6.0)
-    #>  org.Hs.eg.db         * 3.23.1   2026-07-20 [1] Bioconductor
+    #>  org.Hs.eg.db         * 3.24.6   2026-11-18 [1] Bioconductor
     #>  otel                   0.2.0    2025-08-29 [2] RSPM (R 4.6.0)
     #>  pillar                 1.11.1   2025-09-17 [2] RSPM (R 4.6.0)
     #>  pkgconfig              2.0.3    2019-09-22 [2] RSPM (R 4.6.0)
@@ -397,7 +397,7 @@ Wallclock time spent generating the vignette.
     #>  shinyjs                2.1.1    2026-01-15 [1] RSPM (R 4.6.0)
     #>  shinyWidgets           0.9.1    2026-03-09 [1] RSPM (R 4.6.0)
     #>  SingleCellExperiment * 1.35.2   2026-07-16 [1] Bioconductor 3.24 (R 4.6.1)
-    #>  SparseArray            1.13.4   2026-09-30 [1] Bioconductor 3.24 (R 4.6.1)
+    #>  SparseArray            1.13.5   2026-11-13 [1] Bioconductor 3.24 (R 4.6.1)
     #>  statmod                1.5.2    2026-05-17 [1] RSPM (R 4.6.0)
     #>  stringi                1.8.9    2026-08-04 [2] RSPM (R 4.6.0)
     #>  stringr                1.6.0    2025-11-04 [1] RSPM (R 4.6.0)
@@ -456,9 +456,9 @@ for Statistical Computing*. R Foundation for Statistical Computing (ROR:
 [10.32614/R.manuals](https://doi.org/10.32614/R.manuals). URL:
 <https://www.R-project.org/>.
 
-[\[5\]](#cite-ruealbrecht2024iseede) K. Rue-Albrecht. *iSEEde: iSEE
+[\[5\]](#cite-ruealbrecht2026iseede) K. Rue-Albrecht. *iSEEde: iSEE
 extension for panels related to differential expression analysis*. R
-package version 1.11.0. 2024. URL: <https://github.com/iSEE/iSEEde>.
+package version 1.11.1. 2026. URL: <https://github.com/iSEE/iSEEde>.
 
 [\[6\]](#cite-wickham2011testthat) H. Wickham. “testthat: Get Started
 with Testing”. In: *The R Journal* 3 (2011), pp. 5–10. URL:

@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">iSEEde</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">22 October 2026</h4>
+            <h4 data-toc-skip class="date">18 November 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEde/blob/devel/vignettes/annotations.Rmd" class="external-link"><code>vignettes/annotations.Rmd</code></a></small>
       <div class="d-none name"><code>annotations.Rmd</code></div>
@@ -151,7 +151,7 @@ adjusted by cell type, and define this comparison as the
 <p>The final differential expression results are fetched using
 <code><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">limma::topTable()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://bioinf.wehi.edu.au/edgeR/" class="external-link">"edgeR"</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/SmythLab/edgeR" class="external-link">"edgeR"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">dex</span> <span class="op">+</span> <span class="va">cell</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -281,7 +281,7 @@ plot for the same contrast.</p>
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.24/iSEEde" class="external-link">iSEEde</a></em>
-package (Rue-Albrecht, 2024) was made possible thanks to:</p>
+package (Rue-Albrecht, 2026) was made possible thanks to:</p>
 <ul>
 <li>R (R Core Team, 2026)</li>
 <li>
@@ -315,9 +315,9 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"annotations.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2026-10-22 13:56:26 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2026-11-18 11:21:33 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 11.316 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 14.513 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -329,8 +329,8 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2026-10-22</span></span>
-<span><span class="co">#&gt;  pandoc   3.12.1 @ /usr/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  date     2026-11-18</span></span>
+<span><span class="co">#&gt;  pandoc   3.13 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.10.18 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -342,7 +342,7 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  bibtex                 0.5.3    <span style="color: #555555;">2026-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  Biobase              * 2.73.2   <span style="color: #555555;">2026-07-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  BiocBaseUtils          1.15.1   <span style="color: #555555;">2026-05-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
-<span><span class="co">#&gt;  BiocGenerics         * 0.59.12  <span style="color: #555555;">2026-08-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
+<span><span class="co">#&gt;  BiocGenerics         * 0.59.13  <span style="color: #555555;">2026-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  BiocManager            1.30.27  <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  BiocParallel           1.47.0   <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  BiocStyle            * 2.41.0   <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
@@ -365,12 +365,12 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  DBI                    1.3.0    <span style="color: #555555;">2026-02-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  DelayedArray           0.39.8   <span style="color: #555555;">2026-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  desc                   1.4.3    <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
-<span><span class="co">#&gt;  DESeq2                 1.53.6   <span style="color: #555555;">2026-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
+<span><span class="co">#&gt;  DESeq2                 1.53.7   <span style="color: #555555;">2026-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  digest                 0.6.39   <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  doParallel             1.0.17   <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.2.1    <span style="color: #555555;">2026-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  DT                     0.34.0   <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
-<span><span class="co">#&gt;  edgeR                * 4.99.10  <span style="color: #555555;">2026-10-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
+<span><span class="co">#&gt;  edgeR                * 4.99.13  <span style="color: #555555;">2026-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  evaluate               1.0.5    <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  farver                 2.1.2    <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.2.0    <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -392,7 +392,7 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  igraph                 2.3.4    <span style="color: #555555;">2026-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  IRanges              * 2.47.5   <span style="color: #555555;">2026-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  iSEE                 * 2.25.1   <span style="color: #555555;">2026-07-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
-<span><span class="co">#&gt;  iSEEde               * 1.11.0   <span style="color: #555555;">2026-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  iSEEde               * 1.11.1   <span style="color: #555555;">2026-11-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  iterators              1.0.14   <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib              0.1.4    <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  jsonlite               2.0.0    <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -401,7 +401,7 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  later                  1.4.8    <span style="color: #555555;">2026-03-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  lattice                0.23-1   <span style="color: #555555;">2026-08-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  lifecycle              1.0.5    <span style="color: #555555;">2026-01-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
-<span><span class="co">#&gt;  limma                * 3.99.2   <span style="color: #555555;">2026-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
+<span><span class="co">#&gt;  limma                * 3.99.5   <span style="color: #555555;">2026-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  listviewer             4.0.0    <span style="color: #555555;">2023-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  locfit                 1.5-9.12 <span style="color: #555555;">2025-03-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  lubridate              1.9.5    <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -414,7 +414,7 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  mime                   0.13     <span style="color: #555555;">2025-03-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  miniUI                 0.1.2    <span style="color: #555555;">2025-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  nlme                   3.1-171  <span style="color: #555555;">2026-09-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
-<span><span class="co">#&gt;  org.Hs.eg.db         * 3.23.1   <span style="color: #555555;">2026-07-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  org.Hs.eg.db         * 3.24.6   <span style="color: #555555;">2026-11-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  otel                   0.2.0    <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  pillar                 1.11.1   <span style="color: #555555;">2025-09-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3    <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -447,7 +447,7 @@ Cheng, Chang, and Iannone, 2026)</li>
 <span><span class="co">#&gt;  shinyjs                2.1.1    <span style="color: #555555;">2026-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  shinyWidgets           0.9.1    <span style="color: #555555;">2026-03-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  SingleCellExperiment * 1.35.2   <span style="color: #555555;">2026-07-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
-<span><span class="co">#&gt;  SparseArray            1.13.4   <span style="color: #555555;">2026-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
+<span><span class="co">#&gt;  SparseArray            1.13.5   <span style="color: #555555;">2026-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.24 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  statmod                1.5.2    <span style="color: #555555;">2026-05-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                1.8.9    <span style="color: #555555;">2026-08-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.6.0    <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -513,9 +513,9 @@ URL:
 <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-ruealbrecht2024iseede"></a><a href="#cite-ruealbrecht2024iseede">[5]</a><cite>
+<a id="bib-ruealbrecht2026iseede"></a><a href="#cite-ruealbrecht2026iseede">[5]</a><cite>
 K. Rue-Albrecht. <em>iSEEde: iSEE extension for panels related to
-differential expression analysis</em>. R package version 1.11.0. 2024.
+differential expression analysis</em>. R package version 1.11.1. 2026.
 URL:
 <a href="https://github.com/iSEE/iSEEde" class="external-link">https://github.com/iSEE/iSEEde</a>.</cite>
 </p>

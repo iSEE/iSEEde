@@ -36,11 +36,11 @@ For `contrastResults`: a `DataFrame` of differential expression
 statistics.
 
 If `name` is missing, `contrastResults` returns a nested
-[`DataFrame`](https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html) in
+[DataFrame](https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html) in
 which each column contains the results of a single contrast. If `name`
 is given, `contrastResults` returns a
-[`DataFrame`](https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html)
-that contains the results of a single contrast.
+[DataFrame](https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html) that
+contains the results of a single contrast.
 
 ## Examples
 

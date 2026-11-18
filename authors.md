@@ -16,13 +16,13 @@ Source:
 [`DESCRIPTION`](https://github.com/iSEE/iSEEde/blob/devel/DESCRIPTION)
 
 Rue-Albrecht K (2026). *iSEEde: iSEE extension for panels related to
-differential expression analysis*. R package version 1.11.0,
+differential expression analysis*. R package version 1.11.1,
 <https://github.com/iSEE/iSEEde>.
 
 @Manual{,\
   title = {iSEEde: iSEE extension for panels related to differential expression analysis},\
   author = {Kevin Rue-Albrecht},\
   year = {2026},\
-  note = {R package version 1.11.0},\
+  note = {R package version 1.11.1},\
   url = {https://github.com/iSEE/iSEEde},\
 }
